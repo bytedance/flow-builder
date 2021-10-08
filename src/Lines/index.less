@@ -1,0 +1,60 @@
+.flow-builder-line__fill {
+  flex: 1;
+}
+.flow-builder-line__clean {
+  position: absolute;
+  z-index: 1;
+}
+.flow-builder-line__branch {
+  position: absolute;
+}
+
+.flow-builder-vertical {
+  .flow-builder-line__clean {
+    &.clean-left {
+      left: -1px;
+    }
+    &.clean-top {
+      top: -3px;
+    }
+    &.clean-bottom {
+      bottom: -3px;
+    }
+    &.clean-right {
+      right: -1px;
+    }
+  }
+  .flow-builder-line__branch {
+    &.branch-start {
+      top: -2px;
+    }
+    &.branch-end {
+      bottom: -2px;
+    }
+  }
+}
+
+.flow-builder-horizontal {
+  .flow-builder-line__clean {
+    &.clean-left {
+      top: -1px;
+    }
+    &.clean-top {
+      left: -3px;
+    }
+    &.clean-bottom {
+      right: -3px;
+    }
+    &.clean-right {
+      bottom: -1px;
+    }
+  }
+  .flow-builder-line__branch {
+    &.branch-start {
+      left: -2px;
+    }
+    &.branch-end {
+      right: -2px;
+    }
+  }
+}
