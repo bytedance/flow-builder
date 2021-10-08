@@ -1,0 +1,74 @@
+.flow-builder-wrap {
+  position: relative;
+  height: 100%;
+}
+
+.flow-builder-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.flow-builder {
+  display: flex;
+  align-items: center;
+
+  .ant-popover-inner-content {
+    white-space: nowrap;
+  }
+  .ant-dropdown-menu-item {
+    display: flex;
+    .flow-builder-addable-node-icon {
+      margin-right: 4px;
+    }
+  }
+}
+
+.flow-builder-node {
+  .flow-builder-node__delete {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:not(.flow-builder-branch-node) {
+    > .flow-builder-node__content {
+      cursor: pointer;
+      &:hover {
+        .flow-builder-node__delete {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.flow-builder-zoom-tool {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff !important;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+  .ant-btn {
+    border: none;
+    background-color: #fff !important;
+  }
+  &__number {
+    flex: 1;
+    text-align: center;
+  }
+}
