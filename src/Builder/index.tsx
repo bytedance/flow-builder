@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Menu, Dropdown, Popconfirm, Drawer, Button } from 'antd';
-import { get } from 'lodash';
+import get from 'lodash.get';
 import ActionButton from '../ActionButton';
 import { SplitLine } from '../Lines';
 import {

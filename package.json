@@ -1,6 +1,6 @@
 {
   "name": "react-flow-builder",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "keywords": [
     "flow",
     "builder",
@@ -34,13 +34,11 @@
   },
   "peerDependencies": {
     "antd": "^3 || ^4",
-    "lodash": "^4",
     "react": ">=16",
-    "react-dom": ">=16",
-    "uuid": "^8"
+    "react-dom": ">=16"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.171",
+    "@types/lodash.get": "^4.4.6",
     "@types/uuid": "^8.3.1",
     "@umijs/test": "^3.0.5",
     "antd": "^3 || ^4",
@@ -49,12 +47,14 @@
     "father-build": "^1.17.2",
     "gh-pages": "^3.0.0",
     "lint-staged": "^10.0.7",
-    "lodash": "^4",
     "prettier": "^2.2.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "react-flow-builder": "^0.0.3",
-    "uuid": "^8",
+    "react-flow-builder": "^0.0.5",
     "yorkie": "^2.0.0"
+  },
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "uuid": "^8.3.2"
   }
 }

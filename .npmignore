@@ -7,4 +7,5 @@
 *.zip
 tsconfig.json
 typings.d.ts
-yarn.lock
+*.lock
+*.log
