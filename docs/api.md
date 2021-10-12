@@ -1,69 +1,10 @@
-# 简介
+---
+order: 3
+---
 
-高度可定制的流式流程引擎。注册能力可以灵活定制你的节点类型以及不同类型的节点展示和节点表单等。
+# API
 
-| ![demo1](/public/demo1.png) | ![demo2](/public/demo2.png) |
-| --------------------------- | --------------------------- |
-
-## 试一试
-
-https://react-flow-builder.web.cloudendpoint.cn/
-
-## 安装
-
-```
-yarn add react-flow-builder
-
-或
-
-npm install react-flow-builder
-```
-
-## 使用
-
-```tsx
-import React, { useState } from 'react';
-import FlowBuilder from 'react-flow-builder';
-
-const registerNodes = [
-  {
-    type: 'start',
-    name: 'start',
-  },
-  {
-    type: 'end',
-    name: 'end',
-  },
-  {
-    type: 'common',
-    name: 'common',
-  },
-  {
-    type: 'branch',
-    name: 'branch',
-    conditionNodeType: 'condition',
-  },
-  {
-    type: 'condition',
-    name: 'condition',
-  },
-];
-
-export default function () {
-  const [nodes, setNodes] = useState([]);
-  return (
-    <FlowBuilder
-      registerNodes={registerNodes}
-      nodes={nodes}
-      onChange={setNodes}
-    />
-  );
-}
-```
-
-## API
-
-### FlowBuilder
+## FlowBuilder
 
 | 参数            | 说明                                                                                                                                                                                                                 | 类型                                                   | 必须 | 默认值     |
 | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- | :--- | :--------- |
@@ -78,7 +19,7 @@ export default function () {
 | nodes           | 流程引擎的节点                                                                                                                                                                                                       | [Node](#node)[]                                        | ✓    | -          |
 | onChange        | 节点数据改变时的回调函数                                                                                                                                                                                             | (nodes: [Node](#node)[], changeEvent?: string) => void | ✓    | -          |
 
-### RegisterNode
+## RegisterNode
 
 | 参数               | 说明                                                                                                | 类型                                              | 必须 | 默认值                              |
 | :----------------- | :-------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :--- | :---------------------------------- |
@@ -91,13 +32,13 @@ export default function () {
 | name               | 节点名称                                                                                            | string                                            | ✓    | -                                   |
 | type               | 节点类型，约定`start`和`end`为起止节点的类型                                                        | string                                            | ✓    | -                                   |
 
-### DisplayComponent
+## DisplayComponent
 
 | 参数 | 说明     | 类型          | 默认值 |
 | :--- | :------- | :------------ | :----- |
 | node | 节点信息 | [Node](#node) | -      |
 
-### ConfigComponent
+## ConfigComponent
 
 | 参数     | 说明                                                                                                                                | 类型                                             | 默认值 |
 | :------- | :---------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------- | :----- |
@@ -105,7 +46,7 @@ export default function () {
 | onCancel | 取消时调用，用来关闭抽屉                                                                                                            | () => void                                       | -      |
 | onSave   | 保存节点数据时调用（自动关闭抽屉，无需再执行 onCancel），流程引擎会根据 `validateStatusError` 设置节点的 `validateStatusError` 属性 | (values: any, validateStatusError?: any) => void | -      |
 
-### Node
+## Node
 
 | 参数                | 说明                                                     | 类型            | 默认值 |
 | :------------------ | :------------------------------------------------------- | :-------------- | :----- |

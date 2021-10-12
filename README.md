@@ -99,11 +99,11 @@ export default function () {
 
 ### ConfigComponent
 
-| Property | Description                                                                                                                                                                | Type                                        | Default |
-| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------ | :------ |
-| node     | The all information of node                                                                                                                                                | [Node](#node)                               | -       |
-| onCancel | Called on cancel, used to close the drawer                                                                                                                                 | () => void                                  | -       |
-| onSave   | Called on save node data (automatically close the drawer, no need to call onCancel). FlowBuilder will set the `validateStatusError` property according to `validateErrors` | (values: any, validateErrors?: any) => void | -       |
+| Property | Description                                                                                                                                                                     | Type                                             | Default |
+| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------- | :------ |
+| node     | The all information of node                                                                                                                                                     | [Node](#node)                                    | -       |
+| onCancel | Called on cancel, used to close the drawer                                                                                                                                      | () => void                                       | -       |
+| onSave   | Called on save node data (automatically close the drawer, no need to call onCancel). FlowBuilder will set the `validateStatusError` property according to `validateStatusError` | (values: any, validateStatusError?: any) => void | -       |
 
 ### Node
 

@@ -1,15 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Menu, Dropdown, Popconfirm, Drawer, Button } from 'antd';
+import { Popconfirm, Drawer, Button } from 'antd';
 import get from 'lodash.get';
-import ActionButton from '../ActionButton';
-import { SplitLine } from '../Lines';
+import AddNodeButton from '@/AddNodeButton';
+import { SplitLine } from '@/Lines';
 import {
   StartNode,
   EndNode,
   CommonNode,
   BranchNode,
   ConditionNode,
-} from '../Nodes';
+} from '@/Nodes';
 import {
   createUuidWithPrefix,
   getRegisterNode,
@@ -17,13 +17,10 @@ import {
   getIsConditionNode,
   createNewNode,
   getAbstractNodeType,
-} from '../utils';
-import { IFlowBuilderProps, INode, IRender, IRenderNode } from '../index';
+} from '@/utils';
+import { IFlowBuilderProps, INode, IRender, IRenderNode } from '@/index';
 
-import AddIcon from '../icons/add-button.svg';
-import AddNormalIcon from '../icons/add-normal.svg';
-import AddBranchIcon from '../icons/add-branch.svg';
-import DeleteIcon from '../icons/close-one.svg';
+import DeleteIcon from '@/icons/close-one.svg';
 
 import './index.less';
 
@@ -97,9 +94,11 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
   };
 
   const handleNodeClick = (node: INode) => {
-    node.configuring = true;
-    setActiveNode(node);
-    onChange([...nodes], 'click-node');
+    if (getRegisterNode(registerNodes, node.type)?.configComponent) {
+      node.configuring = true;
+      setActiveNode(node);
+      onChange([...nodes], 'click-node');
+    }
   };
 
   const handleDrawerClose = () => {
@@ -110,10 +109,10 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
     onChange([...nodes], 'close-drawer');
   };
 
-  const handleDrawerOk = (values: any, validateErrors?: any) => {
+  const handleDrawerOk = (values: any, validateStatusError?: boolean) => {
     if (activeNode) {
       activeNode.data = values;
-      if (validateErrors) {
+      if (validateStatusError) {
         activeNode.validateStatusError = true;
       } else {
         activeNode.validateStatusError = false;
@@ -133,38 +132,6 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
       </Button>
     </div>
   );
-
-  const renderAddableOptions = (node: INode) => {
-    const options = registerNodes.filter(
-      (item) =>
-        item.type !== 'start' &&
-        item.type !== 'end' &&
-        !getIsConditionNode(registerNodes, item.type),
-    );
-
-    return (
-      <Menu>
-        {options.map((item) => {
-          const registerNode = getRegisterNode(registerNodes, item.type);
-          const defaultIcon = getIsBranchNode(registerNodes, item.type)
-            ? AddBranchIcon
-            : AddNormalIcon;
-          return (
-            <Menu.Item
-              key={item.type}
-              onClick={() => handleAddNode(node, item.type)}
-            >
-              <img
-                className="flow-builder-addable-node-icon"
-                src={registerNode?.addIcon || defaultIcon}
-              />
-              <span>{item.name}</span>
-            </Menu.Item>
-          );
-        })}
-      </Menu>
-    );
-  };
 
   const renderNode = ({ node, nodeIndex, parentNode }: IRenderNode) => {
     const { id, type } = node;
@@ -216,17 +183,13 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
           spaceX={spaceX}
           spaceY={spaceY}
         />
-        <Dropdown
-          //@ts-ignore
-          arrow
-          trigger={['click']}
-          overlay={renderAddableOptions(node)}
-          getPopupContainer={(triggerNode) => triggerNode as HTMLElement}
-        >
-          <div onClick={(e) => e.stopPropagation()}>
-            <ActionButton icon={AddIcon} />
-          </div>
-        </Dropdown>
+
+        <AddNodeButton
+          registerNodes={registerNodes}
+          node={node}
+          onAddNode={handleAddNode}
+        />
+
         <SplitLine
           color={lineColor}
           layout={layout}
