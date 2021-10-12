@@ -3,7 +3,7 @@ import { ConnectLine } from '@/Lines';
 import { getRegisterNode } from '@/utils';
 import { LayoutType, INode, IRegisterNode, IRenderNode } from '@/index';
 import ActionButton from '@/ActionButton';
-import AddConditionIcon from '@/icons/add-condition.svg';
+import AddConditionIcon from '../icons/add-condition.svg';
 
 interface IProps {
   lineColor: string;

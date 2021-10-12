@@ -20,7 +20,7 @@ import {
 } from '@/utils';
 import { IFlowBuilderProps, INode, IRender, IRenderNode } from '@/index';
 
-import DeleteIcon from '@/icons/close-one.svg';
+import DeleteIcon from '../icons/close-one.svg';
 
 import './index.less';
 

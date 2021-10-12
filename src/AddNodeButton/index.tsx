@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Popover } from 'antd';
 import ActionButton from '@/ActionButton';
-import AddIcon from '@/icons/add-button.svg';
-import AddNormalIcon from '@/icons/add-normal.svg';
-import AddBranchIcon from '@/icons/add-branch.svg';
+import AddIcon from '../icons/add-button.svg';
+import AddNormalIcon from '../icons/add-normal.svg';
+import AddBranchIcon from '../icons/add-branch.svg';
 import { getRegisterNode, getIsBranchNode, getIsConditionNode } from '@/utils';
 
 import { INode, IRegisterNode } from '@/index';

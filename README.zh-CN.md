@@ -2,8 +2,8 @@
 
 高度可定制的流式流程引擎。注册能力可以灵活定制你的节点类型以及不同类型的节点展示和节点表单等。
 
-| ![demo1](/public/demo1.png) | ![demo2](/public/demo2.png) |
-| --------------------------- | --------------------------- |
+| ![demo1](https://tva1.sinaimg.cn/large/bf629e0fly1gvcso03qznj21ai1gctde.jpg) | ![demo2](https://tva1.sinaimg.cn/large/003viEH5ly1gvcso6ywd1j61r817gwl602.jpg) |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 
 ## 试一试
 
@@ -19,45 +19,118 @@ yarn add react-flow-builder
 npm install react-flow-builder
 ```
 
-## 使用
+## Usage
 
 ```tsx
+// index.tsx
 import React, { useState } from 'react';
-import FlowBuilder from 'react-flow-builder';
+import FlowBuilder, {
+  INode,
+  IRegisterNode,
+  IDisplayComponent,
+} from 'react-flow-builder';
 
-const registerNodes = [
+import './index.css';
+
+const StartNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="start-node">{node.name}</div>;
+};
+
+const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="end-node">{node.name}</div>;
+};
+
+const OtherNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="other-node">{node.name}</div>;
+};
+
+const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="condition-node">{node.name}</div>;
+};
+
+const registerNodes: IRegisterNode[] = [
   {
     type: 'start',
-    name: 'start',
+    name: 'start node',
+    displayComponent: StartNodeDisplay,
   },
   {
     type: 'end',
-    name: 'end',
+    name: 'end node',
+    displayComponent: EndNodeDisplay,
   },
   {
-    type: 'common',
-    name: 'common',
-  },
-  {
-    type: 'branch',
-    name: 'branch',
-    conditionNodeType: 'condition',
+    type: 'node',
+    name: 'other node',
+    displayComponent: OtherNodeDisplay,
   },
   {
     type: 'condition',
-    name: 'condition',
+    name: 'condition node',
+    displayComponent: ConditionNodeDisplay,
+  },
+  {
+    type: 'branch',
+    name: 'branch node',
+    conditionNodeType: 'condition',
   },
 ];
 
-export default function () {
-  const [nodes, setNodes] = useState([]);
+const Demo = () => {
+  const [nodes, setNodes] = useState<INode[]>([]);
+
+  const handleChange = (nodes: INode[]) => {
+    console.log('nodes change', nodes);
+    setNodes(nodes);
+  };
+
   return (
     <FlowBuilder
-      registerNodes={registerNodes}
       nodes={nodes}
-      onChange={setNodes}
+      onChange={handleChange}
+      registerNodes={registerNodes}
     />
   );
+};
+
+export default Demo;
+
+// index.css
+.start-node, .end-node {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  line-height: 64px;
+  color: #fff;
+  text-align: center;
+}
+
+.start-node {
+  background-color: #338aff;
+}
+
+.end-node {
+  background-color: #666;
+}
+
+.other-node, .condition-node {
+  width: 224px;
+  border-radius: 4px;
+  color: #666;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+}
+
+.other-node {
+  height: 118px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.condition-node {
+  height: 44px;
+  padding: 12px 16px;
 }
 ```
 
@@ -83,13 +156,14 @@ export default function () {
 | 参数               | 说明                                                                                                | 类型                                              | 必须 | 默认值                              |
 | :----------------- | :-------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :--- | :---------------------------------- |
 | addIcon            | 在可添加节点列表中的图标，有一些内置图标                                                            | React.ReactNode                                   |      | -                                   |
+| addableNodeTypes   | 指定节点下方的可添加节点列表                                                                        | string[]                                          |      | -                                   |
 | conditionNodeType  | 对应的条件节点类型                                                                                  | string                                            |      | -                                   |
 | configComponent    | 节点的配置表单组件                                                                                  | React.FC\<[ConfigComponent](#configcomponent)\>   |      | -                                   |
 | deleteConfirmTitle | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | string \| ReactNode                               |      | `Are you sure to delete this node?` |
 | displayComponent   | 节点的展示组件                                                                                      | React.FC\<[DisplayComponent](#displaycomponent)\> |      | -                                   |
 | extraData          | 节点的额外数据                                                                                      | any                                               |      | -                                   |
 | name               | 节点名称                                                                                            | string                                            | ✓    | -                                   |
-| type               | 节点类型，约定`start`和`end`为起止节点的类型                                                        | string                                            | ✓    | -                                   |
+| type               | 节点类型，约定 `start` 为开始节点类型，`end` 为结束节点类型                                         | string                                            | ✓    | -                                   |
 
 ### DisplayComponent
 
