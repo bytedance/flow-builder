@@ -1,7 +1,7 @@
 import React from 'react';
-import DefaultNode from '../DefaultNode';
-import { getRegisterNode } from '../utils';
-import { INode, IRegisterNode } from '../index';
+import DefaultNode from '@/DefaultNode';
+import { getRegisterNode } from '@/utils';
+import { INode, IRegisterNode } from '@/index';
 
 interface IProps {
   node: INode;
@@ -20,8 +20,9 @@ const CommonNode: React.FC<IProps> = (props) => {
     onNodeClick,
   } = props;
 
-  const Component =
-    getRegisterNode(registerNodes, node.type)?.displayComponent || DefaultNode;
+  const registerNode = getRegisterNode(registerNodes, node.type);
+
+  const Component = registerNode?.displayComponent || DefaultNode;
 
   const handleNodeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -29,7 +30,13 @@ const CommonNode: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div className="flow-builder-node">
+    <div
+      className={`flow-builder-node ${
+        !registerNode?.configComponent
+          ? 'flow-builder-node__without-config'
+          : ''
+      }`}
+    >
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
         <Component node={node} />
 

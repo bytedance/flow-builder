@@ -2,8 +2,8 @@
 
 A highly customizable streaming flow builder. The registration ability can flexibly customize your nodes, different types of node display and form, etc.
 
-| ![demo1](/public/demo1.png) | ![demo2](/public/demo2.png) |
-| --------------------------- | --------------------------- |
+| ![demo1](https://tva1.sinaimg.cn/large/bf629e0fly1gvcso03qznj21ai1gctde.jpg) | ![demo2](https://tva1.sinaimg.cn/large/003viEH5ly1gvcso6ywd1j61r817gwl602.jpg) |
+| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 
 ## Try it out
 
@@ -22,42 +22,115 @@ npm install react-flow-builder
 ## Usage
 
 ```tsx
+// index.tsx
 import React, { useState } from 'react';
-import FlowBuilder from 'react-flow-builder';
+import FlowBuilder, {
+  INode,
+  IRegisterNode,
+  IDisplayComponent,
+} from 'react-flow-builder';
 
-const registerNodes = [
+import './index.css';
+
+const StartNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="start-node">{node.name}</div>;
+};
+
+const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="end-node">{node.name}</div>;
+};
+
+const OtherNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="other-node">{node.name}</div>;
+};
+
+const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+  return <div className="condition-node">{node.name}</div>;
+};
+
+const registerNodes: IRegisterNode[] = [
   {
     type: 'start',
-    name: 'start',
+    name: '开始节点',
+    displayComponent: StartNodeDisplay,
   },
   {
     type: 'end',
-    name: 'end',
+    name: '结束节点',
+    displayComponent: EndNodeDisplay,
   },
   {
-    type: 'common',
-    name: 'common',
-  },
-  {
-    type: 'branch',
-    name: 'branch',
-    conditionNodeType: 'condition',
+    type: 'node',
+    name: '其他节点',
+    displayComponent: OtherNodeDisplay,
   },
   {
     type: 'condition',
-    name: 'condition',
+    name: '条件节点',
+    displayComponent: ConditionNodeDisplay,
+  },
+  {
+    type: 'branch',
+    name: '分支节点',
+    conditionNodeType: 'condition',
   },
 ];
 
-export default function () {
-  const [nodes, setNodes] = useState([]);
+const Demo = () => {
+  const [nodes, setNodes] = useState<INode[]>([]);
+
+  const handleChange = (nodes: INode[]) => {
+    console.log('nodes change', nodes);
+    setNodes(nodes);
+  };
+
   return (
     <FlowBuilder
-      registerNodes={registerNodes}
       nodes={nodes}
-      onChange={setNodes}
+      onChange={handleChange}
+      registerNodes={registerNodes}
     />
   );
+};
+
+export default Demo;
+
+// index.css
+.start-node, .end-node {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  line-height: 64px;
+  color: #fff;
+  text-align: center;
+}
+
+.start-node {
+  background-color: #338aff;
+}
+
+.end-node {
+  background-color: #666;
+}
+
+.other-node, .condition-node {
+  width: 224px;
+  border-radius: 4px;
+  color: #666;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+}
+
+.other-node {
+  height: 118px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.condition-node {
+  height: 44px;
+  padding: 12px 16px;
 }
 ```
 
@@ -83,6 +156,7 @@ export default function () {
 | Property           | Description                                                                                                                     | Type                                              | Required | Default                             |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------ | :------- | :---------------------------------- |
 | addIcon            | The icon in addable node list (There are already some default icons)                                                            | React.ReactNode                                   |          | -                                   |
+| addableNodeTypes   | The list of nodes that can be added below the node                                                                              | string[]                                          |          | -                                   |
 | conditionNodeType  | The type of condition node                                                                                                      | string                                            |          | -                                   |
 | configComponent    | The Component of configuring node form                                                                                          | React.FC\<[ConfigComponent](#configcomponent)\>   |          | -                                   |
 | deleteConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | string                                            |          | `Are you sure to delete this node?` |
@@ -99,11 +173,11 @@ export default function () {
 
 ### ConfigComponent
 
-| Property | Description                                                                                                                                                                | Type                                        | Default |
-| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------ | :------ |
-| node     | The all information of node                                                                                                                                                | [Node](#node)                               | -       |
-| onCancel | Called on cancel, used to close the drawer                                                                                                                                 | () => void                                  | -       |
-| onSave   | Called on save node data (automatically close the drawer, no need to call onCancel). FlowBuilder will set the `validateStatusError` property according to `validateErrors` | (values: any, validateErrors?: any) => void | -       |
+| Property | Description                                                                                                                                                                | Type                                                 | Default |
+| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- | :------ |
+| node     | The all information of node                                                                                                                                                | [Node](#node)                                        | -       |
+| onCancel | Called on cancel, used to close the drawer                                                                                                                                 | () => void                                           | -       |
+| onSave   | Called on save node data (automatically close the drawer, no need to call onCancel). FlowBuilder will set the `validateStatusError` property according to the second param | (values: any, validateStatusError?: boolean) => void | -       |
 
 ### Node
 

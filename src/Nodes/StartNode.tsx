@@ -1,7 +1,7 @@
 import React from 'react';
-import DefaultNode from '../DefaultNode';
-import { getRegisterNode } from '../utils';
-import { INode, IRegisterNode } from '../index';
+import DefaultNode from '@/DefaultNode';
+import { getRegisterNode } from '@/utils';
+import { INode, IRegisterNode } from '@/index';
 
 interface IProps {
   node: INode;
@@ -12,11 +12,18 @@ interface IProps {
 const StartNode: React.FC<IProps> = (props) => {
   const { node, registerNodes, renderAddNodeButton } = props;
 
-  const Component =
-    getRegisterNode(registerNodes, node.type)?.displayComponent || DefaultNode;
+  const registerNode = getRegisterNode(registerNodes, node.type);
+
+  const Component = registerNode?.displayComponent || DefaultNode;
 
   return (
-    <div className="flow-builder-node flow-builder-start-node">
+    <div
+      className={`flow-builder-node flow-builder-start-node ${
+        !registerNode?.configComponent
+          ? 'flow-builder-node__without-config'
+          : ''
+      }`}
+    >
       <div className="flow-builder-node__content">
         <Component node={node} />
       </div>

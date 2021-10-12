@@ -1,4 +1,4 @@
-import { LayoutType } from '../index';
+import { LayoutType } from '@/index';
 import SplitLine from './SplitLine';
 import ConnectLine from './ConnectLine';
 import FillLine from './FillLine';

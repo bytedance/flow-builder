@@ -1,8 +1,8 @@
 import React from 'react';
-import { SplitLine, FillLine, CleanLine } from '../Lines';
-import DefaultNode from '../DefaultNode';
-import { getRegisterNode } from '../utils';
-import { LayoutType, INode, IRegisterNode, IRender } from '../index';
+import { SplitLine, FillLine, CleanLine } from '@/Lines';
+import DefaultNode from '@/DefaultNode';
+import { getRegisterNode } from '@/utils';
+import { LayoutType, INode, IRegisterNode, IRender } from '@/index';
 
 interface IProps {
   backgroundColor?: string;
@@ -43,8 +43,9 @@ const ConditionNode: React.FC<IProps> = (props) => {
     ? parentNode?.branchs.length || 0
     : 0;
 
-  const Component =
-    getRegisterNode(registerNodes, node.type)?.displayComponent || DefaultNode;
+  const registerNode = getRegisterNode(registerNodes, node.type);
+
+  const Component = registerNode?.displayComponent || DefaultNode;
 
   const handleNodeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -53,7 +54,11 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
   return (
     <div
-      className="flow-builder-node flow-builder-condition-node"
+      className={`flow-builder-node flow-builder-condition-node ${
+        !registerNode?.configComponent
+          ? 'flow-builder-node__without-config'
+          : ''
+      }`}
       style={{
         padding: layout === 'vertical' ? `0 ${spaceX}px` : `${spaceY}px 0`,
       }}

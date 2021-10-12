@@ -1,8 +1,8 @@
 import React from 'react';
-import { ConnectLine } from '../Lines';
-import { getRegisterNode } from '../utils';
-import { LayoutType, INode, IRegisterNode, IRenderNode } from '../index';
-import ActionButton from '../ActionButton';
+import { ConnectLine } from '@/Lines';
+import { getRegisterNode } from '@/utils';
+import { LayoutType, INode, IRegisterNode, IRenderNode } from '@/index';
+import ActionButton from '@/ActionButton';
 import AddConditionIcon from '../icons/add-condition.svg';
 
 interface IProps {
@@ -39,7 +39,13 @@ const BranchNode: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div className="flow-builder-node flow-builder-branch-node">
+    <div
+      className={`flow-builder-node flow-builder-branch-node ${
+        !registerNode?.configComponent
+          ? 'flow-builder-node__without-config'
+          : ''
+      }`}
+    >
       <div className="flow-builder-node__content">
         {conditionCount > 1 ? (
           <>

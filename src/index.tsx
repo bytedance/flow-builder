@@ -8,7 +8,7 @@ export interface IDisplayComponent {
 export interface IConfigComponent {
   node: INode;
   onCancel?: () => void;
-  onSave?: (values: any, validateErrors?: any) => void;
+  onSave?: (values: any, validateStatusError?: boolean) => void;
 }
 
 export type LayoutType = 'vertical' | 'horizontal';
@@ -29,6 +29,7 @@ export interface IRegisterNode {
   displayComponent?: React.FC<IDisplayComponent>;
   configComponent?: React.FC<IConfigComponent>;
   deleteConfirmTitle?: string;
+  addableNodeTypes?: string[];
 }
 
 export interface INode {
