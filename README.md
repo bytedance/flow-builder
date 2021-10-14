@@ -1,5 +1,7 @@
 # Introduction
 
+English | [简体中文](https://github.com/bytedance/flow-builder/blob/main/README.zh-CN.md)
+
 A highly customizable streaming flow builder. The registration ability can flexibly customize your nodes, different types of node display and form, etc.
 
 | ![demo1](https://camo.githubusercontent.com/eb256eb3d1ea49164b5d70be43be26212e8355666ccbf6b5f8279abf02ae15e4/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f62663632396530666c7931677663736f3033717a6e6a323161693167637464652e6a7067) | ![demo2](https://camo.githubusercontent.com/dd06c1e7c2762899ffb84da7c32de5992dfc57ab2b15e4c768953622cd0fcdc0/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f30303376694548356c7931677663736f36797764316a36317238313767776c3630322e6a7067) |
@@ -51,27 +53,27 @@ const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
 const registerNodes: IRegisterNode[] = [
   {
     type: 'start',
-    name: '开始节点',
+    name: 'start node',
     displayComponent: StartNodeDisplay,
   },
   {
     type: 'end',
-    name: '结束节点',
+    name: 'end node',
     displayComponent: EndNodeDisplay,
   },
   {
     type: 'node',
-    name: '其他节点',
+    name: 'other node',
     displayComponent: OtherNodeDisplay,
   },
   {
     type: 'condition',
-    name: '条件节点',
+    name: 'condition node',
     displayComponent: ConditionNodeDisplay,
   },
   {
     type: 'branch',
-    name: '分支节点',
+    name: 'branch node',
     conditionNodeType: 'condition',
   },
 ];

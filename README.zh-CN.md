@@ -1,5 +1,7 @@
 # 简介
 
+[English](https://github.com/bytedance/flow-builder/blob/main/README.md) | 简体中文
+
 高度可定制的流式流程引擎。注册能力可以灵活定制你的节点类型以及不同类型的节点展示和节点表单等。
 
 | ![demo1](https://camo.githubusercontent.com/eb256eb3d1ea49164b5d70be43be26212e8355666ccbf6b5f8279abf02ae15e4/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f62663632396530666c7931677663736f3033717a6e6a323161693167637464652e6a7067) | ![demo2](https://camo.githubusercontent.com/dd06c1e7c2762899ffb84da7c32de5992dfc57ab2b15e4c768953622cd0fcdc0/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f30303376694548356c7931677663736f36797764316a36317238313767776c3630322e6a7067) |
@@ -51,27 +53,27 @@ const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
 const registerNodes: IRegisterNode[] = [
   {
     type: 'start',
-    name: 'start node',
+    name: '开始节点',
     displayComponent: StartNodeDisplay,
   },
   {
     type: 'end',
-    name: 'end node',
+    name: '结束节点',
     displayComponent: EndNodeDisplay,
   },
   {
     type: 'node',
-    name: 'other node',
+    name: '其他节点',
     displayComponent: OtherNodeDisplay,
   },
   {
     type: 'condition',
-    name: 'condition node',
+    name: '条件节点',
     displayComponent: ConditionNodeDisplay,
   },
   {
     type: 'branch',
-    name: 'branch node',
+    name: '分支节点',
     conditionNodeType: 'condition',
   },
 ];
@@ -155,7 +157,7 @@ export default Demo;
 
 | 参数               | 说明                                                                                                | 类型                                              | 必须 | 默认值                              |
 | :----------------- | :-------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :--- | :---------------------------------- |
-| addIcon            | 在可添加节点列表中的图标，有一些内置图标                                                            | React.ReactNode                                   |      | -                                   |
+| addIcon            | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | React.ReactNode                                   |      | -                                   |
 | addableNodeTypes   | 指定节点下方的可添加节点列表                                                                        | string[]                                          |      | -                                   |
 | conditionNodeType  | 对应的条件节点类型                                                                                  | string                                            |      | -                                   |
 | configComponent    | 节点的配置表单组件                                                                                  | React.FC\<[ConfigComponent](#configcomponent)\>   |      | -                                   |

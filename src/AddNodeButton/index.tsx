@@ -52,10 +52,10 @@ const AddNodeButton: React.FC<IProps> = (props) => {
             key={item.type}
             onClick={() => handleAddNode(item.type)}
           >
-            <img
-              className="flow-builder-addable-node-icon"
-              src={registerNode?.addIcon || defaultIcon}
-            />
+            <span className="flow-builder-addable-node-icon">
+              {registerNode?.addIcon || <img src={defaultIcon} />}
+            </span>
+
             <span>{item.name}</span>
           </div>
         );

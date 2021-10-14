@@ -1,6 +1,6 @@
 {
   "name": "react-flow-builder",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "keywords": [
     "flow",
     "builder",
@@ -50,7 +50,7 @@
     "prettier": "^2.2.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "react-flow-builder": "^0.0.7",
+    "react-flow-builder": "^0.0.8",
     "yorkie": "^2.0.0"
   },
   "dependencies": {

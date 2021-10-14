@@ -23,7 +23,8 @@ order: 3
 
 | 参数               | 说明                                                                                                | 类型                                              | 必须 | 默认值                              |
 | :----------------- | :-------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :--- | :---------------------------------- |
-| addIcon            | 在可添加节点列表中的图标，有一些内置图标                                                            | React.ReactNode                                   |      | -                                   |
+| addIcon            | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | React.ReactNode                                   |      | -                                   |
+| addableNodeTypes   | 指定节点下方的可添加节点列表                                                                        | string[]                                          |      | -                                   |
 | conditionNodeType  | 对应的条件节点类型                                                                                  | string                                            |      | -                                   |
 | configComponent    | 节点的配置表单组件                                                                                  | React.FC\<[ConfigComponent](#configcomponent)\>   |      | -                                   |
 | deleteConfirmTitle | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | string \| ReactNode                               |      | `Are you sure to delete this node?` |
