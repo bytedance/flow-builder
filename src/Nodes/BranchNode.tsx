@@ -6,6 +6,7 @@ import ActionButton from '@/ActionButton';
 import AddConditionIcon from '../icons/add-condition.svg';
 
 interface IProps {
+  readonly?: boolean;
   lineColor: string;
   layout: LayoutType;
   node: INode;
@@ -17,6 +18,7 @@ interface IProps {
 
 const BranchNode: React.FC<IProps> = (props) => {
   const {
+    readonly,
     lineColor,
     layout,
     node,
@@ -62,12 +64,14 @@ const BranchNode: React.FC<IProps> = (props) => {
           </>
         ) : null}
 
-        <div
-          className="flow-builder-branch-node__add-button"
-          onClick={handleAddCondition}
-        >
-          <ActionButton size={20} icon={AddConditionIcon} />
-        </div>
+        {!readonly ? (
+          <div
+            className="flow-builder-branch-node__add-button"
+            onClick={handleAddCondition}
+          >
+            <ActionButton size={20} icon={AddConditionIcon} />
+          </div>
+        ) : null}
         <div className="flow-builder-branch-node__conditions">
           {conditionCount === 1 ? (
             <div

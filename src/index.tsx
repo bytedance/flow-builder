@@ -54,6 +54,7 @@ export interface IFlowBuilderProps {
   layout?: LayoutType;
   allowZoom?: boolean;
   drawerProps?: any;
+  readonly?: boolean;
   registerNodes: IRegisterNode[];
   nodes: INode[];
   onChange: (nodes: INode[], changeEvent?: string) => void;

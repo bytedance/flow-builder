@@ -34,6 +34,7 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
     spaceX = 16,
     spaceY = 16,
     drawerProps = {},
+    readonly = false,
     registerNodes = [],
     nodes = [],
     onChange,
@@ -94,7 +95,10 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
   };
 
   const handleNodeClick = (node: INode) => {
-    if (getRegisterNode(registerNodes, node.type)?.configComponent) {
+    if (
+      !readonly &&
+      getRegisterNode(registerNodes, node.type)?.configComponent
+    ) {
       node.configuring = true;
       setActiveNode(node);
       onChange([...nodes], 'click-node');
@@ -155,7 +159,7 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
     }
     node.path.push(nodeIndex);
 
-    const renderDeleteButton = (
+    const renderDeleteButton = !readonly ? (
       <Popconfirm
         title={
           registerNode?.deleteConfirmTitle ||
@@ -173,7 +177,7 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
           src={DeleteIcon}
         />
       </Popconfirm>
-    );
+    ) : null;
 
     const renderAddNodeButton = (
       <>
@@ -184,11 +188,13 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
           spaceY={spaceY}
         />
 
-        <AddNodeButton
-          registerNodes={registerNodes}
-          node={node}
-          onAddNode={handleAddNode}
-        />
+        {!readonly ? (
+          <AddNodeButton
+            registerNodes={registerNodes}
+            node={node}
+            onAddNode={handleAddNode}
+          />
+        ) : null}
 
         <SplitLine
           color={lineColor}
@@ -217,6 +223,7 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
         return (
           <BranchNode
             key={id}
+            readonly={readonly}
             lineColor={lineColor}
             layout={layout}
             node={node}
@@ -287,7 +294,11 @@ const Builder: React.FC<IFlowBuilderProps> = (props) => {
   }, []);
 
   return (
-    <div className={`flow-builder-wrap ${className}`}>
+    <div
+      className={`flow-builder-wrap ${className} ${
+        readonly ? 'flow-builder-readonly' : ''
+      }`}
+    >
       {allowZoom ? <ZoomTool /> : null}
       <div className="flow-builder-content" style={{ backgroundColor }}>
         <div
