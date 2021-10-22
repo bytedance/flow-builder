@@ -52,12 +52,23 @@ export interface IFlowBuilderProps {
   spaceX?: number;
   spaceY?: number;
   layout?: LayoutType;
-  allowZoom?: boolean;
+  zoomTool?:
+    | boolean
+    | { hidden?: boolean; min?: number; max?: number; step?: number };
+  undoRedoTool?: boolean | { hidden?: boolean; max?: number };
   drawerProps?: any;
   readonly?: boolean;
   registerNodes: IRegisterNode[];
   nodes: INode[];
   onChange: (nodes: INode[], changeEvent?: string) => void;
+}
+
+export type ZoomType = 'smaller' | 'bigger';
+
+export interface IFlowBuilderMethod {
+  zoom: (type: ZoomType) => number | undefined;
+  undo: () => number | undefined;
+  redo: () => number | undefined;
 }
 
 export interface IRender {
@@ -69,6 +80,12 @@ export interface IRenderNode {
   node: INode;
   nodeIndex: number;
   parentNode?: INode;
+}
+
+export interface IHistoryRecordsData {
+  records: INode[][];
+  maxNum: number;
+  currentIndex: number;
 }
 
 export default Builder;
