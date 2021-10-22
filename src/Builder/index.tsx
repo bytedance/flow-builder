@@ -31,35 +31,18 @@ import {
   INode,
   IRender,
   IRenderNode,
-  IHistoryRecordsData,
   ZoomType,
+  HistoryType,
 } from '@/index';
 
 import DeleteIcon from '../icons/close-one.svg';
 
 import './index.less';
 
-const defaultZoomMin = 10;
-const defaultZoomMax = 200;
+const defaultMinZoom = 10;
+const defaultMaxZoom = 200;
 const defaultZoomStep = 10;
-const defaultUndoRedoMaxNum = 10;
-
-const setHistoryRecords = (
-  historyRecordsData: IHistoryRecordsData,
-  record: INode[],
-) => {
-  const { records, currentIndex, maxNum } = historyRecordsData;
-  const newRecord = JSON.parse(JSON.stringify(record));
-
-  records.splice(currentIndex + 1, records.length - currentIndex - 1);
-
-  if (records.length === maxNum) {
-    records.shift();
-  }
-
-  records.push(newRecord);
-  historyRecordsData.currentIndex = records.length - 1;
-};
+const defaultMaxHistoryLength = 10;
 
 const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
   (props, ref) => {
@@ -69,7 +52,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       lineColor = '#999999',
       layout = 'vertical',
       zoomTool = false,
-      undoRedoTool = false,
+      historyTool = false,
       spaceX = 16,
       spaceY = 16,
       drawerProps = {},
@@ -77,38 +60,54 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       registerNodes = [],
       nodes = [],
       onChange,
+      onHistoryChange,
+      onZoomChange,
     } = props;
 
-    const zoomShow =
+    const showZoom =
       typeof zoomTool === 'boolean' ? zoomTool : !zoomTool.hidden;
-    const zoomMin =
+    const minZoom =
       typeof zoomTool === 'boolean'
-        ? defaultZoomMin
-        : zoomTool?.min || defaultZoomMin;
-    const zoomMax =
+        ? defaultMinZoom
+        : zoomTool?.min || defaultMinZoom;
+    const maxZoom =
       typeof zoomTool === 'boolean'
-        ? defaultZoomMax
-        : zoomTool?.max || defaultZoomMax;
+        ? defaultMaxZoom
+        : zoomTool?.max || defaultMaxZoom;
     const zoomStep =
       typeof zoomTool === 'boolean'
         ? defaultZoomStep
         : zoomTool?.step || defaultZoomStep;
 
-    const undoRedoShow =
-      typeof undoRedoTool === 'boolean' ? undoRedoTool : !undoRedoTool.hidden;
-    const undoRedoMaxNum =
-      typeof undoRedoTool === 'boolean'
-        ? defaultUndoRedoMaxNum
-        : undoRedoTool?.max || defaultUndoRedoMaxNum;
+    const showHistory =
+      typeof historyTool === 'boolean' ? historyTool : !historyTool.hidden;
+    const historyMaxLength =
+      typeof historyTool === 'boolean'
+        ? defaultMaxHistoryLength
+        : historyTool?.max || defaultMaxHistoryLength;
 
     const [activeNode, setActiveNode] = useState<INode>();
     const [zoom, setZoom] = useState<number>(100);
+    const [historyRecords, setHistoryRecords] = useState<INode[][]>([]);
+    const [activeHistoryRecordIndex, setActiveHistoryRecordIndex] =
+      useState(-1);
 
-    const historyRecordsRef = useRef<IHistoryRecordsData>({
-      records: [],
-      currentIndex: -1,
-      maxNum: undoRedoMaxNum,
-    });
+    const handleHistoryRecordsChange = (
+      records: INode[][],
+      index: number,
+      record: INode[],
+    ) => {
+      records.splice(index + 1, records.length - index - 1);
+
+      if (records.length === historyMaxLength) {
+        records.shift();
+      }
+
+      records.push(JSON.parse(JSON.stringify(record)));
+
+      setHistoryRecords([...records]);
+      setActiveHistoryRecordIndex(records.length - 1);
+    };
 
     const ConfigComponent = useMemo(
       () => getRegisterNode(registerNodes, activeNode?.type)?.configComponent,
@@ -136,14 +135,17 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         // @ts-ignore
         (parentNodes || nodes)?.splice(nodeIndex + 1, 0, newNode);
       }
-      onChange([...nodes], `add-${newNodeType}`);
+      onChange([...nodes], `add-node__${newNodeType}`);
 
-      setHistoryRecords(historyRecordsRef.current, nodes);
+      handleHistoryRecordsChange(
+        historyRecords,
+        activeHistoryRecordIndex,
+        nodes,
+      );
     };
 
     const handleDelete = (node: INode, e?: React.MouseEvent) => {
       e?.stopPropagation();
-      const events = `delete-${node.type}`;
       let removeIndex = node.path?.pop();
       let parentNodes = get(nodes, node.path) || nodes;
 
@@ -160,9 +162,13 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       // @ts-ignore
       parentNodes.splice(removeIndex, 1);
 
-      onChange([...nodes], events);
+      onChange([...nodes], `delete-node__${node.type}`);
 
-      setHistoryRecords(historyRecordsRef.current, nodes);
+      handleHistoryRecordsChange(
+        historyRecords,
+        activeHistoryRecordIndex,
+        nodes,
+      );
     };
 
     const handleNodeClick = (node: INode) => {
@@ -193,64 +199,64 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           activeNode.validateStatusError = false;
         }
 
-        setHistoryRecords(historyRecordsRef.current, nodes);
+        handleHistoryRecordsChange(
+          historyRecords,
+          activeHistoryRecordIndex,
+          nodes,
+        );
       }
       handleDrawerClose();
     };
 
-    const handleUndo = () => {
-      if (!undoRedoTool) return;
+    const handleHistory = (type: HistoryType) => {
+      const latestIndex =
+        type === 'undo'
+          ? activeHistoryRecordIndex > 0
+            ? activeHistoryRecordIndex - 1
+            : 0
+          : activeHistoryRecordIndex < historyRecords.length - 1
+          ? activeHistoryRecordIndex + 1
+          : historyRecords.length - 1;
 
-      const { records, currentIndex } = historyRecordsRef.current;
-      if (currentIndex === 0) return;
+      onChange([...historyRecords[latestIndex]], type);
 
-      const latestIndex = currentIndex - 1;
-      historyRecordsRef.current.currentIndex = latestIndex;
-
-      onChange([...records[latestIndex]], 'undo');
-      return latestIndex;
-    };
-
-    const handleRedo = () => {
-      if (!undoRedoTool) return;
-
-      const { records, currentIndex } = historyRecordsRef.current;
-
-      if (currentIndex === records.length - 1) return;
-
-      const latestIndex = currentIndex + 1;
-      historyRecordsRef.current.currentIndex = latestIndex;
-
-      onChange([...records[latestIndex]], 'redo');
-      return latestIndex;
+      setActiveHistoryRecordIndex(latestIndex);
     };
 
     const handleZoom = (type: ZoomType) => {
-      if (!zoomTool) return;
-
       const latestZoom = type === 'smaller' ? zoom - zoomStep : zoom + zoomStep;
+
       setZoom(latestZoom);
-      return latestZoom;
     };
 
-    const UndoRedoTool = () => (
+    const HistoryTool = (
       <div className="flow-builder-undo-redo-tool">
-        <button onClick={handleUndo}>undo</button>
-        <button onClick={handleRedo}>redo</button>
+        <Button
+          disabled={activeHistoryRecordIndex <= 0}
+          onClick={() => handleHistory('undo')}
+        >
+          undo
+        </Button>
+        <Button
+          disabled={activeHistoryRecordIndex === historyRecords.length - 1}
+          onClick={() => handleHistory('redo')}
+        >
+          redo
+        </Button>
       </div>
     );
 
-    const ZoomTool = () => (
+    const ZoomTool = (
       <div className="flow-builder-zoom-tool">
         <Button
-          disabled={zoom === zoomMin}
+          disabled={zoom === minZoom}
           onClick={() => handleZoom('smaller')}
         >
           -
         </Button>
         <span className="flow-builder-zoom-tool__number">{zoom + '%'}</span>
         <Button
-          disabled={zoom === zoomMax}
+          disabled={zoom === maxZoom}
           onClick={() => handleZoom('bigger')}
         >
           +
@@ -397,10 +403,24 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       });
 
     useImperativeHandle(ref, () => ({
+      history: handleHistory,
       zoom: handleZoom,
-      undo: handleUndo,
-      redo: handleRedo,
     }));
+
+    useEffect(() => {
+      onHistoryChange?.({
+        undoDisabled: activeHistoryRecordIndex <= 0,
+        redoDisabled: activeHistoryRecordIndex === historyRecords.length - 1,
+      });
+    }, [historyRecords, activeHistoryRecordIndex]);
+
+    useEffect(() => {
+      onZoomChange?.({
+        smallerDisabled: zoom === minZoom,
+        biggerDisabled: zoom === maxZoom,
+        value: zoom,
+      });
+    }, [zoom, minZoom, maxZoom]);
 
     useEffect(() => {
       let defaultNodes = [...nodes];
@@ -421,7 +441,11 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         onChange(defaultNodes, 'init-builder');
       }
 
-      setHistoryRecords(historyRecordsRef.current, defaultNodes);
+      handleHistoryRecordsChange(
+        historyRecords,
+        activeHistoryRecordIndex,
+        defaultNodes,
+      );
     }, []);
 
     return (
@@ -430,8 +454,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           readonly ? 'flow-builder-readonly' : ''
         }`}
       >
-        {undoRedoShow ? <UndoRedoTool /> : null}
-        {zoomShow ? <ZoomTool /> : null}
+        {showHistory ? HistoryTool : null}
+        {showZoom ? ZoomTool : null}
         <div className="flow-builder-content" style={{ backgroundColor }}>
           <div
             className={`flow-builder flow-builder-${layout}`}
