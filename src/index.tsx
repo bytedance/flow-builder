@@ -11,6 +11,10 @@ export interface IConfigComponent {
   onSave?: (values: any, validateStatusError?: boolean) => void;
 }
 
+export interface IAddableComponent {
+  onAddNode: (type: string) => void;
+}
+
 export type LayoutType = 'vertical' | 'horizontal';
 
 export type AbstractNodeType =
@@ -30,6 +34,7 @@ export interface IRegisterNode {
   configComponent?: React.FC<IConfigComponent>;
   deleteConfirmTitle?: string;
   addableNodeTypes?: string[];
+  addableComponent?: React.FC<IAddableComponent>;
 }
 
 export interface INode {

@@ -19,10 +19,9 @@ const AddNodeButton: React.FC<IProps> = (props) => {
 
   const [visible, setVisible] = useState(false);
 
-  const addableNodeTypes = getRegisterNode(
-    registerNodes,
-    node.type,
-  )?.addableNodeTypes;
+  const registerNode = getRegisterNode(registerNodes, node.type);
+  const AddableComponent = registerNode?.addableComponent;
+  const addableNodeTypes = registerNode?.addableNodeTypes;
 
   const options = registerNodes.filter(
     (item) =>
@@ -39,7 +38,9 @@ const AddNodeButton: React.FC<IProps> = (props) => {
     setVisible(false);
   };
 
-  const addableOptions = (
+  const addableOptions = AddableComponent ? (
+    <AddableComponent onAddNode={handleAddNode} />
+  ) : (
     <>
       {options.map((item) => {
         const registerNode = getRegisterNode(registerNodes, item.type);
