@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { Button } from 'antd';
 import FlowBuilder, {
   INode,
   IRegisterNode,
   IDisplayComponent,
+  IFlowBuilderMethod,
 } from 'react-flow-builder';
-import ConfigForm from './ConfigForm';
 
 import './index.css';
 
@@ -17,27 +18,11 @@ const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
 };
 
 const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return (
-    <div
-      className={`other-node ${node.configuring ? 'node-configuring' : ''} ${
-        node.validateStatusError ? 'node-status-error' : ''
-      }`}
-    >
-      {node.data ? node.data.name : node.name}
-    </div>
-  );
+  return <div className="other-node">{node.name}</div>;
 };
 
 const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return (
-    <div
-      className={`condition-node ${
-        node.configuring ? 'node-configuring' : ''
-      } ${node.validateStatusError ? 'node-status-error' : ''}`}
-    >
-      {node.data ? node.data.name : node.name}
-    </div>
-  );
+  return <div className="condition-node">{node.name}</div>;
 };
 
 const registerNodes: IRegisterNode[] = [
@@ -55,13 +40,11 @@ const registerNodes: IRegisterNode[] = [
     type: 'node',
     name: '普通节点',
     displayComponent: NodeDisplay,
-    configComponent: ConfigForm,
   },
   {
     type: 'condition',
     name: '条件节点',
     displayComponent: ConditionNodeDisplay,
-    configComponent: ConfigForm,
   },
   {
     type: 'branch',
@@ -119,22 +102,49 @@ const defaultNodes = [
   },
 ];
 
-const NodeForm = () => {
+const Zoom = () => {
   const [nodes, setNodes] = useState<INode[]>(defaultNodes);
+  const [undoDisabled, setUndoDisabled] = useState(true);
+  const [redoDisabled, setRedoDisabled] = useState(true);
+  const ref = useRef<IFlowBuilderMethod>(null);
 
   const handleChange = (nodes: INode[]) => {
     console.log('nodes change', nodes);
     setNodes(nodes);
   };
 
+  const handleHistoryChange = (undoDisabled, redoDisabled) => {
+    setUndoDisabled(undoDisabled);
+    setRedoDisabled(redoDisabled);
+  };
+
   return (
-    <FlowBuilder
-      nodes={nodes}
-      onChange={handleChange}
-      registerNodes={registerNodes}
-      historyTool
-    />
+    <>
+      <Button
+        disabled={undoDisabled}
+        onClick={() => ref.current.history('undo')}
+      >
+        undo
+      </Button>
+      <Button
+        disabled={redoDisabled}
+        onClick={() => ref.current.history('redo')}
+      >
+        redo
+      </Button>
+      <FlowBuilder
+        ref={ref}
+        historyTool={{
+          hidden: true,
+          max: 5,
+        }}
+        nodes={nodes}
+        onChange={handleChange}
+        registerNodes={registerNodes}
+        onHistoryChange={handleHistoryChange}
+      />
+    </>
   );
 };
 
-export default NodeForm;
+export default Zoom;

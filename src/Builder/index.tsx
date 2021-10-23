@@ -2,7 +2,6 @@ import React, {
   useState,
   useEffect,
   useMemo,
-  useRef,
   forwardRef,
   useImperativeHandle,
 } from 'react';
@@ -66,6 +65,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
     const showZoom =
       typeof zoomTool === 'boolean' ? zoomTool : !zoomTool.hidden;
+    const initialZoom =
+      typeof zoomTool === 'boolean' ? 100 : zoomTool?.initialValue || 100;
     const minZoom =
       typeof zoomTool === 'boolean'
         ? defaultMinZoom
@@ -87,10 +88,11 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         : historyTool?.max || defaultMaxHistoryLength;
 
     const [activeNode, setActiveNode] = useState<INode>();
-    const [zoom, setZoom] = useState<number>(100);
+    const [zoom, setZoom] = useState<number>(initialZoom);
     const [historyRecords, setHistoryRecords] = useState<INode[][]>([]);
     const [activeHistoryRecordIndex, setActiveHistoryRecordIndex] =
       useState(-1);
+    const [hasMounted, setHasMounted] = useState(false);
 
     const handleHistoryRecordsChange = (
       records: INode[][],
@@ -218,13 +220,20 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           ? activeHistoryRecordIndex + 1
           : historyRecords.length - 1;
 
-      onChange([...historyRecords[latestIndex]], type);
+      onChange(JSON.parse(JSON.stringify(historyRecords[latestIndex])), type);
 
       setActiveHistoryRecordIndex(latestIndex);
     };
 
     const handleZoom = (type: ZoomType) => {
-      const latestZoom = type === 'smaller' ? zoom - zoomStep : zoom + zoomStep;
+      const latestZoom =
+        type === 'smaller'
+          ? zoom - zoomStep < minZoom
+            ? minZoom
+            : zoom - zoomStep
+          : zoom + zoomStep > maxZoom
+          ? maxZoom
+          : zoom + zoomStep;
 
       setZoom(latestZoom);
     };
@@ -235,13 +244,13 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           disabled={activeHistoryRecordIndex <= 0}
           onClick={() => handleHistory('undo')}
         >
-          undo
+          {'<'}
         </Button>
         <Button
           disabled={activeHistoryRecordIndex === historyRecords.length - 1}
           onClick={() => handleHistory('redo')}
         >
-          redo
+          {'>'}
         </Button>
       </div>
     );
@@ -408,18 +417,17 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     }));
 
     useEffect(() => {
-      onHistoryChange?.({
-        undoDisabled: activeHistoryRecordIndex <= 0,
-        redoDisabled: activeHistoryRecordIndex === historyRecords.length - 1,
-      });
+      if (hasMounted && historyRecords.length > 1) {
+        console.log('xxx historyRecords', historyRecords);
+        onHistoryChange?.(
+          activeHistoryRecordIndex <= 0,
+          activeHistoryRecordIndex === historyRecords.length - 1,
+        );
+      }
     }, [historyRecords, activeHistoryRecordIndex]);
 
     useEffect(() => {
-      onZoomChange?.({
-        smallerDisabled: zoom === minZoom,
-        biggerDisabled: zoom === maxZoom,
-        value: zoom,
-      });
+      hasMounted && onZoomChange?.(zoom === minZoom, zoom, zoom === maxZoom);
     }, [zoom, minZoom, maxZoom]);
 
     useEffect(() => {
@@ -446,6 +454,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         activeHistoryRecordIndex,
         defaultNodes,
       );
+
+      setHasMounted(true);
     }, []);
 
     return (
@@ -454,8 +464,12 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           readonly ? 'flow-builder-readonly' : ''
         }`}
       >
-        {showHistory ? HistoryTool : null}
-        {showZoom ? ZoomTool : null}
+        {showHistory || showZoom ? (
+          <div className="flow-builder-tool">
+            {showHistory ? HistoryTool : null}
+            {showZoom ? ZoomTool : null}
+          </div>
+        ) : null}
         <div className="flow-builder-content" style={{ backgroundColor }}>
           <div
             className={`flow-builder flow-builder-${layout}`}

@@ -4,7 +4,6 @@ import FlowBuilder, {
   IRegisterNode,
   IDisplayComponent,
 } from 'react-flow-builder';
-import ConfigForm from './ConfigForm';
 
 import './index.css';
 
@@ -17,27 +16,11 @@ const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
 };
 
 const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return (
-    <div
-      className={`other-node ${node.configuring ? 'node-configuring' : ''} ${
-        node.validateStatusError ? 'node-status-error' : ''
-      }`}
-    >
-      {node.data ? node.data.name : node.name}
-    </div>
-  );
+  return <div className="other-node">{node.name}</div>;
 };
 
 const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return (
-    <div
-      className={`condition-node ${
-        node.configuring ? 'node-configuring' : ''
-      } ${node.validateStatusError ? 'node-status-error' : ''}`}
-    >
-      {node.data ? node.data.name : node.name}
-    </div>
-  );
+  return <div className="condition-node">{node.name}</div>;
 };
 
 const registerNodes: IRegisterNode[] = [
@@ -55,13 +38,11 @@ const registerNodes: IRegisterNode[] = [
     type: 'node',
     name: '普通节点',
     displayComponent: NodeDisplay,
-    configComponent: ConfigForm,
   },
   {
     type: 'condition',
     name: '条件节点',
     displayComponent: ConditionNodeDisplay,
-    configComponent: ConfigForm,
   },
   {
     type: 'branch',
@@ -119,7 +100,7 @@ const defaultNodes = [
   },
 ];
 
-const NodeForm = () => {
+const Zoom = () => {
   const [nodes, setNodes] = useState<INode[]>(defaultNodes);
 
   const handleChange = (nodes: INode[]) => {
@@ -129,12 +110,12 @@ const NodeForm = () => {
 
   return (
     <FlowBuilder
+      historyTool
       nodes={nodes}
       onChange={handleChange}
       registerNodes={registerNodes}
-      historyTool
     />
   );
 };
 
-export default NodeForm;
+export default Zoom;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { Button } from 'antd';
 import FlowBuilder, {
   INode,
   IRegisterNode,
   IDisplayComponent,
+  IFlowBuilderMethod,
 } from 'react-flow-builder';
-import ConfigForm from './ConfigForm';
 
 import './index.css';
 
@@ -17,27 +18,11 @@ const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
 };
 
 const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return (
-    <div
-      className={`other-node ${node.configuring ? 'node-configuring' : ''} ${
-        node.validateStatusError ? 'node-status-error' : ''
-      }`}
-    >
-      {node.data ? node.data.name : node.name}
-    </div>
-  );
+  return <div className="other-node">{node.name}</div>;
 };
 
 const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return (
-    <div
-      className={`condition-node ${
-        node.configuring ? 'node-configuring' : ''
-      } ${node.validateStatusError ? 'node-status-error' : ''}`}
-    >
-      {node.data ? node.data.name : node.name}
-    </div>
-  );
+  return <div className="condition-node">{node.name}</div>;
 };
 
 const registerNodes: IRegisterNode[] = [
@@ -55,13 +40,11 @@ const registerNodes: IRegisterNode[] = [
     type: 'node',
     name: '普通节点',
     displayComponent: NodeDisplay,
-    configComponent: ConfigForm,
   },
   {
     type: 'condition',
     name: '条件节点',
     displayComponent: ConditionNodeDisplay,
-    configComponent: ConfigForm,
   },
   {
     type: 'branch',
@@ -119,22 +102,55 @@ const defaultNodes = [
   },
 ];
 
-const NodeForm = () => {
+const Zoom = () => {
   const [nodes, setNodes] = useState<INode[]>(defaultNodes);
+  const [zoom, setZoom] = useState(100);
+  const [smallerDisabled, setSmallerDisabled] = useState(false);
+  const [biggerDisabled, setBiggerDisabled] = useState(false);
+
+  const ref = useRef<IFlowBuilderMethod>(null);
 
   const handleChange = (nodes: INode[]) => {
     console.log('nodes change', nodes);
     setNodes(nodes);
   };
 
+  const handleZoomChange = (smallerDisabled, value, biggerDisabled) => {
+    setSmallerDisabled(smallerDisabled);
+    setBiggerDisabled(biggerDisabled);
+    setZoom(value);
+  };
+
   return (
-    <FlowBuilder
-      nodes={nodes}
-      onChange={handleChange}
-      registerNodes={registerNodes}
-      historyTool
-    />
+    <>
+      <Button
+        disabled={smallerDisabled}
+        onClick={() => ref.current.zoom('smaller')}
+      >
+        -
+      </Button>
+      {zoom}
+      <Button
+        disabled={biggerDisabled}
+        onClick={() => ref.current.zoom('bigger')}
+      >
+        +
+      </Button>
+      <FlowBuilder
+        ref={ref}
+        zoomTool={{
+          hidden: true,
+          min: 10,
+          max: 150,
+          step: 25,
+        }}
+        nodes={nodes}
+        onChange={handleChange}
+        registerNodes={registerNodes}
+        onZoomChange={handleZoomChange}
+      />
+    </>
   );
 };
 
-export default NodeForm;
+export default Zoom;

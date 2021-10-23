@@ -50,12 +50,11 @@
   }
 }
 
-.flow-builder-zoom-tool {
+.flow-builder-tool {
   position: absolute;
   top: 16px;
   right: 16px;
   z-index: 10;
-  width: 120px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,10 +64,18 @@
     border: none;
     background-color: #fff !important;
   }
+}
+
+.flow-builder-zoom-tool {
+  width: 120px;
   &__number {
     flex: 1;
     text-align: center;
   }
+}
+
+.flow-builder-undo-redo-tool {
+  width: 80px;
 }
 
 .flow-builder-addable-nodes {

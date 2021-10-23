@@ -4,11 +4,11 @@ import FlowBuilder, { INode, IRegisterNode } from 'react-flow-builder';
 const registerNodes: IRegisterNode[] = [
   {
     type: 'node1',
-    name: '其他节点 1',
+    name: '普通节点 1',
   },
   {
     type: 'node2',
-    name: '其他节点 2',
+    name: '普通节点 2',
   },
   {
     type: 'condition',

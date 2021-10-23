@@ -12,9 +12,9 @@ order: 2
 - 结束节点
 - 分支节点
 - 条件节点
-- 其他
+- 普通节点
 
-## 自定义节点
+## 节点数量
 
 ### RegisterNode
 
@@ -28,7 +28,9 @@ order: 2
 
 <code src="./demo/node/register/index.tsx" />
 
-## 自定义节点样式
+## 节点样式
+
+通过 `displayComponent` 属性注册节点对应的展示组件，实现不同风格的交互设计
 
 ### RegisterNode
 
@@ -46,7 +48,9 @@ order: 2
 
 <code src="./demo/node/display/index.tsx" />
 
-## 自定义节点表单
+## 节点表单
+
+通过 `configComponent` 属性注册节点对应的表单组件，作为点击节点展开抽屉的内容（由于 antd3 和 antd4 的抽屉组件 api 差异较大，需要自行实现抽屉底部的关闭、确认按钮）
 
 ### RegisterNode
 
@@ -65,3 +69,26 @@ order: 2
 <br>
 
 <code src="./demo/node/form/index.tsx" />
+
+## 节点的可添加节点列表
+
+默认情况下，所有节点（除结束节点外，结束节点之后不可再添加节点）的可添加节点列表（分支节点、普通节点）都是一样的。通过 `addableNodeTypes` 属性注册节点的可添加节点列表，若此属性为有效数组，则将数组中的所有节点类型作为该节点的可添加节点列表，实现不同节点之间的差异化。
+
+以下例子就实现了：
+
+- 开始节点设置了 addableNodeTypes 为普通节点 --> 只能添加普通节点
+- 普通节点和条件节点没有设置 addableNodeTypes --> 所有可添加节点（普通节点和分支节点）
+- 分支节点设置了 addableNodeTypes 为空数组 --> 不能再添加节点
+
+<code src="./demo/node/addableNodeTypes/index.tsx" />
+
+## 点击加号之后的展示内容
+
+通过`addableComponent` 属性注册节点下方点击加号之后展示内容的组件，替换默认实现的 Popover 组件 content 属性。向组件提供了 `onAddNode` 属性作为执行添加节点动作时需要调用的方法
+
+以下例子就实现了：
+
+- 开始节点点击加号之后的内容自定义
+- 其他的节点使用默认内容
+
+<code src="./demo/node/addableComponent/index.tsx" />

@@ -50,6 +50,19 @@ export interface INode {
   validateStatusError?: boolean;
 }
 
+export interface IZoomToolConfig {
+  hidden?: boolean;
+  initialValue?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+}
+
+export interface IHistoryToolConfig {
+  hidden?: boolean;
+  max?: number;
+}
+
 export interface IFlowBuilderProps {
   className?: string;
   backgroundColor?: string;
@@ -57,24 +70,19 @@ export interface IFlowBuilderProps {
   spaceX?: number;
   spaceY?: number;
   layout?: LayoutType;
-  zoomTool?:
-    | boolean
-    | { hidden?: boolean; min?: number; max?: number; step?: number };
-  historyTool?: boolean | { hidden?: boolean; max?: number };
+  zoomTool?: boolean | IZoomToolConfig;
+  historyTool?: boolean | IHistoryToolConfig;
   drawerProps?: any;
   readonly?: boolean;
   registerNodes: IRegisterNode[];
   nodes: INode[];
   onChange: (nodes: INode[], changeEvent?: string) => void;
-  onHistoryChange?: (params: {
-    undoDisabled: boolean;
-    redoDisabled: boolean;
-  }) => void;
-  onZoomChange?: (params: {
-    smallerDisabled: boolean;
-    biggerDisabled: boolean;
-    value: number;
-  }) => void;
+  onHistoryChange?: (undoDisabled: boolean, redoDisabled: boolean) => void;
+  onZoomChange?: (
+    smallerDisabled: boolean,
+    value: number,
+    biggerDisabled: boolean,
+  ) => void;
 }
 
 export type ZoomType = 'smaller' | 'bigger';
