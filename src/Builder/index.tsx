@@ -225,15 +225,20 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       setActiveHistoryRecordIndex(latestIndex);
     };
 
-    const handleZoom = (type: ZoomType) => {
-      const latestZoom =
-        type === 'smaller'
-          ? zoom - zoomStep < minZoom
-            ? minZoom
-            : zoom - zoomStep
-          : zoom + zoomStep > maxZoom
-          ? maxZoom
+    const handleZoom = (type: ZoomType | number) => {
+      let latestZoom =
+        typeof type === 'number'
+          ? type
+          : type === 'smaller'
+          ? zoom - zoomStep
           : zoom + zoomStep;
+
+      latestZoom =
+        latestZoom < minZoom
+          ? minZoom
+          : latestZoom > maxZoom
+          ? maxZoom
+          : latestZoom;
 
       setZoom(latestZoom);
     };

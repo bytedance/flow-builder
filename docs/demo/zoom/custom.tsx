@@ -136,6 +136,7 @@ const Zoom = () => {
       >
         +
       </Button>
+      <Button onClick={() => ref.current.zoom(60)}>60</Button>
       <FlowBuilder
         ref={ref}
         zoomTool={{

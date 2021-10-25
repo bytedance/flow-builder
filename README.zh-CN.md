@@ -177,10 +177,10 @@ export default Demo;
 
 ### FlowBuilderInstance
 
-| 名称    | 说明       | 类型                                    |
-| :------ | :--------- | :-------------------------------------- |
-| history | 撤销、重做 | `(type: 'undo' \| 'redo') => void`      |
-| zoom    | 缩放       | `(type: 'smaller' \| 'bigger') => void` |
+| 名称    | 说明       | 类型                                              |
+| :------ | :--------- | :------------------------------------------------ |
+| history | 撤销、重做 | `(type: 'undo' \| 'redo') => void`                |
+| zoom    | 缩放       | `(type: 'smaller' \| 'bigger' \| number) => void` |
 
 ### RegisterNode
 

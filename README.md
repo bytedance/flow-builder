@@ -177,10 +177,10 @@ export default Demo;
 
 ### FlowBuilderInstance
 
-| Name    | Description | Type                                    |
-| :------ | :---------- | :-------------------------------------- |
-| history | undo, redo  | `(type: 'undo' \| 'redo') => void`      |
-| zoom    | zoom        | `(type: 'smaller' \| 'bigger') => void` |
+| Name    | Description | Type                                              |
+| :------ | :---------- | :------------------------------------------------ |
+| history | undo, redo  | `(type: 'undo' \| 'redo') => void`                |
+| zoom    | zoom        | `(type: 'smaller' \| 'bigger' \| number) => void` |
 
 ### RegisterNode
 

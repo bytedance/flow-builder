@@ -91,7 +91,7 @@ export type HistoryType = 'undo' | 'redo';
 
 export interface IFlowBuilderMethod {
   history: (type: HistoryType) => void;
-  zoom: (type: ZoomType) => void;
+  zoom: (type: ZoomType | number) => void;
 }
 
 export interface IRender {
