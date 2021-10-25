@@ -15,8 +15,14 @@ const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
   return <div className="end-node">{node.name}</div>;
 };
 
-const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
-  return <div className="other-node">{node.name}</div>;
+// @ts-ignore
+const NodeDisplay: React.FC<IDisplayComponent> = ({ node, remove }) => {
+  return (
+    <div className="other-node">
+      <div onClick={remove}>删除</div>
+      {node.name}
+    </div>
+  );
 };
 
 const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {

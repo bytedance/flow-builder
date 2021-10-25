@@ -149,7 +149,7 @@ export default Demo;
 | layout          | Use vertical or horizontal layout                                                                                                                                                                                                        | `vertical` \| `horizontal`                                                   |          | `vertical` |
 | lineColor       | The color of line                                                                                                                                                                                                                        | `string`                                                                     |          | #999999    |
 | nodes           | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                              | ✓        | -          |
-| readonly        | Readonly mode, cannot add, delete, configure.                                                                                                                                                                                            | `boolean`                                                                    |          | false      |
+| readonly        | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                                    |          | false      |
 | registerNodes   | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                              | ✓        | -          |
 | spaceX          | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                                     |          | `16`       |
 | spaceY          | Vertical spacing between nodes                                                                                                                                                                                                           | `number`                                                                     |          | `16`       |
@@ -191,7 +191,8 @@ export default Demo;
 | addIcon            | The icon in addable node list (There are already some default icons)                                                            | `ReactNode`                                         |          | -                                 |
 | conditionNodeType  | The type of condition node                                                                                                      | `string`                                            |          | -                                 |
 | configComponent    | The Component of configuring node form                                                                                          | `React.FC`\<[ConfigComponent](#configcomponent)\>   |          | -                                 |
-| deleteConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                             |          | Are you sure to delete this node? |
+| customRemove       | Custom remove button                                                                                                            | `boolean`                                           |          | false                             |
+| removeConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                             |          | Are you sure to remove this node? |
 | displayComponent   | The Component of displaying node                                                                                                | `React.FC`\<[DisplayComponent](#displaycomponent)\> |          | -                                 |
 | extraData          | The extra data of the node                                                                                                      | `any`                                               |          | -                                 |
 | name               | The name of node                                                                                                                | `string`                                            | ✓        | -                                 |
@@ -202,20 +203,21 @@ export default Demo;
 | Property | Description                 | Type          |
 | :------- | :-------------------------- | :------------ |
 | node     | The all information of node | [Node](#node) |
+| remove   | Remove node                 | `() => void`  |
 
 #### ConfigComponent
 
-| Property | Description                                                                                                                                                                | Type                                                   |
-| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
-| node     | The all information of node                                                                                                                                                | [Node](#node)                                          |
-| onCancel | Called on cancel, used to close the drawer                                                                                                                                 | `() => void`                                           |
-| onSave   | Called on save node data (automatically close the drawer, no need to call onCancel). FlowBuilder will set the `validateStatusError` property according to the second param | `(values: any, validateStatusError?: boolean) => void` |
+| Property | Description                                                                                                                                                              | Type                                                   |
+| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
+| node     | The all information of node                                                                                                                                              | [Node](#node)                                          |
+| cancel   | Called on cancel, used to close the drawer                                                                                                                               | `() => void`                                           |
+| save     | Called on save node data (automatically close the drawer, no need to call cancel). FlowBuilder will set the `validateStatusError` property according to the second param | `(values: any, validateStatusError?: boolean) => void` |
 
 #### AddableComponent
 
-| Property  | Description | Type                     |
-| :-------- | :---------- | :----------------------- |
-| onAddNode |             | `(type: string) => void` |
+| Property | Description | Type                     |
+| :------- | :---------- | :----------------------- |
+| add      |             | `(type: string) => void` |
 
 ### Node
 

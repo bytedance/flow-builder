@@ -191,7 +191,8 @@ export default Demo;
 | addIcon            | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | `ReactNode`                                         |      | -                                 |
 | conditionNodeType  | 对应的条件节点类型                                                                                  | `string`                                            |      | -                                 |
 | configComponent    | 节点的配置表单组件                                                                                  | `React.FC`\<[ConfigComponent](#configcomponent)\>   |      | -                                 |
-| deleteConfirmTitle | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | `string` \| `ReactNode`                             |      | Are you sure to delete this node? |
+| customRemove       | 自定义删除按钮                                                                                      | `boolean`                                           |      | false                             |
+| removeConfirmTitle | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | `string` \| `ReactNode`                             |      | Are you sure to remove this node? |
 | displayComponent   | 节点的展示组件                                                                                      | `React.FC`\<[DisplayComponent](#displaycomponent)\> |      | -                                 |
 | extraData          | 节点的额外数据                                                                                      | `any`                                               |      | -                                 |
 | name               | 节点名称                                                                                            | `string`                                            | ✓    | -                                 |
@@ -199,23 +200,24 @@ export default Demo;
 
 #### DisplayComponent
 
-| 参数 | 说明     | 类型          |
-| :--- | :------- | :------------ |
-| node | 节点信息 | [Node](#node) |
+| 参数   | 说明                 | 类型          |
+| :----- | :------------------- | :------------ |
+| node   | 节点信息             | [Node](#node) |
+| remove | 自定义删除按钮时调用 | `() => void`  |
 
 #### ConfigComponent
 
-| 参数     | 说明                                                                                                                           | 类型                                                   |
-| :------- | :----------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
-| node     | 节点信息                                                                                                                       | [Node](#node)                                          |
-| onCancel | 取消时调用，用来关闭抽屉                                                                                                       | `() => void`                                           |
-| onSave   | 保存节点数据时调用（自动关闭抽屉，无需再执行 onCancel），流程引擎会根据第二个参数的布尔值设置节点的 `validateStatusError` 属性 | `(values: any, validateStatusError?: boolean) => void` |
+| 参数   | 说明                                                                                                                         | 类型                                                   |
+| :----- | :--------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
+| node   | 节点信息                                                                                                                     | [Node](#node)                                          |
+| cancel | 取消时调用，用来关闭抽屉                                                                                                     | `() => void`                                           |
+| save   | 保存节点数据时调用（自动关闭抽屉，无需再执行 cancel），流程引擎会根据第二个参数的布尔值设置节点的 `validateStatusError` 属性 | `(values: any, validateStatusError?: boolean) => void` |
 
 #### AddableComponent
 
-| 参数      | 说明                               | 类型                     |
-| :-------- | :--------------------------------- | :----------------------- |
-| onAddNode | 增加节点时调用，会自动关闭 popover | `(type: string) => void` |
+| 参数 | 说明                               | 类型                     |
+| :--- | :--------------------------------- | :----------------------- |
+| add  | 增加节点时调用，会自动关闭 popover | `(type: string) => void` |
 
 ### Node
 

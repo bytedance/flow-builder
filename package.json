@@ -1,6 +1,6 @@
 {
   "name": "react-flow-builder",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "keywords": [
     "flow",
     "builder",
@@ -16,7 +16,8 @@
     "release": "npm run build && npm publish",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "prepublish": "npm run build"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -50,7 +51,7 @@
     "prettier": "^2.2.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "react-flow-builder": "^0.1.8",
+    "react-flow-builder": "^0.1.9",
     "yorkie": "^2.0.0"
   },
   "dependencies": {

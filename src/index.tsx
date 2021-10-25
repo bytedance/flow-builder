@@ -3,16 +3,17 @@ import React from 'react';
 
 export interface IDisplayComponent {
   node: INode;
+  remove?: () => void;
 }
 
 export interface IConfigComponent {
   node: INode;
-  onCancel?: () => void;
-  onSave?: (values: any, validateStatusError?: boolean) => void;
+  cancel?: () => void;
+  save?: (values: any, validateStatusError?: boolean) => void;
 }
 
 export interface IAddableComponent {
-  onAddNode: (type: string) => void;
+  add: (type: string) => void;
 }
 
 export type LayoutType = 'vertical' | 'horizontal';
@@ -32,9 +33,10 @@ export interface IRegisterNode {
   extraData?: any;
   displayComponent?: React.FC<IDisplayComponent>;
   configComponent?: React.FC<IConfigComponent>;
-  deleteConfirmTitle?: string;
+  removeConfirmTitle?: string;
   addableNodeTypes?: string[];
   addableComponent?: React.FC<IAddableComponent>;
+  customRemove?: boolean;
 }
 
 export interface INode {

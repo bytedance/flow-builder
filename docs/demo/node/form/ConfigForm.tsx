@@ -3,17 +3,17 @@ import { IConfigComponent } from 'react-flow-builder';
 import { Form, Button, Input } from 'antd';
 
 const ConfigForm: React.FC<IConfigComponent> = (props) => {
-  const { node, onCancel, onSave } = props;
+  const { node, cancel, save } = props;
 
   const [form] = Form.useForm();
 
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      onSave?.(values);
+      save?.(values);
     } catch (error) {
       const values = form.getFieldsValue();
-      onSave?.(values, !!error);
+      save?.(values, !!error);
     }
   };
 
@@ -25,7 +25,7 @@ const ConfigForm: React.FC<IConfigComponent> = (props) => {
         </Form.Item>
       </Form>
       <div>
-        <Button onClick={onCancel}>取消</Button>
+        <Button onClick={cancel}>取消</Button>
         <Button type="primary" onClick={handleSubmit}>
           确定
         </Button>

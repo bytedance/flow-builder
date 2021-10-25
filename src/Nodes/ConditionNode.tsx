@@ -15,9 +15,10 @@ interface IProps {
   conditionIndex: number;
   registerNodes: IRegisterNode[];
   renderAddNodeButton: React.ReactNode;
-  renderDeleteButton: React.ReactNode;
+  renderRemoveButton: React.ReactNode;
   renderNext: (params: IRender) => React.ReactNode;
   onNodeClick: (node: INode) => void;
+  remove: () => void;
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {
@@ -31,10 +32,11 @@ const ConditionNode: React.FC<IProps> = (props) => {
     parentNode,
     conditionIndex,
     registerNodes,
-    renderDeleteButton,
+    renderRemoveButton,
     renderAddNodeButton,
     renderNext,
     onNodeClick,
+    remove,
   } = props;
 
   const { next } = node;
@@ -71,8 +73,8 @@ const ConditionNode: React.FC<IProps> = (props) => {
       />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component node={node} />
-        {renderDeleteButton}
+        <Component node={node} remove={remove} />
+        {renderRemoveButton}
       </div>
 
       {renderAddNodeButton}

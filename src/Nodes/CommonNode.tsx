@@ -7,8 +7,9 @@ interface IProps {
   node: INode;
   registerNodes: IRegisterNode[];
   renderAddNodeButton: React.ReactNode;
-  renderDeleteButton: React.ReactNode;
+  renderRemoveButton: React.ReactNode;
   onNodeClick: (node: INode) => void;
+  remove: () => void;
 }
 
 const CommonNode: React.FC<IProps> = (props) => {
@@ -16,8 +17,9 @@ const CommonNode: React.FC<IProps> = (props) => {
     node,
     registerNodes,
     renderAddNodeButton,
-    renderDeleteButton,
+    renderRemoveButton,
     onNodeClick,
+    remove,
   } = props;
 
   const registerNode = getRegisterNode(registerNodes, node.type);
@@ -38,9 +40,9 @@ const CommonNode: React.FC<IProps> = (props) => {
       }`}
     >
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component node={node} />
+        <Component node={node} remove={remove} />
 
-        {renderDeleteButton}
+        {renderRemoveButton}
       </div>
 
       {renderAddNodeButton}

@@ -24,12 +24,12 @@ const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
   return <div className="condition-node">{node.name}</div>;
 };
 
-const CustomAddableComponent: React.FC<IAddableComponent> = ({ onAddNode }) => {
+const CustomAddableComponent: React.FC<IAddableComponent> = ({ add }) => {
   return (
     <div>
       <div
         className="flow-builder-custom-addable-node-item"
-        onClick={() => onAddNode('node')}
+        onClick={() => add('node')}
       >
         普通节点
       </div>

@@ -34,7 +34,7 @@ import {
   HistoryType,
 } from '@/index';
 
-import DeleteIcon from '../icons/close-one.svg';
+import RemoveIcon from '../icons/close-one.svg';
 
 import './index.less';
 
@@ -146,12 +146,12 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       );
     };
 
-    const handleDelete = (node: INode, e?: React.MouseEvent) => {
+    const handleRemove = (node: INode, e?: React.MouseEvent) => {
       e?.stopPropagation();
       let removeIndex = node.path?.pop();
       let parentNodes = get(nodes, node.path) || nodes;
 
-      // Delete the last condition --> Delete the branch
+      // Remove the last condition --> Remove the branch
       if (
         getIsConditionNode(registerNodes, node.type) &&
         Array.isArray(parentNodes) &&
@@ -164,7 +164,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       // @ts-ignore
       parentNodes.splice(removeIndex, 1);
 
-      onChange([...nodes], `delete-node__${node.type}`);
+      onChange([...nodes], `remove-node__${node.type}`);
 
       handleHistoryRecordsChange(
         historyRecords,
@@ -300,25 +300,26 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       }
       node.path.push(nodeIndex);
 
-      const renderDeleteButton = !readonly ? (
-        <Popconfirm
-          title={
-            registerNode?.deleteConfirmTitle ||
-            'Are you sure to delete this node?'
-          }
-          onCancel={(e) => e?.stopPropagation()}
-          onConfirm={(e) => handleDelete(node, e)}
-          getPopupContainer={(triggerNode) =>
-            triggerNode.parentNode as HTMLElement
-          }
-        >
-          <img
-            className="flow-builder-node__delete"
-            onClick={(e) => e.stopPropagation()}
-            src={DeleteIcon}
-          />
-        </Popconfirm>
-      ) : null;
+      const renderRemoveButton =
+        !readonly && !registerNode?.customRemove ? (
+          <Popconfirm
+            title={
+              registerNode?.removeConfirmTitle ||
+              'Are you sure to remove this node?'
+            }
+            onCancel={(e) => e?.stopPropagation()}
+            onConfirm={(e) => handleRemove(node, e)}
+            getPopupContainer={(triggerNode) =>
+              triggerNode.parentNode as HTMLElement
+            }
+          >
+            <img
+              className="flow-builder-node__remove"
+              onClick={(e) => e.stopPropagation()}
+              src={RemoveIcon}
+            />
+          </Popconfirm>
+        ) : null;
 
       const renderAddNodeButton = (
         <>
@@ -388,9 +389,10 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               conditionIndex={nodeIndex}
               registerNodes={registerNodes}
               renderAddNodeButton={renderAddNodeButton}
-              renderDeleteButton={renderDeleteButton}
+              renderRemoveButton={renderRemoveButton}
               renderNext={render}
               onNodeClick={handleNodeClick}
+              remove={() => handleRemove(node)}
             />
           );
         default:
@@ -400,8 +402,9 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               node={node}
               registerNodes={registerNodes}
               renderAddNodeButton={renderAddNodeButton}
-              renderDeleteButton={renderDeleteButton}
+              renderRemoveButton={renderRemoveButton}
               onNodeClick={handleNodeClick}
+              remove={() => handleRemove(node)}
             />
           );
       }
@@ -494,8 +497,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
             {ConfigComponent && activeNode ? (
               <ConfigComponent
                 node={activeNode}
-                onCancel={handleDrawerClose}
-                onSave={handleDrawerOk}
+                cancel={handleDrawerClose}
+                save={handleDrawerOk}
               />
             ) : null}
           </Drawer>
