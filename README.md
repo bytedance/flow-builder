@@ -200,10 +200,11 @@ export default Demo;
 
 #### DisplayComponent
 
-| Property | Description                 | Type          |
-| :------- | :-------------------------- | :------------ |
-| node     | The all information of node | [Node](#node) |
-| remove   | Remove node                 | `() => void`  |
+| Property    | Description                 | Type                      |
+| :---------- | :-------------------------- | :------------------------ |
+| node        | The all information of node | [Node](#node)             |
+| remove      | Remove node                 | `() => void`              |
+| batchRemove | Batch remove node           | `(ids: string[]) => void` |
 
 #### ConfigComponent
 
@@ -215,9 +216,10 @@ export default Demo;
 
 #### AddableComponent
 
-| Property | Description | Type                     |
-| :------- | :---------- | :----------------------- |
-| add      |             | `(type: string) => void` |
+| Property | Description                 | Type                     |
+| :------- | :-------------------------- | :----------------------- |
+| node     | The all information of node | [Node](#node)            |
+| add      |                             | `(type: string) => void` |
 
 ### Node
 

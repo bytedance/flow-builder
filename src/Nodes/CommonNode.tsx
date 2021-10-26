@@ -10,6 +10,7 @@ interface IProps {
   renderRemoveButton: React.ReactNode;
   onNodeClick: (node: INode) => void;
   remove: () => void;
+  batchRemove: (ids: string[]) => void;
 }
 
 const CommonNode: React.FC<IProps> = (props) => {
@@ -20,6 +21,7 @@ const CommonNode: React.FC<IProps> = (props) => {
     renderRemoveButton,
     onNodeClick,
     remove,
+    batchRemove,
   } = props;
 
   const registerNode = getRegisterNode(registerNodes, node.type);
@@ -40,7 +42,7 @@ const CommonNode: React.FC<IProps> = (props) => {
       }`}
     >
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component node={node} remove={remove} />
+        <Component node={node} remove={remove} batchRemove={batchRemove} />
 
         {renderRemoveButton}
       </div>

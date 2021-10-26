@@ -200,10 +200,11 @@ export default Demo;
 
 #### DisplayComponent
 
-| 参数   | 说明                 | 类型          |
-| :----- | :------------------- | :------------ |
-| node   | 节点信息             | [Node](#node) |
-| remove | 自定义删除按钮时调用 | `() => void`  |
+| 参数        | 说明                 | 类型                      |
+| :---------- | :------------------- | :------------------------ |
+| node        | 节点信息             | [Node](#node)             |
+| remove      | 自定义删除按钮时调用 | `() => void`              |
+| batchRemove | 批量删除节点         | `(ids: string[]) => void` |
 
 #### ConfigComponent
 
@@ -217,6 +218,7 @@ export default Demo;
 
 | 参数 | 说明                               | 类型                     |
 | :--- | :--------------------------------- | :----------------------- |
+| node | 节点信息                           | [Node](#node)            |
 | add  | 增加节点时调用，会自动关闭 popover | `(type: string) => void` |
 
 ### Node

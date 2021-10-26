@@ -39,7 +39,7 @@ const AddNodeButton: React.FC<IProps> = (props) => {
   };
 
   const addableOptions = AddableComponent ? (
-    <AddableComponent add={handleAddNode} />
+    <AddableComponent node={node} add={handleAddNode} />
   ) : (
     <>
       {options.map((item) => {

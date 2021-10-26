@@ -4,6 +4,7 @@ import React from 'react';
 export interface IDisplayComponent {
   node: INode;
   remove?: () => void;
+  batchRemove?: (ids: string[]) => void;
 }
 
 export interface IConfigComponent {
@@ -13,6 +14,7 @@ export interface IConfigComponent {
 }
 
 export interface IAddableComponent {
+  node: INode;
   add: (type: string) => void;
 }
 

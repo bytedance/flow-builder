@@ -19,6 +19,7 @@ interface IProps {
   renderNext: (params: IRender) => React.ReactNode;
   onNodeClick: (node: INode) => void;
   remove: () => void;
+  batchRemove: (ids: string[]) => void;
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {
@@ -37,6 +38,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
     renderNext,
     onNodeClick,
     remove,
+    batchRemove,
   } = props;
 
   const { next } = node;
@@ -73,7 +75,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
       />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component node={node} remove={remove} />
+        <Component node={node} remove={remove} batchRemove={batchRemove} />
         {renderRemoveButton}
       </div>
 

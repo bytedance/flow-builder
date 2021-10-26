@@ -173,6 +173,31 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       );
     };
 
+    const handleBatchRemove = (removeIds: string[]) => {
+      const remove = (nodes: INode[]) => {
+        const _nodes = nodes.filter((item) => !removeIds.includes(item.id));
+        for (const node of _nodes) {
+          if (Array.isArray(node.branchs)) {
+            node.branchs = remove(node.branchs);
+          }
+          if (Array.isArray(node.next)) {
+            node.next = remove(node.next);
+          }
+        }
+        return _nodes;
+      };
+
+      const result = remove(nodes);
+
+      onChange([...result], 'batch-remove-node');
+
+      handleHistoryRecordsChange(
+        historyRecords,
+        activeHistoryRecordIndex,
+        result,
+      );
+    };
+
     const handleNodeClick = (node: INode) => {
       if (
         !readonly &&
@@ -393,6 +418,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               renderNext={render}
               onNodeClick={handleNodeClick}
               remove={() => handleRemove(node)}
+              batchRemove={handleBatchRemove}
             />
           );
         default:
@@ -405,6 +431,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               renderRemoveButton={renderRemoveButton}
               onNodeClick={handleNodeClick}
               remove={() => handleRemove(node)}
+              batchRemove={handleBatchRemove}
             />
           );
       }
