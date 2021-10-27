@@ -17,7 +17,7 @@ import {
   ConditionNode,
 } from '@/Nodes';
 import {
-  createUuidWithPrefix,
+  createUuid,
   getRegisterNode,
   getIsBranchNode,
   getIsConditionNode,
@@ -125,15 +125,15 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         getIsBranchNode(registerNodes, node.type) &&
         getIsConditionNode(registerNodes, newNodeType)
       ) {
-        node.branchs = node.branchs || [];
-        node.branchs.push(newNode);
+        node.children = node.children || [];
+        node.children.push(newNode);
       } else if (getIsConditionNode(registerNodes, node.type)) {
-        node.next = node.next || [];
-        node.next.unshift(newNode);
+        node.children = node.children || [];
+        node.children.unshift(newNode);
       } else {
-        const nodeIndex = node.path?.pop();
+        const nodeIndex = Number(node.path?.pop());
         const parentPath = node.path;
-        const parentNodes = get(nodes, parentPath);
+        const parentNodes = get(nodes, parentPath || []);
         // @ts-ignore
         (parentNodes || nodes)?.splice(nodeIndex + 1, 0, newNode);
       }
@@ -148,8 +148,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
     const handleRemove = (node: INode, e?: React.MouseEvent) => {
       e?.stopPropagation();
-      let removeIndex = node.path?.pop();
-      let parentNodes = get(nodes, node.path) || nodes;
+      let removeIndex = Number(node.path?.pop());
+      let parentNodes = get(nodes, node.path || []) || nodes;
 
       // Remove the last condition --> Remove the branch
       if (
@@ -158,8 +158,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         parentNodes.length === 1
       ) {
         node.path?.pop();
-        removeIndex = node.path?.pop();
-        parentNodes = get(nodes, node.path) || nodes;
+        removeIndex = Number(node.path?.pop());
+        parentNodes = get(nodes, node.path || []) || nodes;
       }
       // @ts-ignore
       parentNodes.splice(removeIndex, 1);
@@ -177,11 +177,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       const remove = (nodes: INode[]) => {
         const _nodes = nodes.filter((item) => !removeIds.includes(item.id));
         for (const node of _nodes) {
-          if (Array.isArray(node.branchs)) {
-            node.branchs = remove(node.branchs);
-          }
-          if (Array.isArray(node.next)) {
-            node.next = remove(node.next);
+          if (Array.isArray(node.children)) {
+            node.children = remove(node.children);
           }
         }
         return _nodes;
@@ -318,12 +315,10 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
       node.path = [];
       node.path.push(...parentPath);
-      if (isConditionNode) {
-        node.path.push('branchs');
-      } else if (isConditionParentNode) {
-        node.path.push('next');
+      if (isConditionNode || isConditionParentNode) {
+        node.path.push('children');
       }
-      node.path.push(nodeIndex);
+      node.path.push(String(nodeIndex));
 
       const renderRemoveButton =
         !readonly && !registerNode?.customRemove ? (
@@ -471,12 +466,12 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       if (defaultNodes.length === 0) {
         defaultNodes = [
           {
-            id: createUuidWithPrefix(),
+            id: createUuid(),
             type: 'start',
             name: 'start',
           },
           {
-            id: createUuidWithPrefix(),
+            id: createUuid(),
             type: 'end',
             name: 'end',
           },

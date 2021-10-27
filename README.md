@@ -182,6 +182,14 @@ export default Demo;
 | history | undo, redo  | `(type: 'undo' \| 'redo') => void`                |
 | zoom    | zoom        | `(type: 'smaller' \| 'bigger' \| number) => void` |
 
+### Formatter
+
+| Name           | Description             | Type                                                                                        |
+| :------------- | :---------------------- | :------------------------------------------------------------------------------------------ |
+| buildFlatNodes | Translate to flat nodes | `(params: {registerNodes: IRegisterNode[], nodes: INode[], fieldName?: string}) => INode[]` |
+| buildTreeNodes | Translate to tree nodes | `(params: {nodes: INode[], fieldName?: string}) => INode[]`                                 |
+| createUuid     | Create uuid             | `(prefix?: string) => void`                                                                 |
+
 ### RegisterNode
 
 | Property           | Description                                                                                                                     | Type                                                | Required | Default                           |
@@ -225,13 +233,12 @@ export default Demo;
 
 | Property            | Description                                                                                                                     | Type            |
 | :------------------ | :------------------------------------------------------------------------------------------------------------------------------ | :-------------- |
-| branchs             | The condition nodes array of branch node                                                                                        | [Node](#node)[] |
+| children            | The condition nodes array of branch node, or the next flow of condition node                                                    | [Node](#node)[] |
 | configuring         | Whether configuring of node. The display Component can highlight the node according to this property                            | `boolean`       |
 | data                | The data of node                                                                                                                | `any`           |
 | extraData           | The extra data of node. Same as the `extraData` of the registered node, not deep clone                                          | `any`           |
 | id                  | The unique id of node                                                                                                           | `string`        |
 | name                | The name of node. Same as the `name` of the registered node                                                                     | `string`        |
-| next                | The next flow of condition node                                                                                                 | [Node](#node)[] |
-| path                | The full path in FlowBuilder                                                                                                    | `any[]`         |
+| path                | The full path in FlowBuilder                                                                                                    | `string[]`      |
 | type                | The type of node. Same as the `type` of the registered node                                                                     | `string`        |
 | validateStatusError | The Component of configuring node form validate failed. The display Component can highlight the node according to this property | `boolean`       |

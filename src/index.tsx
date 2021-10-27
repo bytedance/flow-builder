@@ -46,12 +46,12 @@ export interface INode {
   type: string;
   name: string;
   data?: any;
-  branchs?: INode[];
-  next?: INode[];
+  children?: INode[];
+  path?: string[];
   extraData?: any;
-  path?: any[];
   configuring?: boolean;
   validateStatusError?: boolean;
+  [key: string]: any;
 }
 
 export interface IZoomToolConfig {
@@ -108,5 +108,7 @@ export interface IRenderNode {
   nodeIndex: number;
   parentNode?: INode;
 }
+
+export { createUuid, buildFlatNodes, buildTreeNodes } from '@/utils';
 
 export default Builder;

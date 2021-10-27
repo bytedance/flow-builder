@@ -41,10 +41,10 @@ const ConditionNode: React.FC<IProps> = (props) => {
     batchRemove,
   } = props;
 
-  const { next } = node;
+  const { children } = node;
 
-  const conditionCount = Array.isArray(parentNode?.branchs)
-    ? parentNode?.branchs.length || 0
+  const conditionCount = Array.isArray(parentNode?.children)
+    ? parentNode?.children.length || 0
     : 0;
 
   const registerNode = getRegisterNode(registerNodes, node.type);
@@ -81,9 +81,9 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
       {renderAddNodeButton}
 
-      {Array.isArray(next)
+      {Array.isArray(children)
         ? renderNext({
-            nodes: next,
+            nodes: children,
             parentNode: node,
           })
         : null}

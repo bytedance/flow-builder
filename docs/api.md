@@ -48,6 +48,14 @@ order: 5
 | history | 撤销、重做 | `(type: 'undo' \| 'redo') => void`                |
 | zoom    | 缩放       | `(type: 'smaller' \| 'bigger' \| number) => void` |
 
+### Formatter
+
+| 名称           | 说明           | 类型                                                                                        |
+| :------------- | :------------- | :------------------------------------------------------------------------------------------ |
+| buildFlatNodes | 转换成扁平结构 | `(params: {registerNodes: IRegisterNode[], nodes: INode[], fieldName?: string}) => INode[]` |
+| buildTreeNodes | 转换成树形结构 | `(params: {nodes: INode[], fieldName?: string}) => INode[]`                                 |
+| createUuid     | 创建 uuid      | `(prefix?: string) => void`                                                                 |
+
 ## RegisterNode
 
 | 参数               | 说明                                                                                                | 类型                                                | 必须 | 默认值                            |
@@ -91,13 +99,12 @@ order: 5
 
 | 参数                | 说明                                                     | 类型            |
 | :------------------ | :------------------------------------------------------- | :-------------- |
-| branchs             | 分支节点对应的条件节点数组                               | [Node](#node)[] |
+| children            | 分支节点对应的条件节点数组 或 条件节点对应的子流程       | [Node](#node)[] |
 | configuring         | 节点是否正在配置，节点的展示组件可根据此属性高亮节点     | `boolean`       |
 | data                | 节点的数据                                               | `any`           |
 | extraData           | 节点的额外数据，也就是节点注册时的 extraData，不是深拷贝 | `any`           |
 | id                  | 节点的唯一 id                                            | `string`        |
 | name                | 节点名称，同节点注册时的 name                            | `string`        |
-| next                | 条件节点对应的子流程                                     | [Node](#node)[] |
-| path                | 节点在流程引擎中的路径                                   | `any[]`         |
+| path                | 节点在流程引擎中的路径                                   | `string[]`      |
 | type                | 节点类型，同节点注册时的 `type`                          | `string`        |
 | validateStatusError | 节点的表单校验失败，节点的展示组件可根据此属性高亮节点   | `boolean`       |

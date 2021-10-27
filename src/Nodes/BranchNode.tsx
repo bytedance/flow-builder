@@ -28,11 +28,11 @@ const BranchNode: React.FC<IProps> = (props) => {
     onAddCondition,
   } = props;
 
-  const { branchs } = node;
+  const { children } = node;
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 
-  const conditionCount = Array.isArray(branchs) ? branchs.length : 0;
+  const conditionCount = Array.isArray(children) ? children.length : 0;
 
   const handleAddCondition = (e: React.MouseEvent) => {
     e?.stopPropagation();
@@ -79,7 +79,7 @@ const BranchNode: React.FC<IProps> = (props) => {
               style={{ border: `2px dashed ${lineColor}` }}
             />
           ) : null}
-          {branchs?.map((branch, index) => {
+          {children?.map((branch, index) => {
             return renderConditionNodes({
               node: branch,
               nodeIndex: index,
