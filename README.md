@@ -188,7 +188,7 @@ export default Demo;
 | :------------- | :---------------------- | :------------------------------------------------------------------------------------------ |
 | buildFlatNodes | Translate to flat nodes | `(params: {registerNodes: IRegisterNode[], nodes: INode[], fieldName?: string}) => INode[]` |
 | buildTreeNodes | Translate to tree nodes | `(params: {nodes: INode[], fieldName?: string}) => INode[]`                                 |
-| createUuid     | Create uuid             | `(prefix?: string) => void`                                                                 |
+| createUuid     | Create uuid             | `(prefix?: string) => string`                                                               |
 
 ### RegisterNode
 

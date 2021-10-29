@@ -54,7 +54,7 @@ order: 5
 | :------------- | :------------- | :------------------------------------------------------------------------------------------ |
 | buildFlatNodes | 转换成扁平结构 | `(params: {registerNodes: IRegisterNode[], nodes: INode[], fieldName?: string}) => INode[]` |
 | buildTreeNodes | 转换成树形结构 | `(params: {nodes: INode[], fieldName?: string}) => INode[]`                                 |
-| createUuid     | 创建 uuid      | `(prefix?: string) => void`                                                                 |
+| createUuid     | 创建 uuid      | `(prefix?: string) => string`                                                               |
 
 ## RegisterNode
 
