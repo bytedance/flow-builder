@@ -41,13 +41,7 @@ const BranchNode: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div
-      className={`flow-builder-node flow-builder-branch-node ${
-        !registerNode?.configComponent
-          ? 'flow-builder-node__without-config'
-          : ''
-      }`}
-    >
+    <div className="flow-builder-node flow-builder-branch-node">
       <div className="flow-builder-node__content">
         {conditionCount > 1 ? (
           <>

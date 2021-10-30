@@ -5,23 +5,25 @@ import { INode, IRegisterNode } from '@/index';
 
 interface IProps {
   node: INode;
+  nodes: INode[];
   registerNodes: IRegisterNode[];
   renderAddNodeButton: React.ReactNode;
   renderRemoveButton: React.ReactNode;
   onNodeClick: (node: INode) => void;
-  remove: () => void;
-  batchRemove: (ids: string[]) => void;
+  remove: (nodes?: INode | INode[]) => void;
+  readonly?: boolean;
 }
 
 const CommonNode: React.FC<IProps> = (props) => {
   const {
     node,
+    nodes,
     registerNodes,
     renderAddNodeButton,
     renderRemoveButton,
     onNodeClick,
     remove,
-    batchRemove,
+    readonly,
   } = props;
 
   const registerNode = getRegisterNode(registerNodes, node.type);
@@ -34,15 +36,14 @@ const CommonNode: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div
-      className={`flow-builder-node ${
-        !registerNode?.configComponent
-          ? 'flow-builder-node__without-config'
-          : ''
-      }`}
-    >
+    <div className="flow-builder-node">
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component node={node} remove={remove} batchRemove={batchRemove} />
+        <Component
+          readonly={readonly}
+          node={node}
+          nodes={nodes}
+          remove={remove}
+        />
 
         {renderRemoveButton}
       </div>

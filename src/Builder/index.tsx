@@ -17,7 +17,6 @@ import {
   ConditionNode,
 } from '@/Nodes';
 import {
-  createUuid,
   getRegisterNode,
   getIsBranchNode,
   getIsConditionNode,
@@ -93,6 +92,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     const [activeHistoryRecordIndex, setActiveHistoryRecordIndex] =
       useState(-1);
     const [hasMounted, setHasMounted] = useState(false);
+    const [drawerTitle, setDrawerTitle] = useState('');
 
     const handleHistoryRecordsChange = (
       records: INode[][],
@@ -147,6 +147,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     };
 
     const handleRemove = (node: INode, e?: React.MouseEvent) => {
+      debugger;
       e?.stopPropagation();
       let removeIndex = Number(node.path?.pop());
       let parentNodes = get(nodes, node.path || []) || nodes;
@@ -173,35 +174,55 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       );
     };
 
-    const handleBatchRemove = (removeIds: string[]) => {
-      const remove = (nodes: INode[]) => {
-        const _nodes = nodes.filter((item) => !removeIds.includes(item.id));
-        for (const node of _nodes) {
-          if (Array.isArray(node.children)) {
-            node.children = remove(node.children);
+    const handleBatchRemove = (removeNodes: INode[]) => {
+      const remove = (removeNodes: INode[], allNodes: INode[]) => {
+        const restNodes = allNodes.filter(
+          (item) => !removeNodes.find((node) => node.id === item.id),
+        );
+        for (const restNode of restNodes) {
+          if (Array.isArray(restNode.children)) {
+            restNode.children = remove(removeNodes, restNode.children);
           }
         }
-        return _nodes;
+        return restNodes;
       };
 
-      const result = remove(nodes);
+      const restNodes = remove(removeNodes, nodes);
 
-      onChange([...result], 'batch-remove-node');
+      onChange([...restNodes], 'batch-remove-node');
 
       handleHistoryRecordsChange(
         historyRecords,
         activeHistoryRecordIndex,
-        result,
+        restNodes,
       );
     };
 
+    const handleRefRemove = (nodes: INode | INode[]) => {
+      if (Array.isArray(nodes)) {
+        handleBatchRemove(nodes);
+      } else if (nodes) {
+        handleRemove(nodes);
+      }
+    };
+
+    const handleDisplayRemove = (
+      currentNode: INode,
+      nodes?: INode | INode[],
+    ) => {
+      if (Array.isArray(nodes)) {
+        handleBatchRemove(nodes);
+      } else {
+        handleRemove(nodes || currentNode);
+      }
+    };
+
     const handleNodeClick = (node: INode) => {
-      if (
-        !readonly &&
-        getRegisterNode(registerNodes, node.type)?.configComponent
-      ) {
+      const registerNode = getRegisterNode(registerNodes, node.type);
+      if (!readonly && registerNode?.configComponent) {
         node.configuring = true;
         setActiveNode(node);
+        setDrawerTitle(registerNode.configTitle || '');
         onChange([...nodes], 'click-node');
       }
     };
@@ -251,7 +272,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       let latestZoom =
         typeof type === 'number'
           ? type
-          : type === 'smaller'
+          : type === 'out'
           ? zoom - zoomStep
           : zoom + zoomStep;
 
@@ -284,17 +305,11 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
     const ZoomTool = (
       <div className="flow-builder-zoom-tool">
-        <Button
-          disabled={zoom === minZoom}
-          onClick={() => handleZoom('smaller')}
-        >
+        <Button disabled={zoom === minZoom} onClick={() => handleZoom('out')}>
           -
         </Button>
         <span className="flow-builder-zoom-tool__number">{zoom + '%'}</span>
-        <Button
-          disabled={zoom === maxZoom}
-          onClick={() => handleZoom('bigger')}
-        >
+        <Button disabled={zoom === maxZoom} onClick={() => handleZoom('in')}>
           +
         </Button>
       </div>
@@ -354,6 +369,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
             <AddNodeButton
               registerNodes={registerNodes}
               node={node}
+              nodes={nodes}
               onAddNode={handleAddNode}
             />
           ) : null}
@@ -375,12 +391,20 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
             <StartNode
               key={id}
               node={node}
+              nodes={nodes}
               registerNodes={registerNodes}
               renderAddNodeButton={renderAddNodeButton}
             />
           );
         case 'end':
-          return <EndNode key={id} node={node} registerNodes={registerNodes} />;
+          return (
+            <EndNode
+              key={id}
+              node={node}
+              nodes={nodes}
+              registerNodes={registerNodes}
+            />
+          );
         case 'branch':
           return (
             <BranchNode
@@ -405,6 +429,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               spaceX={spaceX}
               spaceY={spaceY}
               node={node}
+              nodes={nodes}
               parentNode={parentNode}
               conditionIndex={nodeIndex}
               registerNodes={registerNodes}
@@ -412,8 +437,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               renderRemoveButton={renderRemoveButton}
               renderNext={render}
               onNodeClick={handleNodeClick}
-              remove={() => handleRemove(node)}
-              batchRemove={handleBatchRemove}
+              remove={(nodes) => handleDisplayRemove(node, nodes)}
+              readonly={readonly}
             />
           );
         default:
@@ -421,12 +446,13 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
             <CommonNode
               key={id}
               node={node}
+              nodes={nodes}
               registerNodes={registerNodes}
               renderAddNodeButton={renderAddNodeButton}
               renderRemoveButton={renderRemoveButton}
               onNodeClick={handleNodeClick}
-              remove={() => handleRemove(node)}
-              batchRemove={handleBatchRemove}
+              remove={(nodes) => handleDisplayRemove(node, nodes)}
+              readonly={readonly}
             />
           );
       }
@@ -444,11 +470,12 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     useImperativeHandle(ref, () => ({
       history: handleHistory,
       zoom: handleZoom,
+      add: handleAddNode,
+      remove: handleRefRemove,
     }));
 
     useEffect(() => {
       if (hasMounted && historyRecords.length > 1) {
-        console.log('xxx historyRecords', historyRecords);
         onHistoryChange?.(
           activeHistoryRecordIndex <= 0,
           activeHistoryRecordIndex === historyRecords.length - 1,
@@ -464,17 +491,11 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       let defaultNodes = [...nodes];
 
       if (defaultNodes.length === 0) {
+        const startNodeType = registerNodes.find((item) => item.isStart)?.type;
+        const endNodeType = registerNodes.find((item) => item.isEnd)?.type;
         defaultNodes = [
-          {
-            id: createUuid(),
-            type: 'start',
-            name: 'start',
-          },
-          {
-            id: createUuid(),
-            type: 'end',
-            name: 'end',
-          },
+          createNewNode(registerNodes, startNodeType),
+          createNewNode(registerNodes, endNodeType),
         ];
         onChange(defaultNodes, 'init-builder');
       }
@@ -508,7 +529,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
             {render({ nodes })}
           </div>
           <Drawer
-            title="Configuration"
+            title={drawerTitle || 'Configuration'}
             width={480}
             destroyOnClose
             maskClosable={false}
@@ -519,6 +540,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
             {ConfigComponent && activeNode ? (
               <ConfigComponent
                 node={activeNode}
+                nodes={nodes}
                 cancel={handleDrawerClose}
                 save={handleDrawerOk}
               />

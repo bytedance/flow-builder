@@ -140,23 +140,23 @@ export default Demo;
 
 ### FlowBuilder
 
-| Property        | Description                                                                                                                                                                                                                              | Type                                                                         | Required | Default    |
-| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------- | :------- | :--------- |
-| backgroundColor | The color of background                                                                                                                                                                                                                  | `string`                                                                     |          | #F7F7F7    |
-| className       | The class name of the container                                                                                                                                                                                                          | `string`                                                                     |          | -          |
-| drawerProps     | Extra [props](https://ant.design/components/drawer/#API) of Drawer Component from antd. `visible` and `onClose` have already in FlowBuilder, and {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                                |          | -          |
-| historyTool     | undo and redo                                                                                                                                                                                                                            | `boolean` \| [HistoryToolConfig](#historytoolconfig)                         |          | false      |
-| layout          | Use vertical or horizontal layout                                                                                                                                                                                                        | `vertical` \| `horizontal`                                                   |          | `vertical` |
-| lineColor       | The color of line                                                                                                                                                                                                                        | `string`                                                                     |          | #999999    |
-| nodes           | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                              | ✓        | -          |
-| readonly        | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                                    |          | false      |
-| registerNodes   | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                              | ✓        | -          |
-| spaceX          | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                                     |          | `16`       |
-| spaceY          | Vertical spacing between nodes                                                                                                                                                                                                           | `number`                                                                     |          | `16`       |
-| zoomTool        | zoom                                                                                                                                                                                                                                     | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                               |          | false      |
-| onChange        | Callback function for when the data change                                                                                                                                                                                               | (nodes: [Node](#node)[], changeEvent?: `string`) => void                     | ✓        | -          |
-| onHistoryChange |                                                                                                                                                                                                                                          | `(undoDisabled: boolean, redoDisabled: boolean) => void`                     |          | -          |
-| onZoomChange    |                                                                                                                                                                                                                                          | `(smallerDisabled: boolean, value: number, biggerDisabled: boolean) => void` |          | -          |
+| Property        | Description                                                                                                                                                                                                                              | Type                                                                 | Required | Default    |
+| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :------- | :--------- |
+| backgroundColor | The color of background                                                                                                                                                                                                                  | `string`                                                             |          | #F7F7F7    |
+| className       | The class name of the container                                                                                                                                                                                                          | `string`                                                             |          | -          |
+| drawerProps     | Extra [props](https://ant.design/components/drawer/#API) of Drawer Component from antd. `visible` and `onClose` have already in FlowBuilder, and {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                        |          | -          |
+| historyTool     | undo and redo                                                                                                                                                                                                                            | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |          | false      |
+| layout          | Use vertical or horizontal layout                                                                                                                                                                                                        | `vertical` \| `horizontal`                                           |          | `vertical` |
+| lineColor       | The color of line                                                                                                                                                                                                                        | `string`                                                             |          | #999999    |
+| nodes           | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                      | ✓        | -          |
+| readonly        | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                            |          | false      |
+| registerNodes   | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                      | ✓        | -          |
+| spaceX          | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                             |          | `16`       |
+| spaceY          | Vertical spacing between nodes                                                                                                                                                                                                           | `number`                                                             |          | `16`       |
+| zoomTool        | zoom                                                                                                                                                                                                                                     | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |          | false      |
+| onChange        | Callback function for when the data change                                                                                                                                                                                               | (nodes: [Node](#node)[], changeEvent?: `string`) => void             | ✓        | -          |
+| onHistoryChange |                                                                                                                                                                                                                                          | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |          | -          |
+| onZoomChange    |                                                                                                                                                                                                                                          | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |          | -          |
 
 #### HistoryToolConfig
 
@@ -177,18 +177,20 @@ export default Demo;
 
 ### FlowBuilderInstance
 
-| Name    | Description | Type                                              |
-| :------ | :---------- | :------------------------------------------------ |
-| history | undo, redo  | `(type: 'undo' \| 'redo') => void`                |
-| zoom    | zoom        | `(type: 'smaller' \| 'bigger' \| number) => void` |
+| Name    | Description  | Type                                         |
+| :------ | :----------- | :------------------------------------------- |
+| add     | add node     | `(node: INode, newNodeType: string) => void` |
+| history | undo, redo   | `(type: 'undo' \| 'redo') => void`           |
+| remove  | remove noded | `(nodes: INode \| INode[]) => void`          |
+| zoom    | zoom         | `(type: 'out' \| 'in' \| number) => void`    |
 
 ### Formatter
 
-| Name           | Description             | Type                                                                                        |
-| :------------- | :---------------------- | :------------------------------------------------------------------------------------------ |
-| buildFlatNodes | Translate to flat nodes | `(params: {registerNodes: IRegisterNode[], nodes: INode[], fieldName?: string}) => INode[]` |
-| buildTreeNodes | Translate to tree nodes | `(params: {nodes: INode[], fieldName?: string}) => INode[]`                                 |
-| createUuid     | Create uuid             | `(prefix?: string) => string`                                                               |
+| Name           | Description             | Type                                                                    |
+| :------------- | :---------------------- | :---------------------------------------------------------------------- |
+| buildFlatNodes | Translate to flat nodes | `(params: {registerNodes: IRegisterNode[], nodes: INode[]}) => INode[]` |
+| buildTreeNodes | Translate to tree nodes | `(params: {nodes: INode[]}) => INode[]`                                 |
+| createUuid     | Create uuid             | `(prefix?: string) => string`                                           |
 
 ### RegisterNode
 
@@ -200,34 +202,38 @@ export default Demo;
 | conditionNodeType  | The type of condition node                                                                                                      | `string`                                            |          | -                                 |
 | configComponent    | The Component of configuring node form                                                                                          | `React.FC`\<[ConfigComponent](#configcomponent)\>   |          | -                                 |
 | customRemove       | Custom remove button                                                                                                            | `boolean`                                           |          | false                             |
-| removeConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                             |          | Are you sure to remove this node? |
 | displayComponent   | The Component of displaying node                                                                                                | `React.FC`\<[DisplayComponent](#displaycomponent)\> |          | -                                 |
 | extraData          | The extra data of the node                                                                                                      | `any`                                               |          | -                                 |
+| isStart            | Is start node                                                                                                                   | `boolean`                                           |          | false                             |
+| isEnd              | Is end node                                                                                                                     | `boolean`                                           |          | false                             |
 | name               | The name of node                                                                                                                | `string`                                            | ✓        | -                                 |
+| removeConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                             |          | Are you sure to remove this node? |
 | type               | The type of node, promise `start` is start node type and `end` is end node type                                                 | `string`                                            | ✓        | -                                 |
 
 #### DisplayComponent
 
-| Property    | Description                 | Type                      |
-| :---------- | :-------------------------- | :------------------------ |
-| node        | The all information of node | [Node](#node)             |
-| remove      | Remove node                 | `() => void`              |
-| batchRemove | Batch remove node           | `(ids: string[]) => void` |
+| Property | Description                 | Type                                 |
+| :------- | :-------------------------- | :----------------------------------- |
+| node     | The all information of node | [Node](#node)                        |
+| nodes    |                             | [Node](#node)[]                      |
+| remove   | Remove node                 | `(nodes?: INode \| INode[]) => void` |
 
 #### ConfigComponent
 
 | Property | Description                                                                                                                                                              | Type                                                   |
 | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
-| node     | The all information of node                                                                                                                                              | [Node](#node)                                          |
 | cancel   | Called on cancel, used to close the drawer                                                                                                                               | `() => void`                                           |
+| node     | The all information of node                                                                                                                                              | [Node](#node)                                          |
+| nodes    |                                                                                                                                                                          | [Node](#node)[]                                        |
 | save     | Called on save node data (automatically close the drawer, no need to call cancel). FlowBuilder will set the `validateStatusError` property according to the second param | `(values: any, validateStatusError?: boolean) => void` |
 
 #### AddableComponent
 
 | Property | Description                 | Type                     |
 | :------- | :-------------------------- | :----------------------- |
-| node     | The all information of node | [Node](#node)            |
 | add      |                             | `(type: string) => void` |
+| node     | The all information of node | [Node](#node)            |
+| nodes    |                             | [Node](#node)[]          |
 
 ### Node
 

@@ -3,6 +3,16 @@ import FlowBuilder, { INode, IRegisterNode } from 'react-flow-builder';
 
 const registerNodes: IRegisterNode[] = [
   {
+    type: 'start',
+    name: '开始节点',
+    isStart: true,
+  },
+  {
+    type: 'end',
+    name: '结束节点',
+    isEnd: true,
+  },
+  {
     type: 'node1',
     name: '普通节点 1',
   },

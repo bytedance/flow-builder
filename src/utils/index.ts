@@ -10,6 +10,12 @@ export const getRegisterNode = (
   type?: string,
 ) => registerNodes.find((node) => type && node.type === type);
 
+export const getIsStartNode = (registerNodes: IRegisterNode[], type?: string) =>
+  registerNodes.find((item) => item.type === type)?.isStart;
+
+export const getIsEndNode = (registerNodes: IRegisterNode[], type?: string) =>
+  registerNodes.find((item) => item.type === type)?.isEnd;
+
 export const getIsConditionNode = (
   registerNodes: IRegisterNode[],
   type?: string,
@@ -47,8 +53,10 @@ export const getAbstractNodeType: (
   registerNodes: IRegisterNode[],
   type?: string,
 ) => AbstractNodeType = (registerNodes: IRegisterNode[], type?: string) => {
-  if (type && ['start', 'end'].includes(type)) {
-    return type as AbstractNodeType;
+  if (getIsStartNode(registerNodes, type)) {
+    return 'start';
+  } else if (getIsEndNode(registerNodes, type)) {
+    return 'end';
   } else if (getIsBranchNode(registerNodes, type)) {
     return 'branch';
   } else if (getIsConditionNode(registerNodes, type)) {
@@ -177,22 +185,19 @@ const getNextIds = (
 export const buildFlatNodes = (params: {
   registerNodes: IRegisterNode[];
   nodes: INode[];
-  fieldName?: string;
 }) => {
-  const { registerNodes, nodes, fieldName = 'next' } = params;
+  const { registerNodes, nodes } = params;
 
   const cloneNodes = JSON.parse(JSON.stringify(nodes));
 
   const allNodes = DFS(cloneNodes);
 
   for (const node of allNodes) {
-    node[fieldName] = node[fieldName] || [];
+    node.next = node.next || [];
 
     const nextIds = getNextIds(node, allNodes, registerNodes);
 
-    node[fieldName].push(
-      ...nextIds.filter((item) => !node[fieldName].includes(item)),
-    );
+    node.next.push(...nextIds.filter((item) => !node.next?.includes(item)));
   }
 
   return allNodes.map(
@@ -218,15 +223,12 @@ const getParentByPath = (path: string[], treeNodes: INode[]) => {
   return parent;
 };
 
-export const buildTreeNodes = (params: {
-  nodes: INode[];
-  fieldName?: string;
-}) => {
-  const { nodes, fieldName = 'next' } = params;
+export const buildTreeNodes = (params: { nodes: INode[] }) => {
+  const { nodes } = params;
   const treeNodes: INode[] = [];
 
   const cloneNodes = JSON.parse(
-    JSON.stringify(nodes.map(({ [fieldName]: next, ...node }) => node)),
+    JSON.stringify(nodes.map(({ next, ...node }) => node)),
   );
 
   for (const node of cloneNodes) {

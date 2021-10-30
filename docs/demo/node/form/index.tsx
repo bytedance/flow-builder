@@ -46,17 +46,20 @@ const registerNodes: IRegisterNode[] = [
     type: 'start',
     name: '开始节点',
     displayComponent: StartNodeDisplay,
+    isStart: true,
   },
   {
     type: 'end',
     name: '结束节点',
     displayComponent: EndNodeDisplay,
+    isEnd: true,
   },
   {
     type: 'node',
     name: '普通节点',
     displayComponent: NodeDisplay,
     configComponent: ConfigForm,
+    configTitle: 'xxxx',
   },
   {
     type: 'condition',
@@ -129,19 +132,8 @@ const NodeForm = () => {
     setNodes(nodes);
   };
 
-  const handleClick = () => {
-    console.log(
-      'xxx',
-      buildFlatNodes({
-        registerNodes,
-        nodes,
-      }),
-    );
-  };
-
   return (
     <>
-      <button onClick={handleClick}>buildFlatNodes</button>
       <FlowBuilder
         nodes={nodes}
         onChange={handleChange}

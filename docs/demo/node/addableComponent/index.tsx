@@ -42,12 +42,14 @@ const registerNodes: IRegisterNode[] = [
     type: 'start',
     name: '开始节点',
     displayComponent: StartNodeDisplay,
+    isStart: true,
     addableComponent: CustomAddableComponent,
   },
   {
     type: 'end',
     name: '结束节点',
     displayComponent: EndNodeDisplay,
+    isEnd: true,
   },
   {
     type: 'node',

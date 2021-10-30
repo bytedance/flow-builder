@@ -4,18 +4,25 @@ import ActionButton from '@/ActionButton';
 import AddIcon from '../icons/add-button.svg';
 import AddNormalIcon from '../icons/add-normal.svg';
 import AddBranchIcon from '../icons/add-branch.svg';
-import { getRegisterNode, getIsBranchNode, getIsConditionNode } from '@/utils';
+import {
+  getRegisterNode,
+  getIsStartNode,
+  getIsEndNode,
+  getIsBranchNode,
+  getIsConditionNode,
+} from '@/utils';
 
 import { INode, IRegisterNode } from '@/index';
 
 interface IProps {
   registerNodes: IRegisterNode[];
   node: INode;
+  nodes: INode[];
   onAddNode: (node: INode, newNodeType: string) => void;
 }
 
 const AddNodeButton: React.FC<IProps> = (props) => {
-  const { registerNodes, node, onAddNode } = props;
+  const { registerNodes, node, nodes, onAddNode } = props;
 
   const [visible, setVisible] = useState(false);
 
@@ -25,8 +32,8 @@ const AddNodeButton: React.FC<IProps> = (props) => {
 
   const options = registerNodes.filter(
     (item) =>
-      item.type !== 'start' &&
-      item.type !== 'end' &&
+      !getIsStartNode(registerNodes, item.type) &&
+      !getIsEndNode(registerNodes, item.type) &&
       !getIsConditionNode(registerNodes, item.type) &&
       (Array.isArray(addableNodeTypes)
         ? addableNodeTypes.includes(item.type)
@@ -39,7 +46,7 @@ const AddNodeButton: React.FC<IProps> = (props) => {
   };
 
   const addableOptions = AddableComponent ? (
-    <AddableComponent node={node} add={handleAddNode} />
+    <AddableComponent node={node} nodes={nodes} add={handleAddNode} />
   ) : (
     <>
       {options.map((item) => {

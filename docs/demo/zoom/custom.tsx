@@ -30,11 +30,13 @@ const registerNodes: IRegisterNode[] = [
     type: 'start',
     name: '开始节点',
     displayComponent: StartNodeDisplay,
+    isStart: true,
   },
   {
     type: 'end',
     name: '结束节点',
     displayComponent: EndNodeDisplay,
+    isEnd: true,
   },
   {
     type: 'node',
@@ -106,8 +108,8 @@ const defaultNodes = [
 const Zoom = () => {
   const [nodes, setNodes] = useState<INode[]>(defaultNodes);
   const [zoom, setZoom] = useState(100);
-  const [smallerDisabled, setSmallerDisabled] = useState(false);
-  const [biggerDisabled, setBiggerDisabled] = useState(false);
+  const [outDisabled, setOutDisabled] = useState(false);
+  const [inDisabled, setInDisabled] = useState(false);
 
   const ref = useRef<IFlowBuilderMethod>(null);
 
@@ -116,25 +118,19 @@ const Zoom = () => {
     setNodes(nodes);
   };
 
-  const handleZoomChange = (smallerDisabled, value, biggerDisabled) => {
-    setSmallerDisabled(smallerDisabled);
-    setBiggerDisabled(biggerDisabled);
+  const handleZoomChange = (outDisabled, value, inDisabled) => {
+    setOutDisabled(outDisabled);
+    setInDisabled(inDisabled);
     setZoom(value);
   };
 
   return (
     <>
-      <Button
-        disabled={smallerDisabled}
-        onClick={() => ref.current.zoom('smaller')}
-      >
+      <Button disabled={outDisabled} onClick={() => ref.current.zoom('out')}>
         -
       </Button>
       {zoom}
-      <Button
-        disabled={biggerDisabled}
-        onClick={() => ref.current.zoom('bigger')}
-      >
+      <Button disabled={inDisabled} onClick={() => ref.current.zoom('in')}>
         +
       </Button>
       <Button onClick={() => ref.current.zoom(60)}>60</Button>

@@ -19,7 +19,21 @@ const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
 const NodeDisplay: React.FC<IDisplayComponent> = ({ node, remove }) => {
   return (
     <div className="other-node">
-      <div onClick={remove}>删除</div>
+      <div onClick={() => remove()}>删除</div>
+      <div
+        onClick={() =>
+          remove([
+            {
+              id: 'node-972401ca-c4db-4268-8780-5607876d8372',
+            },
+            {
+              id: 'node-b2ffe834-c7c2-4f29-a370-305adc03c010',
+            },
+          ])
+        }
+      >
+        删除多个
+      </div>
       {node.name}
     </div>
   );
@@ -34,16 +48,19 @@ const registerNodes: IRegisterNode[] = [
     type: 'start',
     name: '开始节点',
     displayComponent: StartNodeDisplay,
+    isStart: true,
   },
   {
     type: 'end',
     name: '结束节点',
     displayComponent: EndNodeDisplay,
+    isEnd: true,
   },
   {
     type: 'node',
     name: '普通节点',
     displayComponent: NodeDisplay,
+    customRemove: true,
   },
   {
     type: 'condition',

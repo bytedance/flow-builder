@@ -2,18 +2,21 @@ import Builder from './Builder';
 import React from 'react';
 
 export interface IDisplayComponent {
+  nodes: INode[];
   node: INode;
-  remove?: () => void;
-  batchRemove?: (ids: string[]) => void;
+  readonly?: boolean;
+  remove?: (nodes?: INode | INode[]) => void;
 }
 
 export interface IConfigComponent {
   node: INode;
+  nodes: INode[];
   cancel?: () => void;
   save?: (values: any, validateStatusError?: boolean) => void;
 }
 
 export interface IAddableComponent {
+  nodes: INode[];
   node: INode;
   add: (type: string) => void;
 }
@@ -39,6 +42,9 @@ export interface IRegisterNode {
   addableNodeTypes?: string[];
   addableComponent?: React.FC<IAddableComponent>;
   customRemove?: boolean;
+  isStart?: boolean;
+  isEnd?: boolean;
+  configTitle?: string;
 }
 
 export interface INode {
@@ -51,7 +57,7 @@ export interface INode {
   extraData?: any;
   configuring?: boolean;
   validateStatusError?: boolean;
-  [key: string]: any;
+  next?: string[];
 }
 
 export interface IZoomToolConfig {
@@ -83,19 +89,21 @@ export interface IFlowBuilderProps {
   onChange: (nodes: INode[], changeEvent?: string) => void;
   onHistoryChange?: (undoDisabled: boolean, redoDisabled: boolean) => void;
   onZoomChange?: (
-    smallerDisabled: boolean,
+    outDisabled: boolean,
     value: number,
-    biggerDisabled: boolean,
+    inDisabled: boolean,
   ) => void;
 }
 
-export type ZoomType = 'smaller' | 'bigger';
+export type ZoomType = 'out' | 'in';
 
 export type HistoryType = 'undo' | 'redo';
 
 export interface IFlowBuilderMethod {
   history: (type: HistoryType) => void;
   zoom: (type: ZoomType | number) => void;
+  add: (node: INode, newNodeType: string) => void;
+  remove: (nodes: INode | INode[]) => void;
 }
 
 export interface IRender {

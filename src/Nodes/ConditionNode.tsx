@@ -11,6 +11,7 @@ interface IProps {
   spaceX?: number;
   spaceY?: number;
   node: INode;
+  nodes: INode[];
   parentNode?: INode;
   conditionIndex: number;
   registerNodes: IRegisterNode[];
@@ -18,8 +19,8 @@ interface IProps {
   renderRemoveButton: React.ReactNode;
   renderNext: (params: IRender) => React.ReactNode;
   onNodeClick: (node: INode) => void;
-  remove: () => void;
-  batchRemove: (ids: string[]) => void;
+  remove: (nodes?: INode | INode[]) => void;
+  readonly?: boolean;
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {
@@ -30,6 +31,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
     spaceX,
     spaceY,
     node,
+    nodes,
     parentNode,
     conditionIndex,
     registerNodes,
@@ -38,7 +40,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
     renderNext,
     onNodeClick,
     remove,
-    batchRemove,
+    readonly,
   } = props;
 
   const { children } = node;
@@ -58,11 +60,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
   return (
     <div
-      className={`flow-builder-node flow-builder-condition-node ${
-        !registerNode?.configComponent
-          ? 'flow-builder-node__without-config'
-          : ''
-      }`}
+      className="flow-builder-node flow-builder-condition-node"
       style={{
         padding: layout === 'vertical' ? `0 ${spaceX}px` : `${spaceY}px 0`,
       }}
@@ -75,7 +73,12 @@ const ConditionNode: React.FC<IProps> = (props) => {
       />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component node={node} remove={remove} batchRemove={batchRemove} />
+        <Component
+          readonly={readonly}
+          node={node}
+          nodes={nodes}
+          remove={remove}
+        />
         {renderRemoveButton}
       </div>
 
