@@ -44,7 +44,7 @@ export interface IRegisterNode {
   customRemove?: boolean;
   isStart?: boolean;
   isEnd?: boolean;
-  configTitle?: string;
+  configTitle?: string | ((node: INode, nodes: INode[]) => string);
 }
 
 export interface INode {
@@ -104,6 +104,7 @@ export interface IFlowBuilderMethod {
   zoom: (type: ZoomType | number) => void;
   add: (node: INode, newNodeType: string) => void;
   remove: (nodes: INode | INode[]) => void;
+  closeDrawer: () => void;
 }
 
 export interface IRender {

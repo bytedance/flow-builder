@@ -147,7 +147,6 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     };
 
     const handleRemove = (node: INode, e?: React.MouseEvent) => {
-      debugger;
       e?.stopPropagation();
       let removeIndex = Number(node.path?.pop());
       let parentNodes = get(nodes, node.path || []) || nodes;
@@ -222,7 +221,11 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       if (!readonly && registerNode?.configComponent) {
         node.configuring = true;
         setActiveNode(node);
-        setDrawerTitle(registerNode.configTitle || '');
+        if (typeof registerNode.configTitle === 'string') {
+          setDrawerTitle(registerNode.configTitle || '');
+        } else if (typeof registerNode.configTitle === 'function') {
+          setDrawerTitle(registerNode.configTitle(node, nodes) || '');
+        }
         onChange([...nodes], 'click-node');
       }
     };
@@ -472,6 +475,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       zoom: handleZoom,
       add: handleAddNode,
       remove: handleRefRemove,
+      closeDrawer: handleDrawerClose,
     }));
 
     useEffect(() => {

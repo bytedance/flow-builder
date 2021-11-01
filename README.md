@@ -177,12 +177,13 @@ export default Demo;
 
 ### FlowBuilderInstance
 
-| Name    | Description  | Type                                         |
-| :------ | :----------- | :------------------------------------------- |
-| add     | add node     | `(node: INode, newNodeType: string) => void` |
-| history | undo, redo   | `(type: 'undo' \| 'redo') => void`           |
-| remove  | remove noded | `(nodes: INode \| INode[]) => void`          |
-| zoom    | zoom         | `(type: 'out' \| 'in' \| number) => void`    |
+| Name        | Description  | Type                                         |
+| :---------- | :----------- | :------------------------------------------- |
+| add         | add node     | `(node: INode, newNodeType: string) => void` |
+| history     | undo, redo   | `(type: 'undo' \| 'redo') => void`           |
+| remove      | remove noded | `(nodes: INode \| INode[]) => void`          |
+| zoom        | zoom         | `(type: 'out' \| 'in' \| number) => void`    |
+| closeDrawer | close drawer | `() => void`                                 |
 
 ### Formatter
 
@@ -194,21 +195,22 @@ export default Demo;
 
 ### RegisterNode
 
-| Property           | Description                                                                                                                     | Type                                                | Required | Default                           |
-| :----------------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------- | :------- | :-------------------------------- |
-| addableComponent   |                                                                                                                                 | `React.FC`\<[AddableComponent](#addablecomponent)\> |          | -                                 |
-| addableNodeTypes   | The list of nodes that can be added below the node                                                                              | `string[]`                                          |          | -                                 |
-| addIcon            | The icon in addable node list (There are already some default icons)                                                            | `ReactNode`                                         |          | -                                 |
-| conditionNodeType  | The type of condition node                                                                                                      | `string`                                            |          | -                                 |
-| configComponent    | The Component of configuring node form                                                                                          | `React.FC`\<[ConfigComponent](#configcomponent)\>   |          | -                                 |
-| customRemove       | Custom remove button                                                                                                            | `boolean`                                           |          | false                             |
-| displayComponent   | The Component of displaying node                                                                                                | `React.FC`\<[DisplayComponent](#displaycomponent)\> |          | -                                 |
-| extraData          | The extra data of the node                                                                                                      | `any`                                               |          | -                                 |
-| isStart            | Is start node                                                                                                                   | `boolean`                                           |          | false                             |
-| isEnd              | Is end node                                                                                                                     | `boolean`                                           |          | false                             |
-| name               | The name of node                                                                                                                | `string`                                            | ✓        | -                                 |
-| removeConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                             |          | Are you sure to remove this node? |
-| type               | The type of node, promise `start` is start node type and `end` is end node type                                                 | `string`                                            | ✓        | -                                 |
+| Property           | Description                                                                                                                     | Type                                                  | Required | Default                           |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------- | :------- | :-------------------------------- |
+| addableComponent   |                                                                                                                                 | `React.FC`\<[AddableComponent](#addablecomponent)\>   |          | -                                 |
+| addableNodeTypes   | The list of nodes that can be added below the node                                                                              | `string[]`                                            |          | -                                 |
+| addIcon            | The icon in addable node list (There are already some default icons)                                                            | `ReactNode`                                           |          | -                                 |
+| conditionNodeType  | The type of condition node                                                                                                      | `string`                                              |          | -                                 |
+| configComponent    | The Component of configuring node form                                                                                          | `React.FC`\<[ConfigComponent](#configcomponent)\>     |          | -                                 |
+| configTitle        | The drawer title of configuring node                                                                                            | `string \| ((node: INode, nodes: INode[]) => string)` |          | -                                 |
+| customRemove       | Custom remove button                                                                                                            | `boolean`                                             |          | false                             |
+| displayComponent   | The Component of displaying node                                                                                                | `React.FC`\<[DisplayComponent](#displaycomponent)\>   |          | -                                 |
+| extraData          | The extra data of the node                                                                                                      | `any`                                                 |          | -                                 |
+| isStart            | Is start node                                                                                                                   | `boolean`                                             |          | false                             |
+| isEnd              | Is end node                                                                                                                     | `boolean`                                             |          | false                             |
+| name               | The name of node                                                                                                                | `string`                                              | ✓        | -                                 |
+| removeConfirmTitle | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                               |          | Are you sure to remove this node? |
+| type               | The type of node, promise `start` is start node type and `end` is end node type                                                 | `string`                                              | ✓        | -                                 |
 
 #### DisplayComponent
 

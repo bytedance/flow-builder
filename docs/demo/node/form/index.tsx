@@ -59,7 +59,6 @@ const registerNodes: IRegisterNode[] = [
     name: '普通节点',
     displayComponent: NodeDisplay,
     configComponent: ConfigForm,
-    configTitle: 'xxxx',
   },
   {
     type: 'condition',
