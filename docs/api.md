@@ -6,23 +6,24 @@ order: 5
 
 ## FlowBuilder
 
-| 参数            | 说明                                                                                                                                                                                                                 | 类型                                                                 | 必须 | 默认值     |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :--- | :--------- |
-| backgroundColor | 背景颜色                                                                                                                                                                                                             | `string`                                                             |      | #F7F7F7    |
-| className       | 外层容器的类名                                                                                                                                                                                                       | `string`                                                             |      | -          |
-| drawerProps     | 配置节点时 Drawer 组件额外的 [props](https://ant.design/components/drawer/#API)。流程引擎内置了 `visible` 和 `onClose，以及` {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                        |      | -          |
-| historyTool     | 撤销，重做                                                                                                                                                                                                           | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |      | false      |
-| layout          | 垂直/水平布局                                                                                                                                                                                                        | `vertical` \| `horizontal`                                           |      | `vertical` |
-| lineColor       | 连线的颜色                                                                                                                                                                                                           | `string`                                                             |      | #999999    |
-| nodes           | 流程引擎的节点                                                                                                                                                                                                       | [Node](#node)[]                                                      | ✓    | -          |
-| readonly        | 只读模式，不能进行节点的增加、删除、配置                                                                                                                                                                             | `boolean`                                                            |      | false      |
-| registerNodes   | 注册节点                                                                                                                                                                                                             | [RegisterNode](#registernode)[]                                      | ✓    | -          |
-| spaceX          | 节点之间水平方向的间距                                                                                                                                                                                               | `number`                                                             |      | 16         |
-| spaceY          | 节点之间垂直方向的间距                                                                                                                                                                                               | `number`                                                             |      | 16         |
-| zoomTool        | 缩放                                                                                                                                                                                                                 | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |      | false      |
-| onChange        | 节点数据改变时的回调函数                                                                                                                                                                                             | (nodes: [Node](#node)[], changeEvent?: string) => void               | ✓    | -          |
-| onHistoryChange | 历史状态变化之后的回调，两个参数分别代表是否需要禁用撤销和重做                                                                                                                                                       | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |      | -          |
-| onZoomChange    | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大                                                                                                                                 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |      | -          |
+| 参数                     | 说明                                                                                                                                                                                                                 | 类型                                                                 | 必须 | 默认值     |
+| :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :--- | :--------- |
+| backgroundColor          | 背景颜色                                                                                                                                                                                                             | `string`                                                             |      | #F7F7F7    |
+| className                | 外层容器的类名                                                                                                                                                                                                       | `string`                                                             |      | -          |
+| drawerProps              | 配置节点时 Drawer 组件额外的 [props](https://ant.design/components/drawer/#API)。流程引擎内置了 `visible` 和 `onClose，以及` {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                        |      | -          |
+| drawerVisibleWhenAddNode | 增加节点时打开抽屉                                                                                                                                                                                                   | `boolean`                                                            |      | false      |
+| historyTool              | 撤销，重做                                                                                                                                                                                                           | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |      | false      |
+| layout                   | 垂直/水平布局                                                                                                                                                                                                        | `vertical` \| `horizontal`                                           |      | `vertical` |
+| lineColor                | 连线的颜色                                                                                                                                                                                                           | `string`                                                             |      | #999999    |
+| nodes                    | 流程引擎的节点                                                                                                                                                                                                       | [Node](#node)[]                                                      | ✓    | -          |
+| readonly                 | 只读模式，不能进行节点的增加、删除、配置                                                                                                                                                                             | `boolean`                                                            |      | false      |
+| registerNodes            | 注册节点                                                                                                                                                                                                             | [RegisterNode](#registernode)[]                                      | ✓    | -          |
+| spaceX                   | 节点之间水平方向的间距                                                                                                                                                                                               | `number`                                                             |      | 16         |
+| spaceY                   | 节点之间垂直方向的间距                                                                                                                                                                                               | `number`                                                             |      | 16         |
+| zoomTool                 | 缩放                                                                                                                                                                                                                 | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |      | false      |
+| onChange                 | 节点数据改变时的回调函数                                                                                                                                                                                             | (nodes: [Node](#node)[], changeEvent?: string) => void               | ✓    | -          |
+| onHistoryChange          | 历史状态变化之后的回调，两个参数分别代表是否需要禁用撤销和重做                                                                                                                                                       | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |      | -          |
+| onZoomChange             | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大                                                                                                                                 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |      | -          |
 
 ### HistoryToolConfig
 
@@ -66,12 +67,14 @@ order: 5
 | addableComponent   | 节点下方点击加号展开的内容                                                                          | `React.FC`\<[AddableComponent](#addablecomponent)\>   |      | -                                 |
 | addableNodeTypes   | 指定节点下方的可添加节点列表                                                                        | `string[]`                                            |      | -                                 |
 | addIcon            | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | `ReactNode`                                           |      | -                                 |
+| conditionMinNum    | 对应的条件节点最小数量                                                                              | `number`                                              |      | 1                                 |
+| conditionMaxNum    | 对应的条件节点最大数量                                                                              | `number`                                              |      | -                                 |
 | conditionNodeType  | 对应的条件节点类型                                                                                  | `string`                                              |      | -                                 |
 | configComponent    | 节点的配置表单组件                                                                                  | `React.FC`\<[ConfigComponent](#configcomponent)\>     |      | -                                 |
 | configTitle        | 节点对应的抽屉标题                                                                                  | `string \| ((node: INode, nodes: INode[]) => string)` |      | -                                 |
 | customRemove       | 自定义删除按钮                                                                                      | `boolean`                                             |      | false                             |
 | displayComponent   | 节点的展示组件                                                                                      | `React.FC`\<[DisplayComponent](#displaycomponent)\>   |      | -                                 |
-| extraData          | 节点的额外数据                                                                                      | `any`                                                 |      | -                                 |
+| initialNodeData    | 增加节点时初始化数据                                                                                | `Record<string, any>`                                 |      | -                                 |
 | isStart            | 是否为开始节点                                                                                      | `boolean`                                             |      | false                             |
 | isEnd              | 是否为结束节点                                                                                      | `boolean`                                             |      | false                             |
 | name               | 节点名称                                                                                            | `string`                                              | ✓    | -                                 |
@@ -106,14 +109,13 @@ order: 5
 
 ## Node
 
-| 参数                | 说明                                                     | 类型            |
-| :------------------ | :------------------------------------------------------- | :-------------- |
-| children            | 分支节点对应的条件节点数组 或 条件节点对应的子流程       | [Node](#node)[] |
-| configuring         | 节点是否正在配置，节点的展示组件可根据此属性高亮节点     | `boolean`       |
-| data                | 节点的数据                                               | `any`           |
-| extraData           | 节点的额外数据，也就是节点注册时的 extraData，不是深拷贝 | `any`           |
-| id                  | 节点的唯一 id                                            | `string`        |
-| name                | 节点名称，同节点注册时的 name                            | `string`        |
-| path                | 节点在流程引擎中的路径                                   | `string[]`      |
-| type                | 节点类型，同节点注册时的 `type`                          | `string`        |
-| validateStatusError | 节点的表单校验失败，节点的展示组件可根据此属性高亮节点   | `boolean`       |
+| 参数                | 说明                                                   | 类型            |
+| :------------------ | :----------------------------------------------------- | :-------------- |
+| children            | 分支节点对应的条件节点数组 或 条件节点对应的子流程     | [Node](#node)[] |
+| configuring         | 节点是否正在配置，节点的展示组件可根据此属性高亮节点   | `boolean`       |
+| data                | 节点的数据                                             | `any`           |
+| id                  | 节点的唯一 id                                          | `string`        |
+| name                | 节点名称，同节点注册时的 name                          | `string`        |
+| path                | 节点在流程引擎中的路径                                 | `string[]`      |
+| type                | 节点类型，同节点注册时的 `type`                        | `string`        |
+| validateStatusError | 节点的表单校验失败，节点的展示组件可根据此属性高亮节点 | `boolean`       |

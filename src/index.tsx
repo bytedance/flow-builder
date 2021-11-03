@@ -34,8 +34,9 @@ export interface IRegisterNode {
   type: string;
   name: string;
   conditionNodeType?: string;
+  conditionMinNum?: number;
+  conditionMaxNum?: number;
   addIcon?: React.ReactNode;
-  extraData?: any;
   displayComponent?: React.FC<IDisplayComponent>;
   configComponent?: React.FC<IConfigComponent>;
   removeConfirmTitle?: string;
@@ -45,6 +46,7 @@ export interface IRegisterNode {
   isStart?: boolean;
   isEnd?: boolean;
   configTitle?: string | ((node: INode, nodes: INode[]) => string);
+  initialNodeData?: Record<string, any>;
 }
 
 export interface INode {
@@ -54,10 +56,10 @@ export interface INode {
   data?: any;
   children?: INode[];
   path?: string[];
-  extraData?: any;
   configuring?: boolean;
   validateStatusError?: boolean;
   next?: string[];
+  [key: string]: any;
 }
 
 export interface IZoomToolConfig {
@@ -83,6 +85,7 @@ export interface IFlowBuilderProps {
   zoomTool?: boolean | IZoomToolConfig;
   historyTool?: boolean | IHistoryToolConfig;
   drawerProps?: any;
+  drawerVisibleWhenAddNode?: boolean;
   readonly?: boolean;
   registerNodes: IRegisterNode[];
   nodes: INode[];

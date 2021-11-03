@@ -11,6 +11,9 @@
     cursor: pointer;
     z-index: 1;
   }
+  .branch-add-disabled {
+    position: absolute;
+  }
   &__conditions {
     display: flex;
   }
@@ -39,7 +42,8 @@
     > .flow-builder-node__content {
       margin: 12px 0 2px 0;
     }
-    &__add-button {
+    &__add-button,
+    .branch-add-disabled {
       top: -12px;
     }
     &__conditions {
@@ -74,7 +78,8 @@
     > .flow-builder-node__content {
       margin: 0 2px 0 12px;
     }
-    &__add-button {
+    &__add-button,
+    .branch-add-disabled {
       left: -12px;
     }
     &__conditions {

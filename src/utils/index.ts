@@ -77,9 +77,7 @@ export const createNewNode = (
   const isBranchNode = getIsBranchNode(registerNodes, type);
   const isConditionNode = getIsConditionNode(registerNodes, type);
 
-  const extraData = registerNode?.hasOwnProperty('extraData')
-    ? { extraData: registerNode?.extraData }
-    : {};
+  const initialNodeData = registerNode?.initialNodeData || {};
 
   const extraProps: any = isBranchNode
     ? {
@@ -87,14 +85,14 @@ export const createNewNode = (
           createNewNode(registerNodes, registerNode.conditionNodeType),
           createNewNode(registerNodes, registerNode.conditionNodeType),
         ],
-        ...extraData,
+        ...initialNodeData,
       }
     : isConditionNode
     ? {
         children: [],
-        ...extraData,
+        ...initialNodeData,
       }
-    : extraData;
+    : initialNodeData;
 
   return {
     id: createUuid(),
@@ -200,9 +198,7 @@ export const buildFlatNodes = (params: {
     node.next.push(...nextIds.filter((item) => !node.next?.includes(item)));
   }
 
-  return allNodes.map(
-    ({ children, configuring, validateStatusError, ...node }) => node,
-  );
+  return allNodes.map(({ children, ...node }) => node);
 };
 
 const getParentByPath = (path: string[], treeNodes: INode[]) => {

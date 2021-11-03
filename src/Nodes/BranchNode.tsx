@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConnectLine } from '@/Lines';
+import { ConnectLine, SplitLine } from '@/Lines';
 import { getRegisterNode } from '@/utils';
 import { LayoutType, INode, IRegisterNode, IRenderNode } from '@/index';
 import ActionButton from '@/ActionButton';
@@ -34,6 +34,11 @@ const BranchNode: React.FC<IProps> = (props) => {
 
   const conditionCount = Array.isArray(children) ? children.length : 0;
 
+  const disabled =
+    typeof registerNode?.conditionMaxNum === 'number'
+      ? conditionCount === registerNode?.conditionMaxNum
+      : false;
+
   const handleAddCondition = (e: React.MouseEvent) => {
     e?.stopPropagation();
     registerNode?.conditionNodeType &&
@@ -58,14 +63,22 @@ const BranchNode: React.FC<IProps> = (props) => {
           </>
         ) : null}
 
-        {!readonly ? (
+        {!readonly && !disabled ? (
           <div
             className="flow-builder-branch-node__add-button"
             onClick={handleAddCondition}
           >
             <ActionButton size={20} icon={AddConditionIcon} />
           </div>
-        ) : null}
+        ) : (
+          <SplitLine
+            color={lineColor}
+            layout={layout}
+            className="branch-add-disabled"
+            spaceX={10}
+            spaceY={10}
+          />
+        )}
         <div className="flow-builder-branch-node__conditions">
           {conditionCount === 1 ? (
             <div

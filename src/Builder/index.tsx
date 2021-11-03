@@ -54,6 +54,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       spaceX = 16,
       spaceY = 16,
       drawerProps = {},
+      drawerVisibleWhenAddNode = false,
       readonly = false,
       registerNodes = [],
       nodes = [],
@@ -121,10 +122,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       if (!newNode) {
         return;
       }
-      if (
-        getIsBranchNode(registerNodes, node.type) &&
-        getIsConditionNode(registerNodes, newNodeType)
-      ) {
+
+      if (getIsConditionNode(registerNodes, newNodeType)) {
         node.children = node.children || [];
         node.children.push(newNode);
       } else if (getIsConditionNode(registerNodes, node.type)) {
@@ -137,6 +136,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         // @ts-ignore
         (parentNodes || nodes)?.splice(nodeIndex + 1, 0, newNode);
       }
+
       onChange([...nodes], `add-node__${newNodeType}`);
 
       handleHistoryRecordsChange(
@@ -144,6 +144,14 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         activeHistoryRecordIndex,
         nodes,
       );
+
+      if (drawerVisibleWhenAddNode) {
+        if (getIsBranchNode(registerNodes, newNodeType)) {
+          handleNodeClick(newNode.children[0]);
+        } else {
+          handleNodeClick(newNode);
+        }
+      }
     };
 
     const handleRemove = (node: INode, e?: React.MouseEvent) => {
@@ -152,14 +160,18 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       let parentNodes = get(nodes, node.path || []) || nodes;
 
       // Remove the last condition --> Remove the branch
-      if (
-        getIsConditionNode(registerNodes, node.type) &&
-        Array.isArray(parentNodes) &&
-        parentNodes.length === 1
-      ) {
+      if (getIsConditionNode(registerNodes, node.type)) {
         node.path?.pop();
-        removeIndex = Number(node.path?.pop());
-        parentNodes = get(nodes, node.path || []) || nodes;
+        const branchNode = get(nodes, node.path || []);
+        const conditionMinNum =
+          getRegisterNode(registerNodes, branchNode.type)?.conditionMinNum || 1;
+        if (
+          Array.isArray(parentNodes) &&
+          parentNodes.length === conditionMinNum
+        ) {
+          removeIndex = Number(node.path?.pop());
+          parentNodes = get(nodes, node.path || []) || nodes;
+        }
       }
       // @ts-ignore
       parentNodes.splice(removeIndex, 1);
@@ -514,11 +526,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     }, []);
 
     return (
-      <div
-        className={`flow-builder-wrap ${className} ${
-          readonly ? 'flow-builder-readonly' : ''
-        }`}
-      >
+      <div className={`flow-builder-wrap ${className}`}>
         {showHistory || showZoom ? (
           <div className="flow-builder-tool">
             {showHistory ? HistoryTool : null}
