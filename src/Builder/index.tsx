@@ -241,6 +241,13 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     const handleNodeClick = (node: INode) => {
       const registerNode = getRegisterNode(registerNodes, node.type);
       if (!readonly && registerNode?.configComponent) {
+        const allNodes = DFS(nodes);
+        for (const _node of allNodes) {
+          if (_node.configuring === true) {
+            _node.configuring = false;
+          }
+        }
+
         node.configuring = true;
         setActiveNode(node);
         if (typeof registerNode.configTitle === 'string') {
@@ -561,6 +568,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           >
             {ConfigComponent && activeNode ? (
               <ConfigComponent
+                key={activeNode.id}
                 node={activeNode}
                 nodes={nodes}
                 cancel={handleDrawerClose}
