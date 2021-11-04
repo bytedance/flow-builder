@@ -176,6 +176,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       // @ts-ignore
       parentNodes.splice(removeIndex, 1);
 
+      closeDrawerWhenRemove(node);
+
       onChange([...nodes], `remove-node__${node.type}`);
 
       handleHistoryRecordsChange(
@@ -200,6 +202,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
       const restNodes = remove(removeNodes, nodes);
 
+      closeDrawerWhenRemove(removeNodes);
+
       onChange([...restNodes], 'batch-remove-node');
 
       handleHistoryRecordsChange(
@@ -207,6 +211,14 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         activeHistoryRecordIndex,
         restNodes,
       );
+    };
+
+    const closeDrawerWhenRemove = (nodes: INode | INode[]) => {
+      if (Array.isArray(nodes)) {
+        nodes.find((item) => item.configuring) && handleDrawerClose();
+      } else {
+        nodes.configuring && handleDrawerClose();
+      }
     };
 
     const handleRefRemove = (nodes: INode | INode[]) => {
