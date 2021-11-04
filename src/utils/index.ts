@@ -102,7 +102,7 @@ export const createNewNode = (
   };
 };
 
-const DFS = (nodes: INode[], allNodes: INode[] = []) => {
+export const DFS = (nodes: INode[], allNodes: INode[] = []) => {
   for (const node of nodes) {
     allNodes.push(node);
     if (Array.isArray(node.children)) {

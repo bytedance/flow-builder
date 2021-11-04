@@ -22,6 +22,7 @@ import {
   getIsConditionNode,
   createNewNode,
   getAbstractNodeType,
+  DFS,
 } from '@/utils';
 import {
   IFlowBuilderProps,
@@ -214,11 +215,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     };
 
     const closeDrawerWhenRemove = (nodes: INode | INode[]) => {
-      if (Array.isArray(nodes)) {
-        nodes.find((item) => item.configuring) && handleDrawerClose();
-      } else {
-        nodes.configuring && handleDrawerClose();
-      }
+      const allNodes = Array.isArray(nodes) ? DFS(nodes) : DFS([nodes]);
+      allNodes.find((item) => item.configuring) && handleDrawerClose();
     };
 
     const handleRefRemove = (nodes: INode | INode[]) => {
