@@ -146,13 +146,15 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
         nodes,
       );
 
-      if (drawerVisibleWhenAddNode) {
-        if (getIsBranchNode(registerNodes, newNodeType)) {
-          handleNodeClick(newNode.children[0]);
-        } else {
-          handleNodeClick(newNode);
+      setTimeout(() => {
+        if (drawerVisibleWhenAddNode) {
+          if (getIsBranchNode(registerNodes, newNodeType)) {
+            handleNodeClick(newNode.children[0]);
+          } else {
+            handleNodeClick(newNode);
+          }
         }
-      }
+      }, 0);
     };
 
     const handleRemove = (node: INode, e?: React.MouseEvent) => {
