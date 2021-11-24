@@ -55,11 +55,13 @@ const registerNodes: IRegisterNode[] = [
     type: 'start',
     name: 'start node',
     displayComponent: StartNodeDisplay,
+    isStart: true,
   },
   {
     type: 'end',
     name: 'end node',
     displayComponent: EndNodeDisplay,
+    isEnd: true,
   },
   {
     type: 'node',
