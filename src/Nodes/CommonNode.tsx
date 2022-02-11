@@ -12,6 +12,7 @@ interface IProps {
   onNodeClick: (node: INode) => void;
   remove: (nodes?: INode | INode[]) => void;
   readonly?: boolean;
+  beforeNodeClick?: (node: INode) => Promise<any>;
 }
 
 const CommonNode: React.FC<IProps> = (props) => {
@@ -24,15 +25,19 @@ const CommonNode: React.FC<IProps> = (props) => {
     onNodeClick,
     remove,
     readonly,
+    beforeNodeClick,
   } = props;
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 
   const Component = registerNode?.displayComponent || DefaultNode;
 
-  const handleNodeClick = (e: React.MouseEvent) => {
+  const handleNodeClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    onNodeClick(node);
+    try {
+      await beforeNodeClick?.(node);
+      onNodeClick(node);
+    } catch (error) {}
   };
 
   return (

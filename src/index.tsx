@@ -96,6 +96,8 @@ export interface IFlowBuilderProps {
     value: number,
     inDisabled: boolean,
   ) => void;
+  beforeAddConditionNode?: (node: INode) => Promise<any>;
+  beforeNodeClick?: (node: INode) => Promise<any>;
 }
 
 export type ZoomType = 'out' | 'in';

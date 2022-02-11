@@ -14,6 +14,7 @@ interface IProps {
   renderAddNodeButton: React.ReactNode;
   renderConditionNodes: (params: IRenderNode) => React.ReactNode;
   onAddCondition: (node: INode, newNodeType: string) => void;
+  beforeAddConditionNode?: (node: INode) => Promise<any>;
 }
 
 const BranchNode: React.FC<IProps> = (props) => {
@@ -26,6 +27,7 @@ const BranchNode: React.FC<IProps> = (props) => {
     renderAddNodeButton,
     renderConditionNodes,
     onAddCondition,
+    beforeAddConditionNode,
   } = props;
 
   const { children } = node;
@@ -39,10 +41,13 @@ const BranchNode: React.FC<IProps> = (props) => {
       ? conditionCount === registerNode?.conditionMaxNum
       : false;
 
-  const handleAddCondition = (e: React.MouseEvent) => {
+  const handleAddCondition = async (e: React.MouseEvent) => {
     e?.stopPropagation();
-    registerNode?.conditionNodeType &&
-      onAddCondition(node, registerNode.conditionNodeType);
+    try {
+      await beforeAddConditionNode?.(node);
+      registerNode?.conditionNodeType &&
+        onAddCondition(node, registerNode.conditionNodeType);
+    } catch (error) {}
   };
 
   return (

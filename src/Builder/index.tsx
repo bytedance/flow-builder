@@ -62,6 +62,8 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       onChange,
       onHistoryChange,
       onZoomChange,
+      beforeAddConditionNode,
+      beforeNodeClick,
     } = props;
 
     const showZoom =
@@ -451,6 +453,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               renderAddNodeButton={renderAddNodeButton}
               renderConditionNodes={renderNode}
               onAddCondition={handleAddNode}
+              beforeAddConditionNode={beforeAddConditionNode}
             />
           );
         case 'condition':
@@ -473,6 +476,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               onNodeClick={handleNodeClick}
               remove={(nodes) => handleDisplayRemove(node, nodes)}
               readonly={readonly}
+              beforeNodeClick={beforeNodeClick}
             />
           );
         default:
@@ -487,6 +491,7 @@ const Builder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
               onNodeClick={handleNodeClick}
               remove={(nodes) => handleDisplayRemove(node, nodes)}
               readonly={readonly}
+              beforeNodeClick={beforeNodeClick}
             />
           );
       }

@@ -21,6 +21,7 @@ interface IProps {
   onNodeClick: (node: INode) => void;
   remove: (nodes?: INode | INode[]) => void;
   readonly?: boolean;
+  beforeNodeClick?: (node: INode) => Promise<any>;
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {
@@ -41,6 +42,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
     onNodeClick,
     remove,
     readonly,
+    beforeNodeClick,
   } = props;
 
   const { children } = node;
@@ -53,9 +55,12 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
   const Component = registerNode?.displayComponent || DefaultNode;
 
-  const handleNodeClick = (e: React.MouseEvent) => {
+  const handleNodeClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    onNodeClick(node);
+    try {
+      await beforeNodeClick?.(node);
+      onNodeClick(node);
+    } catch (error) {}
   };
 
   return (
