@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FlowBuilder, {
+  NodeContext,
   IRegisterNode,
   INode,
-  IDisplayComponent,
   IAddableComponent,
 } from 'react-flow-builder';
 
 import './index.css';
 
-const StartNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const StartNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="start-node">{node.name}</div>;
 };
 
-const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const EndNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="end-node">{node.name}</div>;
 };
 
-const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const NodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="other-node">{node.name}</div>;
 };
 
-const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const ConditionNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="condition-node">{node.name}</div>;
 };
 

@@ -1,0 +1,28 @@
+.flow-builder-drag-panel {
+  width: 272px;
+  margin-right: 16px;
+  padding: 16px;
+  overflow: auto;
+
+  ul {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 0;
+  }
+  li {
+    list-style-type: none;
+  }
+}
+
+.flow-builder-drag-node-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: move;
+  .flow-builder-drag-node-icon {
+    display: flex;
+    margin-right: 4px;
+  }
+}

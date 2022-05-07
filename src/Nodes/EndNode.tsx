@@ -1,16 +1,12 @@
-import React from 'react';
-import DefaultNode from '@/DefaultNode';
-import { getRegisterNode } from '@/utils';
-import { INode, IRegisterNode } from '@/index';
+import React, { useContext } from 'react';
+import DefaultNode from '../DefaultNode';
+import { getRegisterNode } from '../utils';
+import { BuilderContext, NodeContext } from '../contexts';
 
-interface IProps {
-  node: INode;
-  nodes: INode[];
-  registerNodes: IRegisterNode[];
-}
+const EndNode: React.FC = () => {
+  const { registerNodes, nodes } = useContext(BuilderContext);
 
-const EndNode: React.FC<IProps> = (props) => {
-  const { node, nodes, registerNodes } = props;
+  const node = useContext(NodeContext);
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 

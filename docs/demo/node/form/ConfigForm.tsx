@@ -1,9 +1,11 @@
-import React from 'react';
-import { IConfigComponent } from 'react-flow-builder';
+import React, { useContext } from 'react';
+import { BuilderContext, useDrawer } from 'react-flow-builder';
 import { Form, Button, Input } from 'antd';
 
-const ConfigForm: React.FC<IConfigComponent> = (props) => {
-  const { node, cancel, save } = props;
+const ConfigForm: React.FC = () => {
+  const { selectedNode: node } = useContext(BuilderContext);
+
+  const { closeDrawer: cancel, saveDrawer: save } = useDrawer();
 
   const [form] = Form.useForm();
 

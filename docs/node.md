@@ -42,9 +42,12 @@ order: 2
 
 ### DisplayComponent
 
-| 参数 | 说明     | 类型 | 默认值 |
-| :--- | :------- | :--- | :----- |
-| node | 节点信息 | Node | -      |
+| 参数     | 说明                                                                                       | 类型                                 |
+| :------- | :----------------------------------------------------------------------------------------- | :----------------------------------- |
+| node     | 节点信息（V1 版本开始推荐使用 NodeContext 获取）                                           | [Node](#node)                        |
+| nodes    | （V1 版本开始推荐使用 BuilderContext 获取）                                                | [Node](#node)[]                      |
+| readonly | 继承 FlowBuilder 的 readonly（V1 版本开始推荐使用 BuilderContext 获取）                    | `boolean`                            |
+| remove   | 删除一个或多个节点，默认删除当前节点（V1 版本开始推荐使用 useAction 中的 removeNode 方法） | `(nodes?: INode \| INode[]) => void` |
 
 <br>
 
@@ -62,11 +65,12 @@ order: 2
 
 ### ConfigComponent
 
-| 参数     | 说明                                                                                                                                    | 类型                                                 | 默认值 |
-| :------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- | :----- |
-| node     | 节点信息                                                                                                                                | Node                                                 | -      |
-| onCancel | 取消时调用，用来关闭抽屉                                                                                                                | () => void                                           | -      |
-| onSave   | 保存节点数据时调用（自动关闭抽屉，不需要开发者执行 onCancel 方法），react-flow-builder 会根据第二个参数设置节点的 `validateStatusError` | (values: any, validateStatusError?: boolean) => void | -      |
+| 参数   | 说明                                                                                                                                                                               | 类型                                                   |
+| :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
+| cancel | 取消时调用，用来关闭抽屉（V1 版本开始推荐使用 useDrawer 中的 closeDrawer 方法）                                                                                                    | `() => void`                                           |
+| node   | 节点信息（V1 版本开始推荐使用 BuilderContext 获取 selectedNode ）                                                                                                                  | [Node](#node)                                          |
+| nodes  | （V1 版本开始推荐使用 BuilderContext 获取）                                                                                                                                        | [Node](#node)[]                                        |
+| save   | 保存节点数据时调用（自动关闭抽屉，无需再执行 cancel），流程引擎会根据第二个参数的布尔值设置节点的 `validateStatusError` 属性（V1 版本开始推荐使用 useDrawer 中的 saveDrawer 方法） | `(values: any, validateStatusError?: boolean) => void` |
 
 <br>
 
@@ -86,7 +90,7 @@ order: 2
 
 ## 点击加号之后的展示内容
 
-通过`addableComponent` 属性注册节点下方点击加号之后展示内容的组件，替换默认实现的 Popover 组件 content 属性。向组件提供了 `onAddNode` 属性作为执行添加节点动作时需要调用的方法
+通过 `addableComponent` 属性注册节点下方点击加号之后展示内容的组件，替换默认的 Popover 组件 content 属性。向自定义组件提供了 `add` 方法在执行添加节点动作时调用。
 
 以下例子就实现了：
 

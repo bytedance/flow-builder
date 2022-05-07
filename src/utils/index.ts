@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { IRegisterNode, AbstractNodeType, INode } from '@/index';
+import { IRegisterNode, AbstractNodeType, INode } from '../index';
 
 export const createUuid = (prefix?: string) => {
   return `${prefix || 'node'}-${uuid()}`;
