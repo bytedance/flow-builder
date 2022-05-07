@@ -1,32 +1,18 @@
-import React from 'react';
-import DefaultNode from '@/DefaultNode';
-import { getRegisterNode } from '@/utils';
-import { INode, IRegisterNode } from '@/index';
+import React, { useContext } from 'react';
+import DefaultNode from '../DefaultNode';
+import AddButton from '../AddButton';
+import RemoveButton from '../RemoveButton';
+import { getRegisterNode } from '../utils';
+import { BuilderContext, NodeContext } from '../contexts';
+import { useAction } from '../hooks';
 
-interface IProps {
-  node: INode;
-  nodes: INode[];
-  registerNodes: IRegisterNode[];
-  renderAddNodeButton: React.ReactNode;
-  renderRemoveButton: React.ReactNode;
-  onNodeClick: (node: INode) => void;
-  remove: (nodes?: INode | INode[]) => void;
-  readonly?: boolean;
-  beforeNodeClick?: (node: INode) => Promise<any>;
-}
+const CommonNode: React.FC = () => {
+  const { readonly, registerNodes, nodes, beforeNodeClick } =
+    useContext(BuilderContext);
 
-const CommonNode: React.FC<IProps> = (props) => {
-  const {
-    node,
-    nodes,
-    registerNodes,
-    renderAddNodeButton,
-    renderRemoveButton,
-    onNodeClick,
-    remove,
-    readonly,
-    beforeNodeClick,
-  } = props;
+  const node = useContext(NodeContext);
+
+  const { clickNode, removeNode } = useAction();
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 
@@ -36,8 +22,10 @@ const CommonNode: React.FC<IProps> = (props) => {
     e.stopPropagation();
     try {
       await beforeNodeClick?.(node);
-      onNodeClick(node);
-    } catch (error) {}
+      clickNode();
+    } catch (error) {
+      console.log('node click error', error);
+    }
   };
 
   return (
@@ -47,13 +35,13 @@ const CommonNode: React.FC<IProps> = (props) => {
           readonly={readonly}
           node={node}
           nodes={nodes}
-          remove={remove}
+          remove={removeNode}
         />
 
-        {renderRemoveButton}
+        <RemoveButton />
       </div>
 
-      {renderAddNodeButton}
+      <AddButton />
     </div>
   );
 };

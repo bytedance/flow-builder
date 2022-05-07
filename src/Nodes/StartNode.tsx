@@ -1,17 +1,13 @@
-import React from 'react';
-import DefaultNode from '@/DefaultNode';
-import { getRegisterNode } from '@/utils';
-import { INode, IRegisterNode } from '@/index';
+import React, { useContext } from 'react';
+import DefaultNode from '../DefaultNode';
+import AddButton from '../AddButton';
+import { getRegisterNode } from '../utils';
+import { BuilderContext, NodeContext } from '../contexts';
 
-interface IProps {
-  node: INode;
-  nodes: INode[];
-  registerNodes: IRegisterNode[];
-  renderAddNodeButton: React.ReactNode;
-}
+const StartNode: React.FC = () => {
+  const { registerNodes, nodes } = useContext(BuilderContext);
 
-const StartNode: React.FC<IProps> = (props) => {
-  const { node, nodes, registerNodes, renderAddNodeButton } = props;
+  const node = useContext(NodeContext);
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 
@@ -23,7 +19,7 @@ const StartNode: React.FC<IProps> = (props) => {
         <Component node={node} nodes={nodes} />
       </div>
 
-      {renderAddNodeButton}
+      <AddButton />
     </div>
   );
 };

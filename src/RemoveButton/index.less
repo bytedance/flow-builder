@@ -1,0 +1,26 @@
+.flow-builder-node {
+  .flow-builder-node__remove {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:not(.flow-builder-branch-node) {
+    > .flow-builder-node__content {
+      cursor: pointer;
+      &:hover {
+        .flow-builder-node__remove {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

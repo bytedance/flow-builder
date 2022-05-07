@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { BuilderContext } from '../contexts';
 
-import { ILineProps } from './index';
-
-const FillLine: React.FC<ILineProps> = (props) => {
-  const { color, layout } = props;
+const FillLine: React.FC = () => {
+  const { lineColor, layout } = useContext(BuilderContext);
 
   return (
     <div
       className="flow-builder-line__fill"
       style={{
-        backgroundColor: color,
+        backgroundColor: lineColor,
         width: layout === 'vertical' ? '2px' : '100%',
         height: layout === 'vertical' ? '100%' : '2px',
       }}

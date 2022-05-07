@@ -1,51 +1,35 @@
-import React from 'react';
-import { SplitLine, FillLine, CleanLine } from '@/Lines';
-import DefaultNode from '@/DefaultNode';
-import { getRegisterNode } from '@/utils';
-import { LayoutType, INode, IRegisterNode, IRender } from '@/index';
+import React, { useContext } from 'react';
+import AddButton from '../AddButton';
+import RemoveButton from '../RemoveButton';
+import { SplitLine, FillLine, CleanLine } from '../Lines';
+import DefaultNode from '../DefaultNode';
+import { getRegisterNode } from '../utils';
+import { BuilderContext, NodeContext } from '../contexts';
+import { useAction } from '../hooks';
+import { INode, IRender } from '../index';
 
 interface IProps {
-  backgroundColor?: string;
-  lineColor?: string;
-  layout: LayoutType;
-  spaceX?: number;
-  spaceY?: number;
-  node: INode;
-  nodes: INode[];
   parentNode?: INode;
   conditionIndex: number;
-  registerNodes: IRegisterNode[];
-  renderAddNodeButton: React.ReactNode;
-  renderRemoveButton: React.ReactNode;
   renderNext: (params: IRender) => React.ReactNode;
-  onNodeClick: (node: INode) => void;
-  remove: (nodes?: INode | INode[]) => void;
-  readonly?: boolean;
-  beforeNodeClick?: (node: INode) => Promise<any>;
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {
+  const { parentNode, conditionIndex, renderNext } = props;
+
   const {
-    backgroundColor,
-    lineColor,
     layout,
     spaceX,
     spaceY,
-    node,
-    nodes,
-    parentNode,
-    conditionIndex,
-    registerNodes,
-    renderRemoveButton,
-    renderAddNodeButton,
-    renderNext,
-    onNodeClick,
-    remove,
     readonly,
+    registerNodes,
+    nodes,
     beforeNodeClick,
-  } = props;
+  } = useContext(BuilderContext);
 
-  const { children } = node;
+  const node = useContext(NodeContext);
+
+  const { clickNode, removeNode } = useAction();
 
   const conditionCount = Array.isArray(parentNode?.children)
     ? parentNode?.children.length || 0
@@ -59,8 +43,10 @@ const ConditionNode: React.FC<IProps> = (props) => {
     e.stopPropagation();
     try {
       await beforeNodeClick?.(node);
-      onNodeClick(node);
-    } catch (error) {}
+      clickNode();
+    } catch (error) {
+      console.log('node click error', error);
+    }
   };
 
   return (
@@ -70,61 +56,40 @@ const ConditionNode: React.FC<IProps> = (props) => {
         padding: layout === 'vertical' ? `0 ${spaceX}px` : `${spaceY}px 0`,
       }}
     >
-      <SplitLine
-        color={lineColor}
-        layout={layout}
-        spaceX={spaceX}
-        spaceY={spaceY}
-      />
+      <SplitLine />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
         <Component
           readonly={readonly}
           node={node}
           nodes={nodes}
-          remove={remove}
+          remove={removeNode}
         />
-        {renderRemoveButton}
+        <RemoveButton />
       </div>
 
-      {renderAddNodeButton}
+      <AddButton />
 
-      {Array.isArray(children)
+      {Array.isArray(node.children)
         ? renderNext({
-            nodes: children,
+            nodes: node.children,
             parentNode: node,
           })
         : null}
 
-      <FillLine color={lineColor} layout={layout} />
+      <FillLine />
 
       {conditionCount > 1 && conditionIndex === 0 ? (
         <>
-          <CleanLine
-            color={backgroundColor}
-            layout={layout}
-            className="clean-left clean-top"
-          />
-          <CleanLine
-            color={backgroundColor}
-            layout={layout}
-            className="clean-left clean-bottom"
-          />
+          <CleanLine className="clean-left clean-top" />
+          <CleanLine className="clean-left clean-bottom" />
         </>
       ) : null}
 
       {conditionCount > 1 && conditionIndex === conditionCount - 1 ? (
         <>
-          <CleanLine
-            color={backgroundColor}
-            layout={layout}
-            className="clean-right clean-top"
-          />
-          <CleanLine
-            color={backgroundColor}
-            layout={layout}
-            className="clean-right clean-bottom"
-          />
+          <CleanLine className="clean-right clean-top" />
+          <CleanLine className="clean-right clean-bottom" />
         </>
       ) : null}
     </div>

@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FlowBuilder, {
+  NodeContext,
   INode,
   IRegisterNode,
-  IDisplayComponent,
-  buildFlatNodes,
 } from 'react-flow-builder';
 import ConfigForm from './ConfigForm';
 
 import './index.css';
 
-const StartNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const StartNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="start-node">{node.name}</div>;
 };
 
-const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const EndNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="end-node">{node.name}</div>;
 };
 
-const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const NodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return (
     <div
       className={`other-node ${node.configuring ? 'node-configuring' : ''} ${
@@ -29,7 +31,8 @@ const NodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
   );
 };
 
-const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const ConditionNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return (
     <div
       className={`condition-node ${
@@ -138,6 +141,7 @@ const NodeForm = () => {
         onChange={handleChange}
         registerNodes={registerNodes}
         historyTool
+        zoomTool
       />
     </>
   );

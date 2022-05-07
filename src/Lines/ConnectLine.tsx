@@ -1,15 +1,17 @@
-import React from 'react';
-
-import { ILineProps } from './index';
+import React, { useContext } from 'react';
+import { BuilderContext } from '../contexts';
+import { ILineProps } from '../index';
 
 const ConnectLine: React.FC<ILineProps> = (props) => {
-  const { color, layout, className } = props;
+  const { className } = props;
+
+  const { lineColor, layout } = useContext(BuilderContext);
 
   return (
     <div
       className={`flow-builder-line__branch ${className}`}
       style={{
-        backgroundColor: color,
+        backgroundColor: lineColor,
         width: layout === 'vertical' ? '100%' : '2px',
         height: layout === 'vertical' ? '2px' : '100%',
       }}

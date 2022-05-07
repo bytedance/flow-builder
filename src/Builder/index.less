@@ -1,10 +1,11 @@
 .flow-builder-wrap {
   position: relative;
   height: 100%;
+  display: flex;
 }
 
 .flow-builder-content {
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -16,33 +17,6 @@
 
   .ant-popover-inner-content {
     white-space: nowrap;
-  }
-}
-
-.flow-builder-node {
-  .flow-builder-node__remove {
-    position: absolute;
-    top: -9px;
-    right: -9px;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.2s;
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  &:not(.flow-builder-branch-node) {
-    > .flow-builder-node__content {
-      cursor: pointer;
-      &:hover {
-        .flow-builder-node__remove {
-          opacity: 1;
-        }
-      }
-    }
   }
 }
 
@@ -72,23 +46,4 @@
 
 .flow-builder-undo-redo-tool {
   width: 80px;
-}
-
-.flow-builder-addable-nodes {
-  .flow-builder-addable-node-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    cursor: pointer;
-    &:hover {
-      background-color: #f7f7f7;
-    }
-    .flow-builder-addable-node-icon {
-      display: flex;
-      margin-right: 4px;
-    }
-  }
-  .ant-popover-inner-content {
-    padding: 8px 0;
-  }
 }

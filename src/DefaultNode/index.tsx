@@ -1,5 +1,5 @@
 import React from 'react';
-import { INode } from '@/index';
+import { INode } from '../index';
 
 import './index.less';
 

@@ -1,4 +1,3 @@
-import Builder from './Builder';
 import React from 'react';
 
 export interface IDisplayComponent {
@@ -19,6 +18,15 @@ export interface IAddableComponent {
   nodes: INode[];
   node: INode;
   add: (type: string) => void;
+}
+
+export interface IDragComponent {
+  onDragStart: (type: string) => void;
+  onDragEnd: () => void;
+}
+
+export interface IDropComponent {
+  onDrop: () => void;
 }
 
 export type LayoutType = 'vertical' | 'horizontal';
@@ -98,6 +106,9 @@ export interface IFlowBuilderProps {
   ) => void;
   beforeAddConditionNode?: (node: INode) => Promise<any>;
   beforeNodeClick?: (node: INode) => Promise<any>;
+  draggable?: boolean;
+  DragComponent?: React.FC<IDragComponent>;
+  DropComponent?: React.FC<IDropComponent>;
 }
 
 export type ZoomType = 'out' | 'in';
@@ -123,6 +134,31 @@ export interface IRenderNode {
   parentNode?: INode;
 }
 
-export { createUuid, buildFlatNodes, buildTreeNodes } from '@/utils';
+export interface ILineProps {
+  className?: string;
+}
 
-export default Builder;
+export interface IFlowBuilderContext extends IFlowBuilderProps {
+  zoomValue: number;
+  setZoomValue: (zoom: number) => void;
+  historyRecords: INode[][];
+  setHistoryRecords: (records: INode[][]) => void;
+  activeHistoryRecordIndex: number;
+  setActiveHistoryRecordIndex: (index: number) => void;
+  selectedNode: INode | undefined;
+  setSelectedNode: (node: INode | undefined) => void;
+  drawerTitle: string;
+  setDrawerTitle: (title: string) => void;
+  dragType: string;
+  setDragType: (type: string) => void;
+}
+
+export interface INodeContext extends INode {}
+
+export { createUuid, buildFlatNodes, buildTreeNodes } from './utils';
+
+export * from './contexts';
+
+export * from './hooks';
+
+export { default } from './FlowBuilder';

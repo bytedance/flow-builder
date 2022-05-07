@@ -1,34 +1,33 @@
-import React from 'react';
-import { ConnectLine, SplitLine } from '@/Lines';
-import { getRegisterNode } from '@/utils';
-import { LayoutType, INode, IRegisterNode, IRenderNode } from '@/index';
-import ActionButton from '@/ActionButton';
+import React, { useContext } from 'react';
+import AddButton from '../AddButton';
+import { ConnectLine, SplitLine } from '../Lines';
+import ActionButton from '../ActionButton';
+import DropButton from '../DropButton';
+import { getRegisterNode } from '../utils';
+import { IRenderNode } from '../index';
+import { BuilderContext, NodeContext } from '../contexts';
+import { useAction } from '../hooks';
 import AddConditionIcon from '../icons/add-condition.svg';
 
 interface IProps {
-  readonly?: boolean;
-  lineColor: string;
-  layout: LayoutType;
-  node: INode;
-  registerNodes: IRegisterNode[];
-  renderAddNodeButton: React.ReactNode;
   renderConditionNodes: (params: IRenderNode) => React.ReactNode;
-  onAddCondition: (node: INode, newNodeType: string) => void;
-  beforeAddConditionNode?: (node: INode) => Promise<any>;
 }
 
 const BranchNode: React.FC<IProps> = (props) => {
+  const { renderConditionNodes } = props;
+
   const {
     readonly,
     lineColor,
-    layout,
-    node,
     registerNodes,
-    renderAddNodeButton,
-    renderConditionNodes,
-    onAddCondition,
     beforeAddConditionNode,
-  } = props;
+    dragType,
+    DropComponent = DropButton,
+  } = useContext(BuilderContext);
+
+  const node = useContext(NodeContext);
+
+  const { addNode } = useAction();
 
   const { children } = node;
 
@@ -41,12 +40,13 @@ const BranchNode: React.FC<IProps> = (props) => {
       ? conditionCount === registerNode?.conditionMaxNum
       : false;
 
-  const handleAddCondition = async (e: React.MouseEvent) => {
-    e?.stopPropagation();
+  const droppable = dragType && registerNode?.conditionNodeType === dragType;
+
+  const handleAddCondition = async () => {
     try {
       await beforeAddConditionNode?.(node);
       registerNode?.conditionNodeType &&
-        onAddCondition(node, registerNode.conditionNodeType);
+        addNode(registerNode.conditionNodeType);
     } catch (error) {}
   };
 
@@ -55,34 +55,26 @@ const BranchNode: React.FC<IProps> = (props) => {
       <div className="flow-builder-node__content">
         {conditionCount > 1 ? (
           <>
-            <ConnectLine
-              color={lineColor}
-              layout={layout}
-              className="branch-start"
-            />
-            <ConnectLine
-              color={lineColor}
-              layout={layout}
-              className="branch-end"
-            />
+            <ConnectLine className="branch-start" />
+            <ConnectLine className="branch-end" />
           </>
         ) : null}
-
         {!readonly && !disabled ? (
           <div
             className="flow-builder-branch-node__add-button"
-            onClick={handleAddCondition}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddCondition();
+            }}
           >
-            <ActionButton size={20} icon={AddConditionIcon} />
+            {droppable ? (
+              <DropComponent onDrop={handleAddCondition} />
+            ) : (
+              <ActionButton size={20} icon={AddConditionIcon} />
+            )}
           </div>
         ) : (
-          <SplitLine
-            color={lineColor}
-            layout={layout}
-            className="branch-add-disabled"
-            spaceX={10}
-            spaceY={10}
-          />
+          <SplitLine className="branch-add-disabled" />
         )}
         <div className="flow-builder-branch-node__conditions">
           {conditionCount === 1 ? (
@@ -101,7 +93,7 @@ const BranchNode: React.FC<IProps> = (props) => {
         </div>
       </div>
 
-      {renderAddNodeButton}
+      <AddButton />
     </div>
   );
 };

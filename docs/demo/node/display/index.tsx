@@ -1,45 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FlowBuilder, {
+  NodeContext,
+  useAction,
   INode,
   IRegisterNode,
-  IDisplayComponent,
 } from 'react-flow-builder';
 
 import './index.css';
 
-const StartNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const StartNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="start-node">{node.name}</div>;
 };
 
-const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const EndNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="end-node">{node.name}</div>;
 };
 
-// @ts-ignore
-const NodeDisplay: React.FC<IDisplayComponent> = ({ node, remove }) => {
+const NodeDisplay: React.FC = () => {
+  const { removeNode: remove } = useAction();
   return (
     <div className="other-node">
-      <div onClick={() => remove()}>删除</div>
+      <div onClick={() => remove()}>点这里删除当前节点</div>
       <div
         onClick={() =>
           remove([
-            {
-              id: 'node-972401ca-c4db-4268-8780-5607876d8372',
-            },
-            {
-              id: 'node-b2ffe834-c7c2-4f29-a370-305adc03c010',
-            },
+            'node-972401ca-c4db-4268-8780-5607876d8372',
+            'node-b2ffe834-c7c2-4f29-a370-305adc03c010',
           ])
         }
       >
-        删除多个
+        点这里删除多个节点
       </div>
-      {node.name}
     </div>
   );
 };
 
-const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const ConditionNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="condition-node">{node.name}</div>;
 };
 

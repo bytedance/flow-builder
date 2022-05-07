@@ -25,28 +25,32 @@ npm install react-flow-builder
 
 ```tsx
 // index.tsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import FlowBuilder, {
+  NodeContext,
   INode,
   IRegisterNode,
-  IDisplayComponent,
 } from 'react-flow-builder';
 
 import './index.css';
 
-const StartNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const StartNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="start-node">{node.name}</div>;
 };
 
-const EndNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const EndNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="end-node">{node.name}</div>;
 };
 
-const OtherNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const OtherNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="other-node">{node.name}</div>;
 };
 
-const ConditionNodeDisplay: React.FC<IDisplayComponent> = ({ node }) => {
+const ConditionNodeDisplay: React.FC = () => {
+  const node = useContext(NodeContext);
   return <div className="condition-node">{node.name}</div>;
 };
 
@@ -142,24 +146,27 @@ export default Demo;
 
 ### FlowBuilder
 
-| Property                 | Description                                                                                                                                                                                                                              | Type                                                                 | Required | Default    |
-| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :------- | :--------- |
-| backgroundColor          | The color of background                                                                                                                                                                                                                  | `string`                                                             |          | #F7F7F7    |
+| Property                 | Description                                                                                                                                                                                                                              | Type                                                                 | Required | Default    | Version |
+| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :------- | :--------- | :------ |
+| backgroundColor          | The color of background                                                                                                                                                                                                                  | `string`                                                             |          | #F7F7F7    |         |
 | className                | The class name of the container                                                                                                                                                                                                          | `string`                                                             |          | -          |
-| drawerProps              | Extra [props](https://ant.design/components/drawer/#API) of Drawer Component from antd. `visible` and `onClose` have already in FlowBuilder, and {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                        |          | -          |
-| drawerVisibleWhenAddNode | Drawer visible when add node                                                                                                                                                                                                             | `boolean`                                                            |          | false      |
+| drawerProps              | Extra [props](https://ant.design/components/drawer/#API) of Drawer Component from antd. `visible` and `onClose` have already in FlowBuilder, and {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                        |          | -          |         |
+| drawerVisibleWhenAddNode | Drawer visible when add node                                                                                                                                                                                                             | `boolean`                                                            |          | false      |         |
 | historyTool              | undo and redo                                                                                                                                                                                                                            | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |          | false      |
-| layout                   | Use vertical or horizontal layout                                                                                                                                                                                                        | `vertical` \| `horizontal`                                           |          | `vertical` |
-| lineColor                | The color of line                                                                                                                                                                                                                        | `string`                                                             |          | #999999    |
-| nodes                    | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                      | ✓        | -          |
-| readonly                 | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                            |          | false      |
-| registerNodes            | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                      | ✓        | -          |
-| spaceX                   | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                             |          | `16`       |
+| layout                   | Use vertical or horizontal layout                                                                                                                                                                                                        | `vertical` \| `horizontal`                                           |          | `vertical` |         |
+| lineColor                | The color of line                                                                                                                                                                                                                        | `string`                                                             |          | #999999    |         |
+| nodes                    | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                      | ✓        | -          |         |
+| readonly                 | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                            |          | false      |         |
+| registerNodes            | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                      | ✓        | -          |         |
+| spaceX                   | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                             |          | `16`       |         |
 | spaceY                   | Vertical spacing between nodes                                                                                                                                                                                                           | `number`                                                             |          | `16`       |
-| zoomTool                 | zoom                                                                                                                                                                                                                                     | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |          | false      |
-| onChange                 | Callback function for when the data change                                                                                                                                                                                               | (nodes: [Node](#node)[], changeEvent?: `string`) => void             | ✓        | -          |
-| onHistoryChange          |                                                                                                                                                                                                                                          | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |          | -          |
-| onZoomChange             |                                                                                                                                                                                                                                          | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |          | -          |
+| zoomTool                 | zoom                                                                                                                                                                                                                                     | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |          | false      |         |
+| onChange                 | Callback function for when the data change                                                                                                                                                                                               | (nodes: [Node](#node)[], changeEvent?: `string`) => void             | ✓        | -          |         |
+| onHistoryChange          |                                                                                                                                                                                                                                          | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |          | -          |         |
+| onZoomChange             |                                                                                                                                                                                                                                          | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |          | -          |         |
+| draggable                | drag and drop                                                                                                                                                                                                                            | `boolean`                                                            |          | false      | 1.0.0   |
+| DragComponent            | custom drag component                                                                                                                                                                                                                    | `React.FC`\<[DragComponent](#dragcomponent)\>                        |          | -          | 1.0.0   |
+| DropComponent            | custom drop component                                                                                                                                                                                                                    | `React.FC`\<[DropComponent](#dropcomponent)\>                        |          | -          | 1.0.0   |
 
 #### HistoryToolConfig
 
@@ -178,15 +185,28 @@ export default Demo;
 | max          |             | `number`  | 200     |
 | step         |             | `number`  | 10      |
 
+#### DragComponent
+
+| Property    | Description                                                                                                                        | Type                         | Version |
+| :---------- | :--------------------------------------------------------------------------------------------------------------------------------- | :--------------------------- | :------ |
+| onDragStart | The dragStart event of the custom drag component needs to call this method to set the dragged type（ dragType in BuilderContext ） | `(nodeType: string) => void` | 1.0.0   |
+| onDragEnd   | The dragEnd event of the custom drag component needs to call this method to clear the dragged type（ dragType in BuilderContext ） | `() => void`                 | 1.0.0   |
+
+#### DropComponent
+
+| Property | Description                                                                                    | Type         | Version |
+| :------- | :--------------------------------------------------------------------------------------------- | :----------- | :------ |
+| onDrop   | The drop event of the custom drop component needs to call this method to add the new node type | `() => void` | 1.0.0   |
+
 ### FlowBuilderInstance
 
-| Name        | Description  | Type                                         |
-| :---------- | :----------- | :------------------------------------------- |
-| add         | add node     | `(node: INode, newNodeType: string) => void` |
-| history     | undo, redo   | `(type: 'undo' \| 'redo') => void`           |
-| remove      | remove noded | `(nodes: INode \| INode[]) => void`          |
-| zoom        | zoom         | `(type: 'out' \| 'in' \| number) => void`    |
-| closeDrawer | close drawer | `() => void`                                 |
+| Name        | Description  | Type                                                                            |
+| :---------- | :----------- | :------------------------------------------------------------------------------ |
+| add         | add node     | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
+| history     | undo, redo   | `(type: 'undo' \| 'redo') => void`                                              |
+| remove      | remove noded | `(nodes: INode \| INode[] = useContext(NodeContext)) => void`                   |
+| zoom        | zoom         | `(type: 'out' \| 'in' \| number) => void`                                       |
+| closeDrawer | close drawer | `() => void`                                                                    |
 
 ### Formatter
 
@@ -210,7 +230,7 @@ export default Demo;
 | configTitle        | The drawer title of configuring node                                                                                            | `string \| ((node: INode, nodes: INode[]) => string)` |          | -                                 |
 | customRemove       | Custom remove button                                                                                                            | `boolean`                                             |          | false                             |
 | displayComponent   | The Component of displaying node                                                                                                | `React.FC`\<[DisplayComponent](#displaycomponent)\>   |          | -                                 |
-| initialNodeData    | 增加节点时初始化数据                                                                                                            | `Record<string, any>`                                 |          | -                                 |
+| initialNodeData    | the initial data when add new node                                                                                              | `Record<string, any>`                                 |          | -                                 |
 | isStart            | Is start node                                                                                                                   | `boolean`                                             |          | false                             |
 | isEnd              | Is end node                                                                                                                     | `boolean`                                             |          | false                             |
 | name               | The name of node                                                                                                                | `string`                                              | ✓        | -                                 |
@@ -219,28 +239,29 @@ export default Demo;
 
 #### DisplayComponent
 
-| Property | Description                 | Type                                 |
-| :------- | :-------------------------- | :----------------------------------- |
-| node     | The all information of node | [Node](#node)                        |
-| nodes    |                             | [Node](#node)[]                      |
-| remove   | Remove node                 | `(nodes?: INode \| INode[]) => void` |
+| Property | Description                                                       | Type                                 |
+| :------- | :---------------------------------------------------------------- | :----------------------------------- |
+| node     | The all information of node (NodeContext is recommended since V1) | [Node](#node)                        |
+| nodes    | (BuilderContext is recommended since V1)                          | [Node](#node)[]                      |
+| readonly | (BuilderContext is recommended since V1)                          | `boolean`                            |
+| remove   | Remove node (useAction is recommended since V1)                   | `(nodes?: INode \| INode[]) => void` |
 
 #### ConfigComponent
 
-| Property | Description                                                                                                                                                              | Type                                                   |
-| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
-| cancel   | Called on cancel, used to close the drawer                                                                                                                               | `() => void`                                           |
-| node     | The all information of node                                                                                                                                              | [Node](#node)                                          |
-| nodes    |                                                                                                                                                                          | [Node](#node)[]                                        |
-| save     | Called on save node data (automatically close the drawer, no need to call cancel). FlowBuilder will set the `validateStatusError` property according to the second param | `(values: any, validateStatusError?: boolean) => void` |
+| Property | Description                                                                                                                                                                                                  | Type                                                   |
+| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------- |
+| cancel   | Called on cancel, used to close the drawer (useDrawer is recommended since V1)                                                                                                                               | `() => void`                                           |
+| node     | The all information of node (NodeContext is recommended since V1)                                                                                                                                            | [Node](#node)                                          |
+| nodes    | (BuilderContext is recommended since V1)                                                                                                                                                                     | [Node](#node)[]                                        |
+| save     | Called on save node data (automatically close the drawer, no need to call cancel). FlowBuilder will set the `validateStatusError` property according to the second param (useDrawer is recommended since V1) | `(values: any, validateStatusError?: boolean) => void` |
 
 #### AddableComponent
 
-| Property | Description                 | Type                     |
-| :------- | :-------------------------- | :----------------------- |
-| add      |                             | `(type: string) => void` |
-| node     | The all information of node | [Node](#node)            |
-| nodes    |                             | [Node](#node)[]          |
+| Property | Description                                                       | Type                     |
+| :------- | :---------------------------------------------------------------- | :----------------------- |
+| add      |                                                                   | `(type: string) => void` |
+| node     | The all information of node (NodeContext is recommended since V1) | [Node](#node)            |
+| nodes    | (BuilderContext is recommended since V1)                          | [Node](#node)[]          |
 
 ### Node
 
@@ -254,3 +275,69 @@ export default Demo;
 | path                | The full path in FlowBuilder                                                                                                    | `string[]`      |
 | type                | The type of node. Same as the `type` of the registered node                                                                     | `string`        |
 | validateStatusError | The Component of configuring node form validate failed. The display Component can highlight the node according to this property | `boolean`       |
+
+### Context
+
+**Added since V1**
+
+In the context of FlowBuilder the following contexts can be used
+
+#### BuilderContext
+
+Contains [props](#flowbuilder) and state. The following is the state:
+
+| Property                    | Description                            | Type                                 |
+| :-------------------------- | :------------------------------------- | :----------------------------------- |
+| zoomValue                   | current zoom value                     | `number`                             |
+| setZoomValue                | set zoomValue                          | `(zoomValue: number) => void`        |
+| historyRecords              | history nodes records                  | `INode[][]`                          |
+| setHistoryRecords           | set historyRecords                     | `(records: INode[][]) => void`       |
+| activeHistoryRecordIndex    | current index in history nodes records | `number`                             |
+| setActiveHistoryRecordIndex | set activeHistoryRecordIndex           | `(index: number) => void`            |
+| selectedNode                | current selecred node                  | `INode \| undefined`                 |
+| setSelectedNode             | set selectedNode                       | `(node: INode \| undefined) => void` |
+| drawerTitle                 | the title of Drawer                    | `string`                             |
+| setDrawerTitle              | set drawerTitle                        | `(title: string) => void`            |
+| dragType                    | dragged node type                      | `string`                             |
+| setDragType                 | set dragType                           | `(type: string) => void`             |
+
+#### NodeContext
+
+Get the data of the node where it is used. For details [Node](#node)
+
+### Hooks
+
+**Added since V1**
+
+In the context of FlowBuilder the following hooks can be used
+
+#### useAction
+
+| Property   | Description                                                                             | Type                                                                            |
+| :--------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
+| clickNode  | click node                                                                              | `(node: INode = useContext(NodeContext)) => void`                               |
+| addNode    | add one node. (Get the current node through NodeContext when there is no node property) | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
+| removeNode | remove one node or more nodes.                                                          | `(targetNode: INode \| INode[] = useContext(NodeContext)) => void`              |
+
+#### useDrawer
+
+| Property    | Description                                                                                 | Type                                                   |
+| :---------- | :------------------------------------------------------------------------------------------ | :----------------------------------------------------- |
+| closeDrawer | close Drawer and clear selectedNode                                                         | `() => void`                                           |
+| saveDrawer  | save the content in Drawer (same as the save method in [ConfigComponent](#configcomponent)) | `(values: any, validateStatusError?: boolean) => void` |
+
+#### useZoom
+
+| Property | Description                                                                                | Type                                      |
+| :------- | :----------------------------------------------------------------------------------------- | :---------------------------------------- |
+| minZoom  | minimum zoom value                                                                         | `number`                                  |
+| maxZoom  | maximum zoom value                                                                         | `number`                                  |
+| zoom     | change zoom value (same as the zoom method in [FlowBuilderInstance](#flowbuilderinstance)) | `(type: 'out' \| 'in' \| number) => void` |
+
+#### useHistory
+
+| Property    | Description                                                                            | Type                                                            |
+| :---------- | :------------------------------------------------------------------------------------- | :-------------------------------------------------------------- |
+| maxLength   | Maximum length of history nodes records                                                | `number`                                                        |
+| pushHistory | add history nodes record                                                               | `(record?: INode[] = useContext(BuilderContext).nodes) => void` |
+| history     | undo, redo (same as the history method in [FlowBuilderInstance](#flowbuilderinstance)) | `(type: 'undo' \| 'redo') => void`                              |
