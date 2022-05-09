@@ -242,3 +242,28 @@ export const buildTreeNodes = (params: { nodes: INode[] }) => {
   }
   return treeNodes;
 };
+
+const computeChildrenPath = (children: INode[], parentPath: string[]) => {
+  for (let index = 0; index < children.length; index++) {
+    const node = children[index];
+
+    node.path = [...parentPath, 'children', String(index)];
+
+    if (Array.isArray(node.children) && node.children.length > 0) {
+      computeChildrenPath(node.children, node.path);
+    }
+  }
+};
+
+export const computeNodesPath = (nodes: INode[]) => {
+  for (let index = 0; index < nodes.length; index++) {
+    const node = nodes[index];
+
+    node.path = [String(index)];
+
+    if (Array.isArray(node.children) && node.children.length > 0) {
+      computeChildrenPath(node.children, node.path);
+    }
+  }
+  return nodes;
+};

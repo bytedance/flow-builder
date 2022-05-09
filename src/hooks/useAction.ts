@@ -66,8 +66,9 @@ const useAction = () => {
       node.children = node.children || [];
       node.children.unshift(newNode);
     } else {
-      const nodeIndex = Number(node.path?.pop());
-      const parentPath = node.path;
+      const path = node.path?.slice();
+      const nodeIndex = Number(path?.pop());
+      const parentPath = path;
       const parentNodes = get(nodes, parentPath || []);
       (parentNodes || nodes)?.splice(nodeIndex + 1, 0, newNode);
     }

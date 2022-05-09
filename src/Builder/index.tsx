@@ -16,12 +16,7 @@ import {
 } from '../Nodes';
 import { HistoryTool, ZoomTool } from '../Tools';
 import DragPanel from '../DragPanel';
-import {
-  getRegisterNode,
-  getIsConditionNode,
-  createNewNode,
-  getAbstractNodeType,
-} from '../utils';
+import { getRegisterNode, createNewNode, getAbstractNodeType } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useHistory, useZoom, useAction, useDrawer } from '../hooks';
 import { IFlowBuilderMethod, IRender, IRenderNode } from '../index';
@@ -70,21 +65,6 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
 
   const renderNode = ({ node, nodeIndex, parentNode }: IRenderNode) => {
     const { id, type } = node;
-
-    const parentPath = parentNode?.path || [];
-
-    const isConditionNode = getIsConditionNode(registerNodes, type);
-    const isConditionParentNode = getIsConditionNode(
-      registerNodes,
-      parentNode?.type,
-    );
-
-    node.path = [];
-    node.path.push(...parentPath);
-    if (isConditionNode || isConditionParentNode) {
-      node.path.push('children');
-    }
-    node.path.push(String(nodeIndex));
 
     const abstractNodeType = getAbstractNodeType(registerNodes, type);
 
