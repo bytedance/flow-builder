@@ -1,6 +1,7 @@
 import React, { useState, useMemo, forwardRef } from 'react';
 import Builder from '../Builder';
 import { BuilderContext } from '../contexts';
+import { computeNodesPath } from '../utils';
 import {
   IFlowBuilderProps,
   IFlowBuilderMethod,
@@ -11,7 +12,7 @@ import {
 
 const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
   (props, ref) => {
-    const { zoomTool } = props;
+    const { zoomTool, nodes, onChange } = props;
 
     const [zoomValue, setZoomValue] = useState<number>(
       (zoomTool as IZoomToolConfig)?.initialValue || 100,
@@ -39,11 +40,18 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       [],
     );
 
+    const handleChange = (nodes: INode[], changeEvent?: string) => {
+      computeNodesPath(nodes);
+      onChange(nodes, changeEvent);
+    };
+
     return (
       <BuilderContext.Provider
         value={{
           ...defaultProps,
           ...props,
+          nodes: computeNodesPath(nodes),
+          onChange: handleChange,
           zoomValue,
           setZoomValue,
           historyRecords,
