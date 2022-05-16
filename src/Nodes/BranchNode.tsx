@@ -70,7 +70,9 @@ const BranchNode: React.FC<IProps> = (props) => {
             {droppable ? (
               <DropComponent onDrop={handleAddCondition} />
             ) : (
-              <ActionButton size={20} icon={AddConditionIcon} />
+              registerNode?.addIcon || (
+                <ActionButton size={20} icon={AddConditionIcon} />
+              )
             )}
           </div>
         ) : (
