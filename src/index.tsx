@@ -55,6 +55,8 @@ export interface IRegisterNode {
   isEnd?: boolean;
   configTitle?: string | ((node: INode, nodes: INode[]) => string);
   initialNodeData?: Record<string, any>;
+  showPracticalBranchNode?: boolean;
+  showPracticalBranchRemove?: boolean;
 }
 
 export interface INode {
@@ -109,6 +111,8 @@ export interface IFlowBuilderProps {
   draggable?: boolean;
   DragComponent?: React.FC<IDragComponent>;
   DropComponent?: React.FC<IDropComponent>;
+  showPracticalBranchNode?: boolean;
+  showPracticalBranchRemove?: boolean;
 }
 
 export type ZoomType = 'out' | 'in';

@@ -13,14 +13,9 @@
     }
   }
 
-  &:not(.flow-builder-branch-node) {
-    > .flow-builder-node__content {
-      cursor: pointer;
-      &:hover {
-        .flow-builder-node__remove {
-          opacity: 1;
-        }
-      }
+  .flow-builder-node__content:hover {
+    .flow-builder-node__remove {
+      opacity: 1;
     }
   }
 }
