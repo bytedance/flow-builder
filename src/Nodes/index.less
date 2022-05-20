@@ -1,8 +1,13 @@
 .flow-builder-node,
-.flow-builder-node__content {
+.flow-builder-node__content,
+.flow-builder-branch-node__content {
   display: flex;
   align-items: center;
   position: relative;
+}
+
+.flow-builder-node__content {
+  cursor: pointer;
 }
 
 .flow-builder-branch-node {
@@ -31,7 +36,8 @@
   flex-direction: column;
 
   .flow-builder-node,
-  .flow-builder-node__content {
+  .flow-builder-node__content,
+  .flow-builder-branch-node__content {
     flex-direction: column;
   }
 
@@ -43,7 +49,7 @@
   }
 
   .flow-builder-branch-node {
-    > .flow-builder-node__content {
+    .flow-builder-branch-node__content {
       margin: 12px 0 2px 0;
     }
     &__add-button,
@@ -67,7 +73,8 @@
   flex-direction: row;
 
   .flow-builder-node,
-  .flow-builder-node__content {
+  .flow-builder-node__content,
+  .flow-builder-branch-node__content {
     flex-direction: row;
   }
 
@@ -79,7 +86,7 @@
   }
 
   .flow-builder-branch-node {
-    > .flow-builder-node__content {
+    .flow-builder-branch-node__content {
       margin: 0 2px 0 12px;
     }
     &__add-button,
