@@ -95,7 +95,7 @@ export const createNewNode = (
     : initialNodeData;
 
   return {
-    id: createUuid(),
+    id: createUuid(type),
     type: registerNode.type,
     name: registerNode.name,
     ...extraProps,
