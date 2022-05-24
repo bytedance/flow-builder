@@ -23,8 +23,8 @@ order: 2
 | conditionNodeType | 对应的条件节点类型（若有效则此节点为分支节点） | string  |      | -      |
 | name              | 节点名称                                       | string  | ✓    | -      |
 | type              | 节点类型                                       | string  | ✓    | -      |
-| isStart           | 是否为开始节点                                 | boolean | ✓    | false  |
-| isEnd             | 是否为结束节点                                 | boolean | ✓    | false  |
+| isStart           | 是否为开始节点                                 | boolean | -    | false  |
+| isEnd             | 是否为结束节点                                 | boolean | -    | false  |
 
 <br>
 
