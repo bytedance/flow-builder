@@ -1,6 +1,9 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
+  history: {
+    type: 'hash',
+  },
   title: 'react-flow-builder',
   favicon: '/bytedance.ico',
   logo: '/bytedance.ico',
