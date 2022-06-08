@@ -9,7 +9,7 @@
 
 ## 试一试
 
-https://react-flow-builder.web.cloudendpoint.cn/
+http://react-flow-builder.site
 
 ## 安装
 

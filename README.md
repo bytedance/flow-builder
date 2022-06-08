@@ -9,7 +9,7 @@ A highly customizable streaming flow builder. The registration ability can flexi
 
 ## Try it out
 
-https://react-flow-builder.web.cloudendpoint.cn/
+http://react-flow-builder.site
 
 ## Installation
 

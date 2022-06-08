@@ -1,6 +1,7 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
+  hash: true,
   history: {
     type: 'hash',
   },
@@ -8,6 +9,7 @@ export default defineConfig({
   favicon: '/bytedance.ico',
   logo: '/bytedance.ico',
   outputPath: 'docs-dist',
+  publicPath: './',
   extraBabelPlugins: [
     [
       'babel-plugin-import',
