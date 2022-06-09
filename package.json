@@ -1,6 +1,6 @@
 {
   "name": "react-flow-builder",
-  "version": "1.2.1",
+  "version": "1.3.0-alpha.0",
   "keywords": [
     "flow",
     "builder",
@@ -51,11 +51,12 @@
     "prettier": "^2.2.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "react-flow-builder": "^1.2.1",
+    "react-flow-builder": "1.3.0-alpha.0",
     "yorkie": "^2.0.0"
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
+    "systemjs": "^6.12.1",
     "uuid": "^8.3.2"
   }
 }

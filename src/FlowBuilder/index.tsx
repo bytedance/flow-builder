@@ -1,12 +1,13 @@
-import React, { useState, useMemo, forwardRef } from 'react';
+import React, { useState, useMemo, forwardRef, useEffect } from 'react';
 import Builder from '../Builder';
 import { BuilderContext } from '../contexts';
-import { computeNodesPath } from '../utils';
+import { computeNodesPath, loadRemoteNode } from '../utils';
 import {
   IFlowBuilderProps,
   IFlowBuilderMethod,
   LayoutType,
   INode,
+  IRegisterNode,
   IZoomToolConfig,
 } from '../index';
 
@@ -27,6 +28,10 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
     const [dragType, setDragType] = useState('');
 
+    const [registerNodes, setRegisterNodes] = useState<IRegisterNode[]>(
+      props.registerNodes || [],
+    );
+
     const defaultProps = useMemo(
       () => ({
         backgroundColor: '#F7F7F7',
@@ -45,11 +50,36 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       onChange(nodes, changeEvent);
     };
 
+    useEffect(() => {
+      if (
+        Array.isArray(props.registerRemoteNodes) &&
+        props.registerRemoteNodes.length > 0
+      ) {
+        Promise.allSettled(
+          props.registerRemoteNodes.map((item) => loadRemoteNode(item)),
+        )
+          .then((res) =>
+            res
+              .filter((item) => item.status === 'fulfilled')
+              .map(
+                (item) => (item as PromiseFulfilledResult<IRegisterNode>).value,
+              ),
+          )
+          .then((remoteNodes) =>
+            setRegisterNodes([...props.registerNodes, ...remoteNodes]),
+          )
+          .catch(() => setRegisterNodes(props.registerNodes));
+      } else {
+        setRegisterNodes(props.registerNodes);
+      }
+    }, [props.registerNodes, props.registerRemoteNodes]);
+
     return (
       <BuilderContext.Provider
         value={{
           ...defaultProps,
           ...props,
+          registerNodes,
           nodes: computeNodesPath(nodes),
           onChange: handleChange,
           zoomValue,

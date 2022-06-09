@@ -161,6 +161,7 @@ export default Demo;
 | nodes                     | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                      | ✓        | -          |         |
 | readonly                  | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                            |          | false      |         |
 | registerNodes             | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                      | ✓        | -          |         |
+| registerRemoteNodes       | The registered remote nodes                                                                                                                                                                                                              | [RegisterRemoteNode](#registerremotenode)[]                          |          | -          | 1.3.0   |
 | showPracticalBranchNode   | -                                                                                                                                                                                                                                        | `boolean`                                                            | -        | false      | 1.1.0   |
 | showPracticalBranchRemove | -                                                                                                                                                                                                                                        | `boolean`                                                            | -        | false      | 1.1.0   |
 | spaceX                    | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                             |          | `16`       |         |
@@ -240,6 +241,13 @@ export default Demo;
 | showPracticalBranchNode   | -                                                                                                                               | `boolean`                                             | -        | false                             | 1.1.0   |
 | showPracticalBranchRemove | -                                                                                                                               | `boolean`                                             | -        | false                             | 1.1.0   |
 | type                      | The type of node, promise `start` is start node type and `end` is end node type                                                 | `string`                                              | ✓        | -                                 |
+
+### RegisterRemoteNode
+
+| Property | Description    | Type     | Required | Default | Version |
+| :------- | :------------- | :------- | :------- | :------ | :------ |
+| url      | remote url     | `string` | ✓        | -       | 1.3.0   |
+| cssUrl   | remote css url | `string` |          | -       | 1.3.0   |
 
 #### DisplayComponent
 

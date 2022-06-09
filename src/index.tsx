@@ -59,6 +59,11 @@ export interface IRegisterNode {
   showPracticalBranchRemove?: boolean;
 }
 
+export interface IRegisterRemoteNode {
+  url: string;
+  cssUrl?: string;
+}
+
 export interface INode {
   id: string;
   type: string;
@@ -98,6 +103,7 @@ export interface IFlowBuilderProps {
   drawerVisibleWhenAddNode?: boolean;
   readonly?: boolean;
   registerNodes: IRegisterNode[];
+  registerRemoteNodes?: IRegisterRemoteNode[];
   nodes: INode[];
   onChange: (nodes: INode[], changeEvent?: string) => void;
   onHistoryChange?: (undoDisabled: boolean, redoDisabled: boolean) => void;
