@@ -161,6 +161,7 @@ export default Demo;
 | nodes                     | 流程引擎的节点                                                                                                                                                                                                       | [Node](#node)[]                                                      | ✓    | -          |       |
 | readonly                  | 只读模式，不能进行节点的增加、删除、配置                                                                                                                                                                             | `boolean`                                                            |      | false      |       |
 | registerNodes             | 注册节点                                                                                                                                                                                                             | [RegisterNode](#registernode)[]                                      | ✓    | -          |       |
+| registerRemoteNodes       | 注册远程节点                                                                                                                                                                                                         | [RegisterRemoteNode](#registerremotenode)[]                          |      | -          | 1.3.0 |
 | spaceX                    | 节点之间水平方向的间距                                                                                                                                                                                               | `number`                                                             |      | 16         |       |
 | showPracticalBranchNode   | -                                                                                                                                                                                                                    | `boolean`                                                            | -    | false      | 1.1.0 |
 | showPracticalBranchRemove | -                                                                                                                                                                                                                    | `boolean`                                                            | -    | false      | 1.1.0 |
@@ -240,6 +241,13 @@ export default Demo;
 | showPracticalBranchNode   | -                                                                                                   | `boolean`                                             | -    | false                             | 1.1.0 |
 | showPracticalBranchRemove | -                                                                                                   | `boolean`                                             | -    | false                             | 1.1.0 |
 | type                      | 节点类型                                                                                            | `string`                                              | ✓    | -                                 |
+
+### RegisterRemoteNode
+
+| 参数   | 说明               | 类型     | 必须 | 默认值 | 版本  |
+| :----- | :----------------- | :------- | :--- | :----- | :---- |
+| url    | 节点的远程地址     | `string` | ✓    | -      | 1.3.0 |
+| cssUrl | 节点样式的远程地址 | `string` |      | -      | 1.3.0 |
 
 #### DisplayComponent
 

@@ -1,5 +1,11 @@
 import { v4 as uuid } from 'uuid';
-import { IRegisterNode, AbstractNodeType, INode } from '../index';
+import 'systemjs/dist/system.js';
+import {
+  IRegisterNode,
+  IRegisterRemoteNode,
+  AbstractNodeType,
+  INode,
+} from '../index';
 
 export const createUuid = (prefix?: string) => {
   return `${prefix || 'node'}-${uuid()}`;
@@ -266,4 +272,37 @@ export const computeNodesPath = (nodes: INode[]) => {
     }
   }
   return nodes;
+};
+
+declare global {
+  interface Window {
+    System: {
+      import: (url: string) => any;
+    };
+  }
+  interface Document {
+    adoptedStyleSheets: any;
+  }
+}
+
+export const loadRemoteNode = async (params: IRegisterRemoteNode) => {
+  const { url, cssUrl } = params;
+
+  const tasks = [url, cssUrl]
+    .filter((item) => !!item)
+    .map((item) => window.System.import(item as string));
+
+  return new Promise<IRegisterNode>((resolve, reject) => {
+    Promise.all(tasks)
+      .then((res) => {
+        if (res.length === 2) {
+          document.adoptedStyleSheets = [
+            ...document.adoptedStyleSheets,
+            res[1].default,
+          ];
+        }
+        resolve(res[0].default);
+      })
+      .catch((err) => reject(err));
+  });
 };
