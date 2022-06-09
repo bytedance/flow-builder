@@ -11,6 +11,10 @@
 
 http://react-flow-builder.site
 
+## Github
+
+https://github.com/bytedance/flow-builder
+
 ## 安装
 
 ```
