@@ -11,6 +11,10 @@ A highly customizable streaming flow builder. The registration ability can flexi
 
 http://react-flow-builder.site
 
+## Github
+
+https://github.com/bytedance/flow-builder
+
 ## Installation
 
 ```

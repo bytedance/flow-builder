@@ -9710,10 +9710,10 @@ react-dom@>=16:
     loose-envify "^1.1.0"
     scheduler "^0.22.0"
 
-react-flow-builder@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-flow-builder/-/react-flow-builder-1.3.1.tgz#7d8215e6e5b4d525b4abf2633fb33bd288c6731a"
-  integrity sha512-ACr9rAvQexnjeQL/GfOyEAX85+WEq7uNinTo9nn1n3ORUVBlRA1aIghFVCHRxBiRKtXbqc5TWneCZZRHV9ZmXQ==
+react-flow-builder@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-flow-builder/-/react-flow-builder-1.3.2.tgz#5da38f037874744774c9eca8cec554db0a94b06e"
+  integrity sha512-qhURNH61y3GIZxLF4Zs/XyPiIo68Z5zJp4ZlmR7rvgJy4ElrGMzI5uE6LdvHmfKyRIv9gUvnC/Lm7/XJi3BVaA==
   dependencies:
     lodash.get "^4.4.2"
     systemjs "^6.12.1"
