@@ -86,6 +86,7 @@ order: 7
 | addableComponent          | 节点下方点击加号展开的内容                                                                          | `React.FC`\<[AddableComponent](#addablecomponent)\>   |      | -                                 |
 | addableNodeTypes          | 指定节点下方的可添加节点列表                                                                        | `string[]`                                            |      | -                                 |
 | addIcon                   | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | `ReactNode`                                           |      | -                                 |
+| addConditionIcon          | 分支节点添加条件时的图标（已有默认图标）                                                            | `ReactNode`                                           |      | -                                 |
 | conditionMinNum           | 对应的条件节点最小数量                                                                              | `number`                                              |      | 1                                 |
 | conditionMaxNum           | 对应的条件节点最大数量                                                                              | `number`                                              |      | -                                 |
 | conditionNodeType         | 对应的条件节点类型                                                                                  | `string`                                              |      | -                                 |
