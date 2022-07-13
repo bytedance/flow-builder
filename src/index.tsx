@@ -58,6 +58,7 @@ export interface IRegisterNode {
   initialNodeData?: Record<string, any>;
   showPracticalBranchNode?: boolean;
   showPracticalBranchRemove?: boolean;
+  className?: string;
 }
 
 export interface IRegisterRemoteNode {

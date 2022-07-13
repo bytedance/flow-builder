@@ -69,7 +69,11 @@ const BranchNode: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div className="flow-builder-node flow-builder-branch-node">
+    <div
+      className={`flow-builder-node flow-builder-branch-node ${
+        registerNode?.className || ''
+      }`}
+    >
       {registerNode?.showPracticalBranchNode ?? showPracticalBranchNode ? (
         <>
           <div className="flow-builder-node__content" onClick={handleNodeClick}>
