@@ -13,7 +13,11 @@ const EndNode: React.FC = () => {
   const Component = registerNode?.displayComponent || DefaultNode;
 
   return (
-    <div className="flow-builder-node flow-builder-end-node">
+    <div
+      className={`flow-builder-node flow-builder-end-node ${
+        registerNode?.className || ''
+      }`}
+    >
       <div className="flow-builder-node__content">
         <Component node={node} nodes={nodes} />
       </div>

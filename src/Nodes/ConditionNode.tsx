@@ -51,7 +51,9 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
   return (
     <div
-      className="flow-builder-node flow-builder-condition-node"
+      className={`flow-builder-node flow-builder-condition-node ${
+        registerNode?.className || ''
+      }`}
       style={{
         padding: layout === 'vertical' ? `0 ${spaceX}px` : `${spaceY}px 0`,
       }}

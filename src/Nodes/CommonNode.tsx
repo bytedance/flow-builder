@@ -29,7 +29,7 @@ const CommonNode: React.FC = () => {
   };
 
   return (
-    <div className="flow-builder-node">
+    <div className={`flow-builder-node ${registerNode?.className || ''}`}>
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
         <Component
           readonly={readonly}
