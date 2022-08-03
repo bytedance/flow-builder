@@ -70,7 +70,7 @@ order: 7
 | remove      | 删除一个或多个节点 | `(nodes: INode \| INode[] = useContext(NodeContext)) => void`                   |
 | zoom        | 缩放               | `(type: 'out' \| 'in' \| number) => void`                                       |
 | closeDrawer | 关闭抽屉           | `() => void`                                                                    |
-| context     | BuilderContext     | [BuilderContext](#BuilderContext)                                               | 1.3.5 |
+| context     | BuilderContext     | [BuilderContext](#buildercontext)                                               | 1.3.5 |
 
 ### Formatter
 
