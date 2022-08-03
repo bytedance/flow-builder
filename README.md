@@ -214,7 +214,7 @@ export default Demo;
 | remove      | remove noded   | `(nodes: INode \| INode[] = useContext(NodeContext)) => void`                   |
 | zoom        | zoom           | `(type: 'out' \| 'in' \| number) => void`                                       |
 | closeDrawer | close drawer   | `() => void`                                                                    |
-| context     | BuilderContext | [BuilderContext](#BuilderContext)                                               | 1.3.5   |
+| context     | BuilderContext | [BuilderContext](#buildercontext)                                               | 1.3.5   |
 
 ### Formatter
 
