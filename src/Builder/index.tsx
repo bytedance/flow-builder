@@ -24,6 +24,8 @@ import { IFlowBuilderMethod, IRender, IRenderNode } from '../index';
 import './index.less';
 
 const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
+  const builderContext = useContext(BuilderContext);
+
   const {
     className = '',
     backgroundColor,
@@ -46,7 +48,7 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
     draggable,
     DragComponent = DragPanel,
     setDragType,
-  } = useContext(BuilderContext);
+  } = builderContext;
 
   const { minZoom, maxZoom, zoom } = useZoom();
 
@@ -114,6 +116,7 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
     add: addNode,
     remove: removeNode,
     closeDrawer: closeDrawer,
+    context: builderContext,
   }));
 
   useEffect(() => {

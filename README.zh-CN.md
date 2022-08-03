@@ -207,13 +207,14 @@ export default Demo;
 
 ### FlowBuilderInstance
 
-| 名称        | 说明               | 类型                                                                            |
-| :---------- | :----------------- | :------------------------------------------------------------------------------ |
+| 名称        | 说明               | 类型                                                                            | 版本  |
+| :---------- | :----------------- | :------------------------------------------------------------------------------ | :---- |
 | add         | 增加节点           | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
 | history     | 撤销、重做         | `(type: 'undo' \| 'redo') => void`                                              |
 | remove      | 删除一个或多个节点 | `(nodes: INode \| INode[] = useContext(NodeContext)) => void`                   |
 | zoom        | 缩放               | `(type: 'out' \| 'in' \| number) => void`                                       |
 | closeDrawer | 关闭抽屉           | `() => void`                                                                    |
+| context     | BuilderContext     | [BuilderContext](#BuilderContext)                                               | 1.3.5 |
 
 ### Formatter
 
