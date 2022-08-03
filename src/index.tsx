@@ -127,14 +127,6 @@ export type ZoomType = 'out' | 'in';
 
 export type HistoryType = 'undo' | 'redo';
 
-export interface IFlowBuilderMethod {
-  history: (type: HistoryType) => void;
-  zoom: (type: ZoomType | number) => void;
-  add: (node: INode, newNodeType: string) => void;
-  remove: (nodes: INode | INode[]) => void;
-  closeDrawer: () => void;
-}
-
 export interface IRender {
   nodes: INode[];
   parentNode?: INode;
@@ -166,6 +158,15 @@ export interface IFlowBuilderContext extends IFlowBuilderProps {
 }
 
 export interface INodeContext extends INode {}
+
+export interface IFlowBuilderMethod {
+  history: (type: HistoryType) => void;
+  zoom: (type: ZoomType | number) => void;
+  add: (node: INode, newNodeType: string) => void;
+  remove: (nodes: INode | INode[]) => void;
+  closeDrawer: () => void;
+  context: IFlowBuilderContext;
+}
 
 export { createUuid, buildFlatNodes, buildTreeNodes } from './utils';
 

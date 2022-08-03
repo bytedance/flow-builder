@@ -207,13 +207,14 @@ export default Demo;
 
 ### FlowBuilderInstance
 
-| Name        | Description  | Type                                                                            |
-| :---------- | :----------- | :------------------------------------------------------------------------------ |
-| add         | add node     | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
-| history     | undo, redo   | `(type: 'undo' \| 'redo') => void`                                              |
-| remove      | remove noded | `(nodes: INode \| INode[] = useContext(NodeContext)) => void`                   |
-| zoom        | zoom         | `(type: 'out' \| 'in' \| number) => void`                                       |
-| closeDrawer | close drawer | `() => void`                                                                    |
+| Name        | Description    | Type                                                                            | Version |
+| :---------- | :------------- | :------------------------------------------------------------------------------ | :------ |
+| add         | add node       | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
+| history     | undo, redo     | `(type: 'undo' \| 'redo') => void`                                              |
+| remove      | remove noded   | `(nodes: INode \| INode[] = useContext(NodeContext)) => void`                   |
+| zoom        | zoom           | `(type: 'out' \| 'in' \| number) => void`                                       |
+| closeDrawer | close drawer   | `() => void`                                                                    |
+| context     | BuilderContext | [BuilderContext](#BuilderContext)                                               | 1.3.5   |
 
 ### Formatter
 
