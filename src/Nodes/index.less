@@ -29,6 +29,10 @@
   &__dashed {
     position: absolute;
   }
+  &__sorting__dashed {
+    position: absolute;
+    display: none;
+  }
 }
 
 .flow-builder-vertical {
@@ -59,7 +63,8 @@
     &__conditions {
       flex-direction: row;
     }
-    &__dashed {
+    &__dashed,
+    &__sorting__dashed {
       top: -2px;
       right: 0;
       bottom: -2px;
@@ -96,7 +101,8 @@
     &__conditions {
       flex-direction: column;
     }
-    &__dashed {
+    &__dashed,
+    &__sorting__dashed {
       top: 0;
       right: -2px;
       bottom: 0;

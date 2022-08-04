@@ -32,6 +32,17 @@ const ConditionsDashed = () => {
   );
 };
 
+const SortingDashed = () => {
+  const { lineColor } = useContext(BuilderContext);
+
+  return (
+    <div
+      className="flow-builder-branch-node__sorting__dashed"
+      style={{ border: `2px dashed ${lineColor}` }}
+    />
+  );
+};
+
 const SortableItem = SortableElement<ISortableConditionProps>(
   (props: ISortableConditionProps) => {
     const { renderConditionNode, branch, branchIndex } = props;
@@ -170,6 +181,7 @@ const BranchNode: React.FC<IProps> = (props) => {
             );
           })}
         </div>
+        {sortable ? <SortingDashed /> : null}
       </div>
 
       <AddButton />
