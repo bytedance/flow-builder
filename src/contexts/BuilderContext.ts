@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { IFlowBuilderContext } from '../index';
+import type { IFlowBuilderContext } from '../index';
 
 // @ts-ignore
 const BuilderContext = createContext<IFlowBuilderContext>(null);

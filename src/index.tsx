@@ -121,6 +121,8 @@ export interface IFlowBuilderProps {
   DropComponent?: React.FC<IDropComponent>;
   showPracticalBranchNode?: boolean;
   showPracticalBranchRemove?: boolean;
+  sortable?: boolean;
+  sortableAnchor?: React.ReactNode;
 }
 
 export type ZoomType = 'out' | 'in';

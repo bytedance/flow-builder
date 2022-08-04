@@ -9,7 +9,7 @@ import {
   getIsBranchNode,
 } from '../utils';
 import { useHistory, useDrawer } from './index';
-import { INode } from '../index';
+import type { INode } from '../index';
 
 const useAction = () => {
   const {

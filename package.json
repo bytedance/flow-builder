@@ -1,6 +1,6 @@
 {
   "name": "react-flow-builder",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "keywords": [
     "flow",
     "builder",
@@ -58,11 +58,12 @@
     "prettier": "^2.2.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "react-flow-builder": "^1.3.5",
+    "react-flow-builder": "^1.4.0",
     "yorkie": "^2.0.0"
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
+    "react-sortable-hoc": "^2.0.0",
     "systemjs": "^6.12.1",
     "uuid": "^8.3.2"
   }

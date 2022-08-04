@@ -1,5 +1,5 @@
 ---
-order: 8
+order: 9
 ---
 
 # Change Log
@@ -8,7 +8,7 @@ order: 8
 
 `2022-05-19`
 
-- 增加 `showPracticalBranchNode` 和 `showPracticalBranchRemove` 属性显示实际的分支节点
+- 增加 `showPracticalBranchNode` 和 `showPracticalBranchRemove` 属性，支持显示实际的分支节点
 
 ## 1.2.0
 
@@ -20,4 +20,10 @@ order: 8
 
 `2022-06-09`
 
-- 支持远程节点注册，通过 System.js 加载对应的 js / css 资源
+- 增加 `registerRemoteNodes` 属性，支持远程节点注册，通过 System.js 加载对应的 js / css 资源
+
+## 1.4.0
+
+`2022-08-04`
+
+- 增加 `sortable` 属性，支持条件节点之间进行拖拽排序

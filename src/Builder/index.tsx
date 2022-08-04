@@ -19,7 +19,7 @@ import DragPanel from '../DragPanel';
 import { getRegisterNode, createNewNode, getAbstractNodeType } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useHistory, useZoom, useAction, useDrawer } from '../hooks';
-import { IFlowBuilderMethod, IRender, IRenderNode } from '../index';
+import type { IFlowBuilderMethod, IRender, IRenderNode } from '../index';
 
 import './index.less';
 
@@ -77,7 +77,7 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
         case 'end':
           return <EndNode />;
         case 'branch':
-          return <BranchNode renderConditionNodes={renderNode} />;
+          return <BranchNode renderConditionNode={renderNode} />;
         case 'condition':
           return (
             <ConditionNode

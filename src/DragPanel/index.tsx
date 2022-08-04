@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BuilderContext } from '../contexts';
 import { getRegisterNode, getIsBranchNode, getIsConditionNode } from '../utils';
-import { IDragComponent } from '../index';
+import type { IDragComponent } from '../index';
 
 import AddNormalIcon from '../icons/add-normal.svg';
 import AddBranchIcon from '../icons/add-branch.svg';

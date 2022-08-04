@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BuilderContext } from '../contexts';
 import { defaultMaxLength } from './index';
-import { INode, HistoryType, IHistoryToolConfig } from '../index';
+import type { INode, HistoryType, IHistoryToolConfig } from '../index';
 
 const useHistory = () => {
   const {

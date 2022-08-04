@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BuilderContext } from '../contexts';
 import { defaultMinZoom, defaultMaxZoom, defaultZoomStep } from './index';
-import { ZoomType, IZoomToolConfig } from '../index';
+import type { ZoomType, IZoomToolConfig } from '../index';
 
 const useZoom = () => {
   const { zoomTool, zoomValue, setZoomValue } = useContext(BuilderContext);

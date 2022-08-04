@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { SortableHandle } from 'react-sortable-hoc';
 import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
 import { SplitLine, FillLine, CleanLine } from '../Lines';
@@ -6,7 +7,7 @@ import DefaultNode from '../DefaultNode';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
-import { INode, IRender } from '../index';
+import type { INode, IRender } from '../index';
 
 interface IProps {
   parentNode?: INode;
@@ -25,6 +26,8 @@ const ConditionNode: React.FC<IProps> = (props) => {
     registerNodes,
     nodes,
     beforeNodeClick,
+    sortable,
+    sortableAnchor,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -38,6 +41,18 @@ const ConditionNode: React.FC<IProps> = (props) => {
   const registerNode = getRegisterNode(registerNodes, node.type);
 
   const Component = registerNode?.displayComponent || DefaultNode;
+
+  const ConditionDragHandle = useMemo(
+    () =>
+      SortableHandle(() => {
+        return (
+          <span className="flow-builder-sortable-handle">
+            {sortableAnchor || ':::'}
+          </span>
+        );
+      }),
+    [sortableAnchor],
+  );
 
   const handleNodeClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -61,6 +76,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
       <SplitLine />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
+        {sortable ? <ConditionDragHandle /> : null}
         <Component
           readonly={readonly}
           node={node}

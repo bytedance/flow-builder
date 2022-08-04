@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'antd';
 import { BuilderContext } from '../contexts';
 import { useHistory } from '../hooks';
-import { IHistoryToolConfig } from '../index';
+import type { IHistoryToolConfig } from '../index';
 
 const HistoryTool = () => {
   const { historyTool, historyRecords, activeHistoryRecordIndex } =
