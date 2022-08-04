@@ -14,8 +14,7 @@ import type {
   IZoomToolConfig,
 } from '../index';
 
-const conditionSortingClassName =
-  'flow-builder-branch-node__conditions__sorting';
+const conditionSortingClassName = 'flow-builder-branch-node__content__sorting';
 
 interface SortableContainerProps {
   builderRef: React.ForwardedRef<IFlowBuilderMethod>;
@@ -68,7 +67,7 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
     const handleSortStart = (params: SortStart) => {
       const { node } = params;
-      (node.parentNode as HTMLDivElement).classList.add(
+      (node.parentNode?.parentNode as HTMLDivElement).classList.add(
         conditionSortingClassName,
       );
     };
@@ -77,7 +76,7 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       const { collection, oldIndex, newIndex, nodes: conditionNodes } = params;
 
       // @ts-ignore
-      conditionNodes[0].node.parentNode.classList.remove(
+      conditionNodes[0].node.parentNode.parentNode.classList.remove(
         conditionSortingClassName,
       );
 
