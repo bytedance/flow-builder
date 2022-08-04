@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { SortableElement } from 'react-sortable-hoc';
 import DefaultNode from '../DefaultNode';
 import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
@@ -6,22 +7,51 @@ import { ConnectLine, SplitLine } from '../Lines';
 import ActionButton from '../ActionButton';
 import DropButton from '../DropButton';
 import { getRegisterNode } from '../utils';
-import { IRenderNode } from '../index';
+import type { INode, IRenderNode } from '../index';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
 import AddConditionIcon from '../icons/add-condition.svg';
 
 interface IProps {
-  renderConditionNodes: (params: IRenderNode) => React.ReactNode;
+  renderConditionNode: (params: IRenderNode) => React.ReactNode;
 }
 
+interface ISortableConditionProps extends IProps {
+  branch: INode;
+  branchIndex: number;
+}
+
+const ConditionsDashed = () => {
+  const { lineColor } = useContext(BuilderContext);
+
+  return (
+    <div
+      className="flow-builder-branch-node__dashed"
+      style={{ border: `2px dashed ${lineColor}` }}
+    />
+  );
+};
+
+const SortableItem = SortableElement<ISortableConditionProps>(
+  (props: ISortableConditionProps) => {
+    const { renderConditionNode, branch, branchIndex } = props;
+
+    const parentNode = useContext(NodeContext);
+
+    return renderConditionNode({
+      node: branch,
+      nodeIndex: branchIndex,
+      parentNode,
+    });
+  },
+);
+
 const BranchNode: React.FC<IProps> = (props) => {
-  const { renderConditionNodes } = props;
+  const { renderConditionNode } = props;
 
   const {
     nodes,
     readonly,
-    lineColor,
     registerNodes,
     beforeNodeClick,
     beforeAddConditionNode,
@@ -29,6 +59,7 @@ const BranchNode: React.FC<IProps> = (props) => {
     DropComponent = DropButton,
     showPracticalBranchNode,
     showPracticalBranchRemove,
+    sortable,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -119,18 +150,24 @@ const BranchNode: React.FC<IProps> = (props) => {
           <SplitLine className="branch-add-disabled" />
         )}
         <div className="flow-builder-branch-node__conditions">
-          {conditionCount === 1 ? (
-            <div
-              className="flow-builder-branch-node__dashed"
-              style={{ border: `2px dashed ${lineColor}` }}
-            />
-          ) : null}
+          {conditionCount === 1 ? <ConditionsDashed /> : null}
           {children?.map((branch, index) => {
-            return renderConditionNodes({
-              node: branch,
-              nodeIndex: index,
-              parentNode: node,
-            });
+            return sortable ? (
+              <SortableItem
+                key={branch.id}
+                index={index}
+                collection={node.path?.join(',')}
+                branch={branch}
+                branchIndex={index}
+                renderConditionNode={renderConditionNode}
+              />
+            ) : (
+              renderConditionNode({
+                node: branch,
+                nodeIndex: index,
+                parentNode: node,
+              })
+            );
           })}
         </div>
       </div>

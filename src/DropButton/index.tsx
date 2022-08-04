@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BuilderContext } from '../contexts';
-import { IDropComponent } from '../index';
+import type { IDropComponent } from '../index';
 
 import './index.less';
 

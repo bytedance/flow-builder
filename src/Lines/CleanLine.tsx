@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BuilderContext } from '../contexts';
-import { ILineProps } from '../index';
+import type { ILineProps } from '../index';
 
 const CleanLine: React.FC<ILineProps> = (props) => {
   const { className } = props;

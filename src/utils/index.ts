@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import 'systemjs/dist/system.js';
-import {
+import type {
   IRegisterNode,
   IRegisterRemoteNode,
   AbstractNodeType,

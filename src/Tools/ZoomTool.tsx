@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from 'antd';
 import { BuilderContext } from '../contexts';
 import { useZoom } from '../hooks';
-import { IZoomToolConfig } from '../index';
+import type { IZoomToolConfig } from '../index';
 
 const ZoomTool = () => {
   const { zoomTool, zoomValue } = useContext(BuilderContext);

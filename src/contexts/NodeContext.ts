@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { INodeContext } from '../index';
+import type { INodeContext } from '../index';
 
 // @ts-ignore
 const NodeContext = createContext<INodeContext>(null);
