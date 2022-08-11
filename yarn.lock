@@ -9724,10 +9724,10 @@ react-dom@>=16:
     loose-envify "^1.1.0"
     scheduler "^0.22.0"
 
-react-flow-builder@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-1.4.1.tgz#04a6f3b46646e6912c2723621599007c9cec44a2"
-  integrity sha512-zZKw68F70vtQTfwW/n3YJGPxqyJacUCPhXmwE54Vu4waFKoGIVg+iDDiI1lwTqupi5L8fpCuHsiRc+43VbOMPA==
+react-flow-builder@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-1.4.2.tgz#8370a5bf849d7b5b2d6b43043e2233ee0f0e689c"
+  integrity sha512-Wb3toT3mQGFz5Ya/Yp1nS3R+Lw3cZ705R+LwIQqVEszgufflB3BNxjaSPSfIu2ZEBz3JCEWB1SrH104hQAdkqg==
   dependencies:
     lodash.get "^4.4.2"
     react-sortable-hoc "^2.0.0"
