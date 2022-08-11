@@ -54,6 +54,8 @@ const useAction = () => {
     const node = (!!_newNodeType ? _node : currentNode) as INode;
     const newNodeType = (!!_newNodeType ? _newNodeType : _node) as string;
 
+    const registerNode = getRegisterNode(registerNodes, newNodeType);
+
     const newNode = createNewNode(registerNodes, newNodeType);
     if (!newNode) {
       return;
@@ -77,15 +79,17 @@ const useAction = () => {
 
     pushHistory();
 
-    setTimeout(() => {
-      if (drawerVisibleWhenAddNode) {
-        if (getIsBranchNode(registerNodes, newNodeType)) {
-          clickNode(newNode.children[0]);
-        } else {
-          clickNode(newNode);
-        }
+    if (drawerVisibleWhenAddNode) {
+      if (
+        getIsBranchNode(registerNodes, newNodeType) &&
+        (!registerNode?.showPracticalBranchNode ||
+          !registerNode?.configComponent)
+      ) {
+        clickNode(newNode.children[0]);
+      } else {
+        clickNode(newNode);
       }
-    }, 0);
+    }
   };
 
   const removeNodeIds = (targetNodeIds: string[], allNodes: INode[]) => {

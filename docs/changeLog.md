@@ -33,3 +33,9 @@ order: 9
 `2022-08-04`
 
 - 优化拖拽排序过程中的虚拟边框
+
+## 1.4.2
+
+`2022-08-11`
+
+- 设置 drawerVisibleWhenAddNode 为 true：增加分支节点时，若分支节点注册的 showPracticalBranchNode 为 true 且配置了 configComponent，选中分支节点；否则选中分支节点的第一个条件节点
