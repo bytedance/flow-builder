@@ -306,3 +306,15 @@ export const loadRemoteNode = async (params: IRegisterRemoteNode) => {
       .catch((err) => reject(err));
   });
 };
+
+export const exchangeNodes = (
+  nodes: any[],
+  startIndex: number,
+  endIndex: number,
+) => {
+  if (nodes?.[startIndex] && nodes?.[endIndex]) {
+    const temp = nodes[startIndex];
+    nodes[startIndex] = nodes[endIndex];
+    nodes[endIndex] = temp;
+  }
+};

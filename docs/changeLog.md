@@ -39,3 +39,9 @@ order: 9
 `2022-08-11`
 
 - 设置 drawerVisibleWhenAddNode 为 true：增加分支节点时，若分支节点注册的 showPracticalBranchNode 为 true 且配置了 configComponent，选中分支节点；否则选中分支节点的第一个条件节点
+
+## 1.4.3
+
+`2022-08-23`
+
+- 增加 `useSort` 方法，灵活对节点进行排序

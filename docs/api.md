@@ -218,3 +218,12 @@ order: 8
 | maxLength   | 最多保存的数量                                                                    | `number`                                                        |
 | pushHistory | 增加历史记录                                                                      | `(record?: INode[] = useContext(BuilderContext).nodes) => void` |
 | history     | 撤销/重做（同 [FlowBuilderInstance](#flowbuilderinstance) 中提供的 history 方法） | `(type: 'undo' \| 'redo') => void`                              |
+
+### useSort
+
+| 属性     | 说明         | 类型                                              | 版本  |
+| :------- | :----------- | :------------------------------------------------ | :---- |
+| backward | 向后排序     | `(node: INode = useContext(NodeContext)) => void` | 1.4.3 |
+| forward  | 向前排序     | `(node: INode = useContext(NodeContext)) => void` | 1.4.3 |
+| end      | 排序到最末尾 | `(node: INode = useContext(NodeContext)) => void` | 1.4.3 |
+| start    | 排序到最前面 | `(node: INode = useContext(NodeContext)) => void` | 1.4.3 |
