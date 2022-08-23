@@ -362,3 +362,12 @@ In the context of FlowBuilder the following hooks can be used
 | maxLength   | Maximum length of history nodes records                                                | `number`                                                        |
 | pushHistory | add history nodes record                                                               | `(record?: INode[] = useContext(BuilderContext).nodes) => void` |
 | history     | undo, redo (same as the history method in [FlowBuilderInstance](#flowbuilderinstance)) | `(type: 'undo' \| 'redo') => void`                              |
+
+#### useSort
+
+| Property | Description      | Type                                              | Version |
+| :------- | :--------------- | :------------------------------------------------ | :------ |
+| backward | sort to backward | `(node: INode = useContext(NodeContext)) => void` | 1.4.3   |
+| forward  | sort to forward  | `(node: INode = useContext(NodeContext)) => void` | 1.4.3   |
+| end      | sort to end      | `(node: INode = useContext(NodeContext)) => void` | 1.4.3   |
+| start    | sort to start    | `(node: INode = useContext(NodeContext)) => void` | 1.4.3   |

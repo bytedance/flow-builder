@@ -4,7 +4,7 @@ import type { SortStart, SortEnd } from 'react-sortable-hoc';
 import get from 'lodash.get';
 import Builder from '../Builder';
 import { BuilderContext } from '../contexts';
-import { computeNodesPath, loadRemoteNode } from '../utils';
+import { computeNodesPath, loadRemoteNode, exchangeNodes } from '../utils';
 import type {
   IFlowBuilderProps,
   IFlowBuilderMethod,
@@ -81,11 +81,9 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       );
 
       const children = get(nodes, (collection as string).split(','))?.children;
-      if (children?.[oldIndex] && children?.[newIndex]) {
-        const temp = children[oldIndex];
-        children[oldIndex] = children[newIndex];
-        children[newIndex] = temp;
-      }
+
+      exchangeNodes(children, oldIndex, newIndex);
+
       handleChange([...nodes], 'condition-sort');
     };
 
