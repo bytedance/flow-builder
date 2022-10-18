@@ -4337,6 +4337,19 @@ dumi-theme-default@1.1.21:
     rc-tabs "^11.7.1"
     rc-tree "^5.2.0"
 
+dumi-theme-default@^1.1.24:
+  version "1.1.24"
+  resolved "https://registry.npmjs.org/dumi-theme-default/-/dumi-theme-default-1.1.24.tgz#d8eaab9f6b6442125dad2b8836bc29f66b3bbfe3"
+  integrity sha512-/fS7gBJejom1Zy1GZkrqG/dLEsCK6J/S/ctCPEawDC3KkZE0sJh+dqsMuhHt8ts7ZhaGhDpJNPXSMghfN/qrzw==
+  dependencies:
+    lodash.throttle "^4.1.1"
+    prism-react-renderer "^1.1.1"
+    prismjs "^1.21.0"
+    rc-motion "^2.4.1"
+    rc-tabs "^11.7.1"
+    rc-tree "^5.2.0"
+    react-error-boundary "^3.1.4"
+
 dumi@^1.1.23:
   version "1.1.42"
   resolved "https://registry.yarnpkg.com/dumi/-/dumi-1.1.42.tgz#e5b205ac2fc9657f6d7bb2330349c02f7785a13a"
@@ -9723,6 +9736,13 @@ react-dom@>=16:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.22.0"
+
+react-error-boundary@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.npmjs.org/react-error-boundary/-/react-error-boundary-3.1.4.tgz#255db92b23197108757a888b01e5b729919abde0"
+  integrity sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 react-flow-builder@^1.4.3:
   version "1.4.3"

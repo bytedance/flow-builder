@@ -1,0 +1,6 @@
+.record-number {
+  position: fixed;
+  z-index: 100;
+  bottom: 16px;
+  left: 28px;
+}
