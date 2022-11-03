@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react';
 import { SortableHandle } from 'react-sortable-hoc';
 import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
-import { SplitLine, FillLine, CleanLine } from '../Lines';
+import { SplitLine, FillLine, CoverLine } from '../Lines';
 import DefaultNode from '../DefaultNode';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
@@ -73,6 +73,31 @@ const ConditionNode: React.FC<IProps> = (props) => {
         padding: layout === 'vertical' ? `0 ${spaceX}px` : `${spaceY}px 0`,
       }}
     >
+      {conditionCount > 1 ? (
+        <>
+          <CoverLine
+            full={conditionIndex !== 0 && conditionIndex !== conditionCount - 1}
+            className={`cover-condition-start ${
+              conditionIndex === 0
+                ? 'cover-first'
+                : conditionIndex === conditionCount - 1
+                ? 'cover-last'
+                : ''
+            }`}
+          />
+          <CoverLine
+            full={conditionIndex !== 0 && conditionIndex !== conditionCount - 1}
+            className={`cover-condition-end ${
+              conditionIndex === 0
+                ? 'cover-first'
+                : conditionIndex === conditionCount - 1
+                ? 'cover-last'
+                : ''
+            }`}
+          />
+        </>
+      ) : null}
+
       <SplitLine />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
@@ -96,20 +121,6 @@ const ConditionNode: React.FC<IProps> = (props) => {
         : null}
 
       <FillLine />
-
-      {conditionCount > 1 && conditionIndex === 0 ? (
-        <>
-          <CleanLine className="clean-left clean-top" />
-          <CleanLine className="clean-left clean-bottom" />
-        </>
-      ) : null}
-
-      {conditionCount > 1 && conditionIndex === conditionCount - 1 ? (
-        <>
-          <CleanLine className="clean-right clean-top" />
-          <CleanLine className="clean-right clean-bottom" />
-        </>
-      ) : null}
     </div>
   );
 };

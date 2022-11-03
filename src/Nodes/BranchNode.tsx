@@ -3,7 +3,7 @@ import { SortableElement } from 'react-sortable-hoc';
 import DefaultNode from '../DefaultNode';
 import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
-import { ConnectLine, SplitLine } from '../Lines';
+import { SplitLine } from '../Lines';
 import ActionButton from '../ActionButton';
 import DropButton from '../DropButton';
 import { getRegisterNode } from '../utils';
@@ -62,6 +62,9 @@ const BranchNode: React.FC<IProps> = (props) => {
 
   const {
     nodes,
+    layout,
+    spaceX,
+    spaceY,
     readonly,
     registerNodes,
     beforeNodeClick,
@@ -135,12 +138,6 @@ const BranchNode: React.FC<IProps> = (props) => {
         </>
       ) : null}
       <div className="flow-builder-branch-node__content">
-        {conditionCount > 1 ? (
-          <>
-            <ConnectLine className="branch-start" />
-            <ConnectLine className="branch-end" />
-          </>
-        ) : null}
         {!readonly && !disabled ? (
           <div
             className="flow-builder-branch-node__add-button"
@@ -158,7 +155,15 @@ const BranchNode: React.FC<IProps> = (props) => {
             )}
           </div>
         ) : (
-          <SplitLine className="branch-add-disabled" />
+          <SplitLine
+            className="branch-add-disabled"
+            style={{
+              [layout === 'vertical' ? 'top' : 'left']:
+                layout === 'vertical'
+                  ? `${-(spaceY as number)}px`
+                  : `${-(spaceX as number)}px`,
+            }}
+          />
         )}
         <div className="flow-builder-branch-node__conditions">
           {conditionCount === 1 ? <ConditionsDashed /> : null}

@@ -26,11 +26,15 @@
   &__conditions {
     display: flex;
   }
-  &__dashed {
-    position: absolute;
-  }
+  &__dashed,
   &__sorting__dashed {
     position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  &__sorting__dashed {
     display: none;
   }
 }
@@ -54,21 +58,13 @@
 
   .flow-builder-branch-node {
     .flow-builder-branch-node__content {
-      margin: 12px 0 2px 0;
+      margin-top: 10px;
     }
-    &__add-button,
-    .branch-add-disabled {
-      top: -12px;
+    &__add-button {
+      top: -10px;
     }
     &__conditions {
       flex-direction: row;
-    }
-    &__dashed,
-    &__sorting__dashed {
-      top: -2px;
-      right: 0;
-      bottom: -2px;
-      left: 0;
     }
   }
 }
@@ -92,21 +88,13 @@
 
   .flow-builder-branch-node {
     .flow-builder-branch-node__content {
-      margin: 0 2px 0 12px;
+      margin-left: 10px;
     }
-    &__add-button,
-    .branch-add-disabled {
-      left: -12px;
+    &__add-button {
+      left: -10px;
     }
     &__conditions {
       flex-direction: column;
-    }
-    &__dashed,
-    &__sorting__dashed {
-      top: 0;
-      right: -2px;
-      bottom: 0;
-      left: -2px;
     }
   }
 }

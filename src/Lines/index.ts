@@ -1,8 +1,7 @@
 import SplitLine from './SplitLine';
-import ConnectLine from './ConnectLine';
 import FillLine from './FillLine';
-import CleanLine from './CleanLine';
+import CoverLine from './CoverLine';
 
 import './index.less';
 
-export { SplitLine, ConnectLine, FillLine, CleanLine };
+export { SplitLine, FillLine, CoverLine };
