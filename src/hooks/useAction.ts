@@ -65,10 +65,7 @@ const useAction = () => {
     if (getIsConditionNode(registerNodes, newNodeType)) {
       node.children = node.children || [];
       node.children.push(newNode);
-    } else if (
-      getIsConditionNode(registerNodes, node.type) ||
-      getIsLoopNode(registerNodes, node.type)
-    ) {
+    } else if (getIsConditionNode(registerNodes, node.type)) {
       node.children = node.children || [];
       node.children.unshift(newNode);
     } else {
@@ -80,6 +77,36 @@ const useAction = () => {
     }
 
     onChange([...nodes], `add-node__${newNodeType}`);
+
+    pushHistory();
+
+    if (drawerVisibleWhenAddNode) {
+      if (
+        getIsBranchNode(registerNodes, newNodeType) &&
+        (!registerNode?.showPracticalBranchNode ||
+          !registerNode?.configComponent)
+      ) {
+        clickNode(newNode.children[0]);
+      } else {
+        clickNode(newNode);
+      }
+    }
+  };
+
+  const addNodeInLoop = (newNodeType: string) => {
+    const node = currentNode;
+
+    const registerNode = getRegisterNode(registerNodes, newNodeType);
+
+    const newNode = createNewNode(registerNodes, newNodeType);
+    if (!newNode) {
+      return;
+    }
+
+    node.children = node.children || [];
+    node.children.unshift(newNode);
+
+    onChange([...nodes], `add-node-in-loop__${newNodeType}`);
 
     pushHistory();
 
@@ -149,6 +176,7 @@ const useAction = () => {
   return {
     clickNode,
     addNode,
+    addNodeInLoop,
     removeNode,
   };
 };

@@ -79,7 +79,7 @@ const LoopNode: React.FC<Iprops> = (props) => {
         <CoverLine className="cover-loop-start" />
         <CoverLine className="cover-loop-end" />
 
-        <AddButton />
+        <AddButton inLoop />
 
         {Array.isArray(node.children)
           ? renderNext({
