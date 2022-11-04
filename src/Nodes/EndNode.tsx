@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import DefaultNode from '../DefaultNode';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
+import Arrow from '../Arrow';
 
 const EndNode: React.FC = () => {
   const { registerNodes, nodes } = useContext(BuilderContext);
@@ -18,6 +19,7 @@ const EndNode: React.FC = () => {
         registerNode?.className || ''
       }`}
     >
+      <Arrow />
       <div className="flow-builder-node__content">
         <Component node={node} nodes={nodes} />
       </div>

@@ -7,6 +7,7 @@ import DefaultNode from '../DefaultNode';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
+import Arrow from '../Arrow';
 import type { INode, IRender } from '../index';
 
 interface IProps {
@@ -99,6 +100,8 @@ const ConditionNode: React.FC<IProps> = (props) => {
       ) : null}
 
       <SplitLine />
+
+      <Arrow />
 
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
         {sortable ? <ConditionDragHandle /> : null}

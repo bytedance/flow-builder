@@ -125,6 +125,8 @@ export interface IFlowBuilderProps {
   showPracticalBranchRemove?: boolean;
   sortable?: boolean;
   sortableAnchor?: React.ReactNode;
+  showArrow?: boolean;
+  arrowIcon?: React.ReactNode;
 }
 
 export type ZoomType = 'out' | 'in';
