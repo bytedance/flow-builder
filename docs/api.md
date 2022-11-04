@@ -32,6 +32,8 @@ order: 8
 | onChange                  | 节点数据改变时的回调函数                                                                                                                                                                                             | (nodes: [Node](#node)[], changeEvent?: string) => void               | ✓    | -          |       |
 | onHistoryChange           | 历史状态变化之后的回调，两个参数分别代表是否需要禁用撤销和重做                                                                                                                                                       | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |      | -          |       |
 | onZoomChange              | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大                                                                                                                                 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |      | -          |       |
+| showArrow                 | 显示箭头                                                                                                                                                                                                             | `boolean`                                                            |      | false      | 1.4.5 |
+| arrowIcon                 | 自定义箭头                                                                                                                                                                                                           | `ReactNode`                                                          |      | -          | 1.4.5 |
 
 ### HistoryToolConfig
 
