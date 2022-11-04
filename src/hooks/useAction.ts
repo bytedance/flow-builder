@@ -7,6 +7,7 @@ import {
   createNewNode,
   getIsConditionNode,
   getIsBranchNode,
+  getIsLoopNode,
 } from '../utils';
 import { useHistory, useDrawer } from './index';
 import type { INode } from '../index';
@@ -64,7 +65,10 @@ const useAction = () => {
     if (getIsConditionNode(registerNodes, newNodeType)) {
       node.children = node.children || [];
       node.children.push(newNode);
-    } else if (getIsConditionNode(registerNodes, node.type)) {
+    } else if (
+      getIsConditionNode(registerNodes, node.type) ||
+      getIsLoopNode(registerNodes, node.type)
+    ) {
       node.children = node.children || [];
       node.children.unshift(newNode);
     } else {

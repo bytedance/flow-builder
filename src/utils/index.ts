@@ -22,6 +22,9 @@ export const getIsStartNode = (registerNodes: IRegisterNode[], type?: string) =>
 export const getIsEndNode = (registerNodes: IRegisterNode[], type?: string) =>
   registerNodes.find((item) => item.type === type)?.isEnd;
 
+export const getIsLoopNode = (registerNodes: IRegisterNode[], type?: string) =>
+  registerNodes.find((item) => item.type === type)?.isLoop;
+
 export const getIsConditionNode = (
   registerNodes: IRegisterNode[],
   type?: string,
@@ -63,6 +66,8 @@ export const getAbstractNodeType: (
     return 'start';
   } else if (getIsEndNode(registerNodes, type)) {
     return 'end';
+  } else if (getIsLoopNode(registerNodes, type)) {
+    return 'loop';
   } else if (getIsBranchNode(registerNodes, type)) {
     return 'branch';
   } else if (getIsConditionNode(registerNodes, type)) {
@@ -82,6 +87,7 @@ export const createNewNode = (
 
   const isBranchNode = getIsBranchNode(registerNodes, type);
   const isConditionNode = getIsConditionNode(registerNodes, type);
+  const isLoopNode = getIsLoopNode(registerNodes, type);
 
   const initialNodeData = registerNode?.initialNodeData || {};
 
@@ -93,7 +99,7 @@ export const createNewNode = (
         ],
         ...initialNodeData,
       }
-    : isConditionNode
+    : isConditionNode || isLoopNode
     ? {
         children: [],
         ...initialNodeData,
