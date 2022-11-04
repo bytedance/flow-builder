@@ -4,10 +4,16 @@ import { BuilderContext } from '../contexts';
 import './index.less';
 
 const Arrow = () => {
-  const { lineColor, showArrow, arrowIcon } = useContext(BuilderContext);
+  const { lineColor, backgroundColor, showArrow, arrowIcon } =
+    useContext(BuilderContext);
 
   return showArrow ? (
-    <div className="flow-builder-arrow">
+    <div
+      className="flow-builder-arrow"
+      style={{
+        backgroundColor,
+      }}
+    >
       {arrowIcon || (
         <svg
           viewBox="0 0 1024 1024"

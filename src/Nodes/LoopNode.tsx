@@ -6,6 +6,7 @@ import { SplitLine, CoverLine } from '../Lines';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
+import Arrow from '../Arrow';
 import type { IRender } from '../index';
 
 interface Iprops {
@@ -50,6 +51,7 @@ const LoopNode: React.FC<Iprops> = (props) => {
         registerNode?.className || ''
       }`}
     >
+      <Arrow />
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
         <Component
           readonly={readonly}
@@ -72,6 +74,8 @@ const LoopNode: React.FC<Iprops> = (props) => {
             : 'borderBottom']: `2px solid ${lineColor}`,
         }}
       >
+        <Arrow />
+
         <CoverLine className="cover-loop-start" />
         <CoverLine className="cover-loop-end" />
 
