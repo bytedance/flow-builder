@@ -5,6 +5,7 @@ import RemoveButton from '../RemoveButton';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
+import Arrow from '../Arrow';
 
 const CommonNode: React.FC = () => {
   const { readonly, registerNodes, nodes, beforeNodeClick } =
@@ -30,6 +31,7 @@ const CommonNode: React.FC = () => {
 
   return (
     <div className={`flow-builder-node ${registerNode?.className || ''}`}>
+      <Arrow />
       <div className="flow-builder-node__content" onClick={handleNodeClick}>
         <Component
           readonly={readonly}
