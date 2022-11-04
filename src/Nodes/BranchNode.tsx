@@ -11,6 +11,7 @@ import type { INode, IRenderNode } from '../index';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
 import AddConditionIcon from '../icons/add-condition.svg';
+import Arrow from '../Arrow';
 
 interface IProps {
   renderConditionNode: (params: IRenderNode) => React.ReactNode;
@@ -119,6 +120,7 @@ const BranchNode: React.FC<IProps> = (props) => {
         registerNode?.className || ''
       }`}
     >
+      <Arrow />
       {registerNode?.showPracticalBranchNode ?? showPracticalBranchNode ? (
         <>
           <div className="flow-builder-node__content" onClick={handleNodeClick}>
