@@ -6,13 +6,14 @@ order: 2
 
 不同的使用场景对节点的数量、类型、样式等都有不用的诉求，react-flow-builder 提供了 `registerNodes` 属性，通过节点注册的机制满足个性化场景。
 
-分为 5 种节点类型：
+分为 6 种节点类型：
 
 - 开始节点
 - 结束节点
 - 分支节点
 - 条件节点
 - 普通节点
+- 循环节点
 
 ## 节点数量
 
@@ -25,6 +26,7 @@ order: 2
 | type              | 节点类型                                       | string  | ✓    | -      |
 | isStart           | 是否为开始节点                                 | boolean |      | false  |
 | isEnd             | 是否为结束节点                                 | boolean |      | false  |
+| isLoop            | 是否为循环节点                                 | boolean |      | false  |
 
 <br>
 

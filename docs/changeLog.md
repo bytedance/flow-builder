@@ -58,3 +58,9 @@ order: 9
 
 - 增加 `showArrow`，显示箭头
 - 增加 `arrowIcon`，在 `showArrow: true` 的前提下可以自定义箭头
+
+## 1.4.6
+
+`2023-01-14`
+
+- 增加 `isLoop`，循环节点

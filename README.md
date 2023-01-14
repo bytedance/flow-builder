@@ -247,6 +247,7 @@ export default Demo;
 | initialNodeData           | the initial data when add new node                                                                                              | `Record<string, any>`                                 |          | -                                 |
 | isStart                   | Is start node                                                                                                                   | `boolean`                                             |          | false                             |
 | isEnd                     | Is end node                                                                                                                     | `boolean`                                             |          | false                             |
+| isLoop                    | Is loop node                                                                                                                    | `boolean`                                             |          | false                             | 1.4.6   |
 | name                      | The name of node                                                                                                                | `string`                                              | ✓        | -                                 |
 | removeConfirmTitle        | The confirmation information before deleting the node. The [title](https://ant.design/components/popconfirm/#API) of Popconfirm | `string` \| `ReactNode`                               |          | Are you sure to remove this node? |
 | showPracticalBranchNode   | -                                                                                                                               | `boolean`                                             |          | false                             | 1.1.0   |
@@ -336,11 +337,12 @@ In the context of FlowBuilder the following hooks can be used
 
 #### useAction
 
-| Property   | Description                                                                             | Type                                                                            |
-| :--------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
-| clickNode  | click node                                                                              | `(node: INode = useContext(NodeContext)) => void`                               |
-| addNode    | add one node. (Get the current node through NodeContext when there is no node property) | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
-| removeNode | remove one node or more nodes.                                                          | `(targetNode: INode \| INode[] = useContext(NodeContext)) => void`              |
+| Property      | Description                                                                             | Type                                                                            | Version |
+| :------------ | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :------ |
+| clickNode     | click node                                                                              | `(node: INode = useContext(NodeContext)) => void`                               |
+| addNode       | add one node. (Get the current node through NodeContext when there is no node property) | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
+| addNodeInLoop | add one node in loop node.                                                              | `(newNodeType: string) => void`                                                 | 1.4.6   |
+| removeNode    | remove one node or more nodes.                                                          | `(targetNode: INode \| INode[] = useContext(NodeContext)) => void`              |
 
 #### useDrawer
 
