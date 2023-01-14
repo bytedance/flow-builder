@@ -163,7 +163,7 @@ const LoopNode: React.FC<Iprops> = (props) => {
         }
       }
     }
-  }, [nodes]);
+  }, [nodes, registerNodes]);
 
   return (
     <div
