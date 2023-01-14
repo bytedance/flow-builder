@@ -36,6 +36,7 @@ export type AbstractNodeType =
   | 'end'
   | 'branch'
   | 'condition'
+  | 'loop'
   | 'common';
 
 export interface IRegisterNode {
@@ -54,6 +55,7 @@ export interface IRegisterNode {
   customRemove?: boolean;
   isStart?: boolean;
   isEnd?: boolean;
+  isLoop?: boolean;
   configTitle?: string | ((node: INode, nodes: INode[]) => string);
   initialNodeData?: Record<string, any>;
   showPracticalBranchNode?: boolean;

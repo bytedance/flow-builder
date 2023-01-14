@@ -65,6 +65,16 @@ const ConditionNode: React.FC<IProps> = (props) => {
     }
   };
 
+  const coverIndexClassName = ((index: number, total: number) => {
+    if (index === 0) {
+      return 'cover-first';
+    }
+    if (index === total - 1) {
+      return 'cover-last';
+    }
+    return 'cover-middle';
+  })(conditionIndex, conditionCount);
+
   return (
     <div
       className={`flow-builder-node flow-builder-condition-node ${
@@ -78,23 +88,11 @@ const ConditionNode: React.FC<IProps> = (props) => {
         <>
           <CoverLine
             full={conditionIndex !== 0 && conditionIndex !== conditionCount - 1}
-            className={`cover-condition-start ${
-              conditionIndex === 0
-                ? 'cover-first'
-                : conditionIndex === conditionCount - 1
-                ? 'cover-last'
-                : ''
-            }`}
+            className={`cover-condition-start ${coverIndexClassName}`}
           />
           <CoverLine
             full={conditionIndex !== 0 && conditionIndex !== conditionCount - 1}
-            className={`cover-condition-end ${
-              conditionIndex === 0
-                ? 'cover-first'
-                : conditionIndex === conditionCount - 1
-                ? 'cover-last'
-                : ''
-            }`}
+            className={`cover-condition-end ${coverIndexClassName}`}
           />
         </>
       ) : null}

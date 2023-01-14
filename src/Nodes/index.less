@@ -1,9 +1,14 @@
 .flow-builder-node,
 .flow-builder-node__content,
-.flow-builder-branch-node__content {
+.flow-builder-branch-node__content,
+.flow-builder-loop-node__content {
   display: flex;
   align-items: center;
   position: relative;
+}
+
+.flow-builder-loop-node__content {
+  z-index: 5;
 }
 
 .flow-builder-node__content {
@@ -45,7 +50,8 @@
 
   .flow-builder-node,
   .flow-builder-node__content,
-  .flow-builder-branch-node__content {
+  .flow-builder-branch-node__content,
+  .flow-builder-loop-node__content {
     flex-direction: column;
   }
 

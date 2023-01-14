@@ -103,6 +103,7 @@ order: 8
 | initialNodeData           | 增加节点时初始化数据                                                                                | `Record<string, any>`                                 |      | -                                 |
 | isStart                   | 是否为开始节点                                                                                      | `boolean`                                             |      | false                             |
 | isEnd                     | 是否为结束节点                                                                                      | `boolean`                                             |      | false                             |
+| isLoop                    | 是否为循环节点                                                                                      | `boolean`                                             |      | false                             | 1.4.6 |
 | name                      | 节点名称                                                                                            | `string`                                              | ✓    | -                                 |
 | removeConfirmTitle        | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | `string` \| `ReactNode`                               |      | Are you sure to remove this node? |
 | showPracticalBranchNode   | -                                                                                                   | `boolean`                                             |      | false                             | 1.1.0 |
@@ -192,11 +193,12 @@ order: 8
 
 ### useAction
 
-| 属性       | 说明                                                                        | 类型                                                                            |
-| :--------- | :-------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
-| clickNode  | 点击一个节点                                                                | `(node: INode = useContext(NodeContext)) => void`                               |
-| addNode    | 增加一个节点，不指定操作节点时，内部通过 NodeContext 获取到当前所在节点实现 | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
-| removeNode | 删除一个/多个节点                                                           | `(targetNode: INode \| INode[] = useContext(NodeContext)) => void`              |
+| 属性          | 说明                                                                        | 类型                                                                            | 版本  |
+| :------------ | :-------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :---- |
+| clickNode     | 点击一个节点                                                                | `(node: INode = useContext(NodeContext)) => void`                               |
+| addNode       | 增加一个节点，不指定操作节点时，内部通过 NodeContext 获取到当前所在节点实现 | `(node: INode, newNodeType: string) => void` \| `(newNodeType: string) => void` |
+| addNodeInLoop | 循环节点内增加一个节点                                                      | `(newNodeType: string) => void`                                                 | 1.4.6 |
+| removeNode    | 删除一个/多个节点                                                           | `(targetNode: INode \| INode[] = useContext(NodeContext)) => void`              |
 
 ### useDrawer
 

@@ -18,7 +18,13 @@ import AddNormalIcon from '../icons/add-normal.svg';
 import AddBranchIcon from '../icons/add-branch.svg';
 import './index.less';
 
-const AddNodeButton: React.FC = () => {
+interface IProps {
+  inLoop?: boolean;
+}
+
+const AddNodeButton: React.FC<IProps> = (props) => {
+  const { inLoop } = props;
+
   const {
     registerNodes,
     nodes,
@@ -29,7 +35,9 @@ const AddNodeButton: React.FC = () => {
 
   const node = useContext(NodeContext);
 
-  const { addNode } = useAction();
+  const { addNode, addNodeInLoop } = useAction();
+
+  const handleAdd = inLoop ? addNodeInLoop : addNode;
 
   const [visible, setVisible] = useState(false);
 
@@ -55,12 +63,12 @@ const AddNodeButton: React.FC = () => {
   );
 
   const handleAddNode = (newNodeType: string) => {
-    addNode(newNodeType);
+    handleAdd(newNodeType);
     setVisible(false);
   };
 
   const handleDrop = () => {
-    addNode(dragType);
+    handleAdd(dragType);
   };
 
   const addableOptions = AddableComponent ? (

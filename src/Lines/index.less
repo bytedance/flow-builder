@@ -7,40 +7,54 @@
 
 .flow-builder-vertical {
   .flow-builder-line__cover {
-    &.cover-condition-start {
+    &.cover-condition-start,
+    &.cover-loop-start {
       top: 0;
     }
-    &.cover-condition-end {
+    &.cover-condition-end,
+    &.cover-loop-end {
       bottom: 0;
     }
     &.cover-condition-start,
     &.cover-condition-end {
-      &.cover-first {
+      &.cover-first,
+      &.cover-middle {
         right: 0;
       }
       &.cover-last {
         left: 0;
       }
     }
+    &.cover-loop-start,
+    &.cover-loop-end {
+      left: 0;
+    }
   }
 }
 
 .flow-builder-horizontal {
   .flow-builder-line__cover {
-    &.cover-condition-start {
+    &.cover-condition-start,
+    &.cover-loop-start {
       left: 0;
     }
-    &.cover-condition-end {
+    &.cover-condition-end,
+    &.cover-loop-end {
       right: 0;
     }
     &.cover-condition-start,
     &.cover-condition-end {
-      &.cover-first {
+      &.cover-first,
+      &.cover-middle {
         bottom: 0;
       }
       &.cover-last {
         top: 0;
       }
+    }
+    &.cover-loop-start,
+    &.cover-loop-end {
+      bottom: 0;
     }
   }
 }

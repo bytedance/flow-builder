@@ -7,6 +7,7 @@ import {
   createNewNode,
   getIsConditionNode,
   getIsBranchNode,
+  getIsLoopNode,
 } from '../utils';
 import { useHistory, useDrawer } from './index';
 import type { INode } from '../index';
@@ -92,6 +93,36 @@ const useAction = () => {
     }
   };
 
+  const addNodeInLoop = (newNodeType: string) => {
+    const node = currentNode;
+
+    const registerNode = getRegisterNode(registerNodes, newNodeType);
+
+    const newNode = createNewNode(registerNodes, newNodeType);
+    if (!newNode) {
+      return;
+    }
+
+    node.children = node.children || [];
+    node.children.unshift(newNode);
+
+    onChange([...nodes], `add-node-in-loop__${newNodeType}`);
+
+    pushHistory();
+
+    if (drawerVisibleWhenAddNode) {
+      if (
+        getIsBranchNode(registerNodes, newNodeType) &&
+        (!registerNode?.showPracticalBranchNode ||
+          !registerNode?.configComponent)
+      ) {
+        clickNode(newNode.children[0]);
+      } else {
+        clickNode(newNode);
+      }
+    }
+  };
+
   const removeNodeIds = (targetNodeIds: string[], allNodes: INode[]) => {
     const restNodes = allNodes.filter(
       (item) => !targetNodeIds.includes(item.id),
@@ -145,6 +176,7 @@ const useAction = () => {
   return {
     clickNode,
     addNode,
+    addNodeInLoop,
     removeNode,
   };
 };

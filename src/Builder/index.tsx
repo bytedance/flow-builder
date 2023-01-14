@@ -13,6 +13,7 @@ import {
   CommonNode,
   BranchNode,
   ConditionNode,
+  LoopNode,
 } from '../Nodes';
 import { HistoryTool, ZoomTool } from '../Tools';
 import DragPanel from '../DragPanel';
@@ -86,6 +87,8 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
               renderNext={render}
             />
           );
+        case 'loop':
+          return <LoopNode renderNext={render} />;
         default:
           return <CommonNode />;
       }

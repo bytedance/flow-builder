@@ -74,6 +74,12 @@ const registerNodes: IRegisterNode[] = [
     name: '分支节点',
     conditionNodeType: 'condition',
   },
+  {
+    type: 'loop',
+    name: '循环节点',
+    displayComponent: NodeDisplay,
+    isLoop: true,
+  },
 ];
 
 const defaultNodes = [
