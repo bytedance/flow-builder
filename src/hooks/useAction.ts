@@ -162,11 +162,12 @@ const useAction = () => {
     const targetNodeIds = targetNodes.map((item) =>
       typeof item === 'string' ? item : item.id,
     );
-    const restNodes = filterEmptyBranch(removeNodeIds(targetNodeIds, nodes));
 
     DFS(nodes).some(
       (item) => item.configuring && targetNodeIds.includes(item.id),
     ) && closeDrawer();
+
+    const restNodes = filterEmptyBranch(removeNodeIds(targetNodeIds, nodes));
 
     onChange(restNodes, `remove-node`);
 
