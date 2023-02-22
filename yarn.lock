@@ -9744,10 +9744,10 @@ react-error-boundary@^3.1.4:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-react-flow-builder@^1.4.6:
-  version "1.4.6"
-  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-1.4.6.tgz#4875e1c3d50b51ca3a39e52177a5702db1cb646c"
-  integrity sha512-Ei0Nv6lRcb7rJyg9y3CCOhect+JzEa0qfLtwFVyVepCN2oyrO7PmjqyGW7LLsh2DdGZkZc4tkYR0LlL+6bCupg==
+react-flow-builder@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-1.4.7.tgz#c9bedbc8a4d33f7df260aaf5ecd18622f531fc75"
+  integrity sha512-R0jTWttvkprQ8FkkYtocZ/57wZmvmMQR0mPrZAOVpL8vdlkEs0AesVF/ZJ4+AXKpW+N3Vx5zUWVvkudwa6RlPQ==
   dependencies:
     lodash.get "^4.4.2"
     react-sortable-hoc "^2.0.0"
