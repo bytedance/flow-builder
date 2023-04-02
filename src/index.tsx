@@ -43,7 +43,6 @@ export interface IRegisterNode {
   type: string;
   name: string;
   conditionNodeType?: string;
-  conditionMinNum?: number;
   conditionMaxNum?: number;
   addIcon?: React.ReactNode;
   addConditionIcon?: React.ReactNode;

@@ -237,7 +237,6 @@ export default Demo;
 | addIcon                   | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | `ReactNode`                                           |      | -                                 |
 | addConditionIcon          | 分支节点添加条件时的图标（已有默认图标）                                                            | `ReactNode`                                           |      | -                                 | 1.3.3 |
 | className                 | 节点外层的类名                                                                                      | `string`                                              |      | -                                 | 1.3.4 |
-| conditionMinNum           | 对应的条件节点最小数量                                                                              | `number`                                              |      | 1                                 |
 | conditionMaxNum           | 对应的条件节点最大数量                                                                              | `number`                                              |      | -                                 |
 | conditionNodeType         | 对应的条件节点类型                                                                                  | `string`                                              |      | -                                 |
 | configComponent           | 节点的配置表单组件                                                                                  | `React.FC`\<[ConfigComponent](#configcomponent)\>     |      | -                                 |
