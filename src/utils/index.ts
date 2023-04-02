@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import 'systemjs/dist/system.js';
+import cloneDeep from 'lodash.clonedeep';
 import type {
   IRegisterNode,
   IRegisterRemoteNode,
@@ -89,7 +90,7 @@ export const createNewNode = (
   const isConditionNode = getIsConditionNode(registerNodes, type);
   const isLoopNode = getIsLoopNode(registerNodes, type);
 
-  const initialNodeData = registerNode?.initialNodeData || {};
+  const initialNodeData = cloneDeep(registerNode?.initialNodeData || {});
 
   const extraProps: any = isBranchNode
     ? {

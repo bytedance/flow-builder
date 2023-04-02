@@ -1940,6 +1940,13 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
+"@types/lodash.clonedeep@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.npmjs.org/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.7.tgz#0e119f582ed6f9e6b373c04a644651763214f197"
+  integrity sha512-ccNqkPptFIXrpVqUECi60/DFxjNKsfoQxSQsgcBJCX/fuX1wgyQieojkcWH/KpE3xzLoWN/2k+ZeGqIN3paSvw==
+  dependencies:
+    "@types/lodash" "*"
+
 "@types/lodash.get@^4.4.6":
   version "4.4.7"
   resolved "https://registry.yarnpkg.com/@types/lodash.get/-/lodash.get-4.4.7.tgz#1ea63d8b94709f6bc9e231f252b31440abe312cf"
@@ -7198,6 +7205,11 @@ lodash.clone@^4.3.2:
   resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
   integrity sha512-GhrVeweiTD6uTmmn5hV/lzgCQhccwReIVRLHp7LT4SopOjqEZ5BbX8b5WWEtAKasjmy8hR7ZPwsYlxRCku5odg==
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
+
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
@@ -9744,11 +9756,12 @@ react-error-boundary@^3.1.4:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-react-flow-builder@^1.4.7:
-  version "1.4.7"
-  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-1.4.7.tgz#c9bedbc8a4d33f7df260aaf5ecd18622f531fc75"
-  integrity sha512-R0jTWttvkprQ8FkkYtocZ/57wZmvmMQR0mPrZAOVpL8vdlkEs0AesVF/ZJ4+AXKpW+N3Vx5zUWVvkudwa6RlPQ==
+react-flow-builder@^1.4.8:
+  version "1.4.8"
+  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-1.4.8.tgz#6d836145ff56d4189882de0d88d49ba46f1ac20b"
+  integrity sha512-KgFfEHMg97tvSzKJ0Dhjrj4EqkN0kQjplcN1rPchS4OR1oNb3HRLBkePjT4AL5Ft+KTrbK+bHT7kxsDQtlzHKA==
   dependencies:
+    lodash.clonedeep "^4.5.0"
     lodash.get "^4.4.2"
     react-sortable-hoc "^2.0.0"
     systemjs "^6.12.1"
