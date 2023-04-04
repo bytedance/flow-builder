@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Button } from 'antd';
 import { BuilderContext } from '../contexts';
 import { useZoom } from '../hooks';
 import type { IZoomToolConfig } from '../index';
@@ -13,15 +12,31 @@ const ZoomTool = () => {
       ? !(zoomTool as IZoomToolConfig).hidden
       : !!zoomTool;
 
+  const minDisabled = zoomValue === minZoom;
+
+  const maxDisabled = zoomValue === maxZoom;
+
   return showZoom ? (
     <div className="flow-builder-zoom-tool">
-      <Button disabled={zoomValue === minZoom} onClick={() => zoom('out')}>
+      <button
+        className={`flow-builder-tool-btn ${
+          minDisabled ? 'flow-builder-tool-btn-disabled' : ''
+        }`}
+        disabled={minDisabled}
+        onClick={() => zoom('out')}
+      >
         -
-      </Button>
+      </button>
       <span className="flow-builder-zoom-tool__number">{zoomValue + '%'}</span>
-      <Button disabled={zoomValue === maxZoom} onClick={() => zoom('in')}>
+      <button
+        className={`flow-builder-tool-btn ${
+          maxDisabled ? 'flow-builder-tool-btn-disabled' : ''
+        }`}
+        disabled={maxDisabled}
+        onClick={() => zoom('in')}
+      >
         +
-      </Button>
+      </button>
     </div>
   ) : null;
 };

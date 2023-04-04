@@ -14,10 +14,6 @@
 .flow-builder {
   display: flex;
   align-items: center;
-
-  .ant-popover-inner-content {
-    white-space: nowrap;
-  }
 }
 
 .flow-builder-tool {
@@ -30,14 +26,12 @@
   justify-content: space-between;
   background-color: #fff !important;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
-  .ant-btn {
-    border: none;
-    background-color: #fff !important;
-  }
 }
 
 .flow-builder-zoom-tool {
   width: 120px;
+  display: inline-flex;
+  align-items: center;
   &__number {
     flex: 1;
     text-align: center;
@@ -46,4 +40,29 @@
 
 .flow-builder-undo-redo-tool {
   width: 80px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.flow-builder-tool-btn {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  &:hover {
+    color: #40a9ff;
+  }
+}
+
+.flow-builder-tool-btn-disabled {
+  cursor: not-allowed;
+  color: rgba(0, 0, 0, 0.25);
+  &:hover {
+    color: rgba(0, 0, 0, 0.25);
+  }
 }

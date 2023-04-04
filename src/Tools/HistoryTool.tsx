@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Button } from 'antd';
 import { BuilderContext } from '../contexts';
 import { useHistory } from '../hooks';
 import type { IHistoryToolConfig } from '../index';
@@ -14,20 +13,30 @@ const HistoryTool = () => {
       ? !(historyTool as IHistoryToolConfig).hidden
       : !!historyTool;
 
+  const undoDisabled = activeHistoryRecordIndex <= 0;
+
+  const redoDisabled = activeHistoryRecordIndex === historyRecords.length - 1;
+
   return showHistory ? (
     <div className="flow-builder-undo-redo-tool">
-      <Button
-        disabled={activeHistoryRecordIndex <= 0}
+      <button
+        className={`flow-builder-tool-btn ${
+          undoDisabled ? 'flow-builder-tool-btn-disabled' : ''
+        }`}
+        disabled={undoDisabled}
         onClick={() => history('undo')}
       >
         {'<'}
-      </Button>
-      <Button
-        disabled={activeHistoryRecordIndex === historyRecords.length - 1}
+      </button>
+      <button
+        className={`flow-builder-tool-btn ${
+          redoDisabled ? 'flow-builder-tool-btn-disabled' : ''
+        }`}
+        disabled={redoDisabled}
         onClick={() => history('redo')}
       >
         {'>'}
-      </Button>
+      </button>
     </div>
   ) : null;
 };

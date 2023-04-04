@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { Popover } from 'antd';
 import ActionButton from '../ActionButton';
 import { SplitLine } from '../Lines';
 import DropButton from '../DropButton';
@@ -31,6 +30,7 @@ const AddNodeButton: React.FC<IProps> = (props) => {
     readonly,
     dragType,
     DropComponent = DropButton,
+    PopoverComponent,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -103,21 +103,21 @@ const AddNodeButton: React.FC<IProps> = (props) => {
       {!readonly && options.length > 0 ? (
         droppable ? (
           <DropComponent onDrop={handleDrop} />
-        ) : (
-          <Popover
+        ) : PopoverComponent ? (
+          <PopoverComponent
             visible={visible}
             onVisibleChange={setVisible}
             overlayClassName="flow-builder-addable-nodes"
             placement="rightTop"
-            trigger={['click']}
+            trigger="click"
             content={addableOptions}
-            getPopupContainer={(triggerNode) => triggerNode as HTMLElement}
+            getPopupContainer={(triggerNode: any) => triggerNode as HTMLElement}
           >
-            <div onClick={(e) => e.stopPropagation()}>
+            <div className="flow-builder-add-btn">
               <ActionButton icon={AddIcon} />
             </div>
-          </Popover>
-        )
+          </PopoverComponent>
+        ) : null
       ) : null}
 
       <SplitLine />

@@ -150,34 +150,38 @@ export default Demo;
 
 ### FlowBuilder
 
-| Property                  | Description                                                                                                                                                                                                                              | Type                                                                 | Required | Default    | Version |
-| :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :------- | :--------- | :------ |
-| backgroundColor           | The color of background                                                                                                                                                                                                                  | `string`                                                             |          | #F7F7F7    |         |
-| className                 | The class name of the container                                                                                                                                                                                                          | `string`                                                             |          | -          |
-| draggable                 | drag and drop                                                                                                                                                                                                                            | `boolean`                                                            |          | false      | 1.0.0   |
-| DragComponent             | custom drag component                                                                                                                                                                                                                    | `React.FC`\<[DragComponent](#dragcomponent)\>                        |          | -          | 1.0.0   |
-| DropComponent             | custom drop component                                                                                                                                                                                                                    | `React.FC`\<[DropComponent](#dropcomponent)\>                        |          | -          | 1.0.0   |
-| drawerProps               | Extra [props](https://ant.design/components/drawer/#API) of Drawer Component from antd. `visible` and `onClose` have already in FlowBuilder, and {`title`: "Configuration", `width`: 480, `destroyOnClose`: true, `maskClosable`: false} | `DrawerProps`                                                        |          | -          |         |
-| drawerVisibleWhenAddNode  | Drawer visible when add node                                                                                                                                                                                                             | `boolean`                                                            |          | false      |         |
-| historyTool               | undo and redo                                                                                                                                                                                                                            | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |          | false      |
-| layout                    | Use vertical or horizontal layout                                                                                                                                                                                                        | `vertical` \| `horizontal`                                           |          | `vertical` |         |
-| lineColor                 | The color of line                                                                                                                                                                                                                        | `string`                                                             |          | #999999    |         |
-| nodes                     | The nodes of FlowBuilder                                                                                                                                                                                                                 | [Node](#node)[]                                                      | ✓        | -          |         |
-| readonly                  | Readonly mode, cannot add, remove, configure.                                                                                                                                                                                            | `boolean`                                                            |          | false      |         |
-| registerNodes             | The registered nodes                                                                                                                                                                                                                     | [RegisterNode](#registernode)[]                                      | ✓        | -          |         |
-| registerRemoteNodes       | The registered remote nodes                                                                                                                                                                                                              | [RegisterRemoteNode](#registerremotenode)[]                          |          | -          | 1.3.0   |
-| showPracticalBranchNode   | -                                                                                                                                                                                                                                        | `boolean`                                                            |          | false      | 1.1.0   |
-| showPracticalBranchRemove | -                                                                                                                                                                                                                                        | `boolean`                                                            |          | false      | 1.1.0   |
-| sortable                  | Condition nodes can be dragged and sorted in branch                                                                                                                                                                                      | `boolean`                                                            |          | false      | 1.4.0   |
-| sortableAnchor            | Anchor for start dragging 序                                                                                                                                                                                                             | `ReactNode`                                                          |          | -          | 1.4.0   |
-| spaceX                    | Horizontal spacing between nodes                                                                                                                                                                                                         | `number`                                                             |          | `16`       |         |
-| spaceY                    | Vertical spacing between nodes                                                                                                                                                                                                           | `number`                                                             |          | `16`       |
-| zoomTool                  | zoom                                                                                                                                                                                                                                     | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |          | false      |         |
-| onChange                  | Callback function for when the data change                                                                                                                                                                                               | (nodes: [Node](#node)[], changeEvent?: `string`) => void             | ✓        | -          |         |
-| onHistoryChange           |                                                                                                                                                                                                                                          | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |          | -          |         |
-| onZoomChange              |                                                                                                                                                                                                                                          | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |          | -          |         |
-| showArrow                 | Show arrow                                                                                                                                                                                                                               | `boolean`                                                            |          | false      | 1.4.5   |
-| arrowIcon                 | The icon of the arrow                                                                                                                                                                                                                    | `ReactNode`                                                          |          | -          | 1.4.5   |
+| Property                  | Description                                         | Type                                                                 | Required | Default    | Version |
+| :------------------------ | :-------------------------------------------------- | :------------------------------------------------------------------- | :------- | :--------- | :------ |
+| backgroundColor           | The color of background                             | `string`                                                             |          | #F7F7F7    |         |
+| className                 | The class name of the container                     | `string`                                                             |          | -          |
+| draggable                 | drag and drop                                       | `boolean`                                                            |          | false      | 1.0.0   |
+| DragComponent             | custom drag component                               | `React.FC`\<[DragComponent](#dragcomponent)\>                        |          | -          | 1.0.0   |
+| DropComponent             | custom drop component                               | `React.FC`\<[DropComponent](#dropcomponent)\>                        |          | -          | 1.0.0   |
+| createUuid                | custom node uuid                                    | `(type?: string) => string`                                          |          | -          | 2.0.0   |
+| DrawerComponent           | Drawer component                                    | `React.FC`\<[DrawerComponent](#drawercomponent)\>                    |          | -          | 2.0.0   |
+| PopoverComponent          | Popover component                                   | `React.FC`\<[PopoverComponent](#popovercomponent)\>                  |          | -          | 2.0.0   |
+| PopconfirmComponent       | Popconfirm component                                | `React.FC`\<[PopconfirmComponent](#popconfirmcomponent)\>            |          | -          | 2.0.0   |
+| drawerProps               | Extra props of DrawerComponent                      | `any`                                                                |          | -          |         |
+| drawerVisibleWhenAddNode  | Drawer visible when add node                        | `boolean`                                                            |          | false      |         |
+| historyTool               | undo and redo                                       | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |          | false      |
+| layout                    | Use vertical or horizontal layout                   | `vertical` \| `horizontal`                                           |          | `vertical` |         |
+| lineColor                 | The color of line                                   | `string`                                                             |          | #999999    |         |
+| nodes                     | The nodes of FlowBuilder                            | [Node](#node)[]                                                      | ✓        | -          |         |
+| readonly                  | Readonly mode, cannot add, remove, configure.       | `boolean`                                                            |          | false      |         |
+| registerNodes             | The registered nodes                                | [RegisterNode](#registernode)[]                                      | ✓        | -          |         |
+| registerRemoteNodes       | The registered remote nodes                         | [RegisterRemoteNode](#registerremotenode)[]                          |          | -          | 1.3.0   |
+| showPracticalBranchNode   | -                                                   | `boolean`                                                            |          | false      | 1.1.0   |
+| showPracticalBranchRemove | -                                                   | `boolean`                                                            |          | false      | 1.1.0   |
+| sortable                  | Condition nodes can be dragged and sorted in branch | `boolean`                                                            |          | false      | 1.4.0   |
+| sortableAnchor            | Anchor for start dragging 序                        | `ReactNode`                                                          |          | -          | 1.4.0   |
+| spaceX                    | Horizontal spacing between nodes                    | `number`                                                             |          | `16`       |         |
+| spaceY                    | Vertical spacing between nodes                      | `number`                                                             |          | `16`       |
+| zoomTool                  | zoom                                                | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |          | false      |         |
+| onChange                  | Callback function for when the data change          | (nodes: [Node](#node)[], changeEvent?: `string`) => void             | ✓        | -          |         |
+| onHistoryChange           |                                                     | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |          | -          |         |
+| onZoomChange              |                                                     | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |          | -          |         |
+| showArrow                 | Show arrow                                          | `boolean`                                                            |          | false      | 1.4.5   |
+| arrowIcon                 | The icon of the arrow                               | `ReactNode`                                                          |          | -          | 1.4.5   |
 
 #### HistoryToolConfig
 
@@ -208,6 +212,40 @@ export default Demo;
 | Property | Description                                                                                    | Type         | Version |
 | :------- | :--------------------------------------------------------------------------------------------- | :----------- | :------ |
 | onDrop   | The drop event of the custom drop component needs to call this method to add the new node type | `() => void` | 1.0.0   |
+
+#### DrawerComponent
+
+| Property       | Description                                                      | Type              | Version |
+| :------------- | :--------------------------------------------------------------- | :---------------- | :------ |
+| visible        | You can judge the boolean value of **selectedNode** by yourself. | `boolean`         | 2.0.0   |
+| onClose        | You can also call **closeDrawer** by yourself.                   | `() => void`      | 2.0.0   |
+| children       |                                                                  | `React.ReactNode` | 2.0.0   |
+| title          |                                                                  | `React.ReactNode` | 2.0.0   |
+| width          |                                                                  | `number`          | 2.0.0   |
+| destroyOnClose |                                                                  | `boolean`         | 2.0.0   |
+| maskClosable   |                                                                  | `boolean`         | 2.0.0   |
+
+#### PopoverComponent
+
+| Property          | Description | Type                                        | Version |
+| :---------------- | :---------- | :------------------------------------------ | :------ |
+| visible           |             | `boolean`                                   | 2.0.0   |
+| onVisibleChange   |             | `(visible: boolean) => void`                | 2.0.0   |
+| children          |             | `React.ReactNode`                           | 2.0.0   |
+| overlayClassName  |             | `React.ReactNode`                           | 2.0.0   |
+| placement         |             | `string`                                    | 2.0.0   |
+| trigger           |             | `string`                                    | 2.0.0   |
+| content           |             | `React.ReactNode`                           | 2.0.0   |
+| getPopupContainer |             | `(triggerNode: HTMLElement) => HTMLElement` | 2.0.0   |
+
+#### PopconfirmComponent
+
+| Property          | Description                                | Type                                        | Version |
+| :---------------- | :----------------------------------------- | :------------------------------------------ | :------ |
+| title             |                                            | `React.ReactNode`                           | 2.0.0   |
+| onConfirm         | You can also call **removeNode** yourself. | `() => void`                                | 2.0.0   |
+| children          |                                            | `React.ReactNode`                           | 2.0.0   |
+| getPopupContainer |                                            | `(triggerNode: HTMLElement) => HTMLElement` | 2.0.0   |
 
 ### FlowBuilderInstance
 

@@ -104,8 +104,7 @@ const BranchNode: React.FC<IProps> = (props) => {
     } catch (error) {}
   };
 
-  const handleNodeClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNodeClick = async () => {
     try {
       await beforeNodeClick?.(node);
       clickNode();
@@ -123,14 +122,18 @@ const BranchNode: React.FC<IProps> = (props) => {
       <Arrow />
       {registerNode?.showPracticalBranchNode ?? showPracticalBranchNode ? (
         <>
-          <div className="flow-builder-node__content" onClick={handleNodeClick}>
-            <Component
-              readonly={readonly}
-              node={node}
-              nodes={nodes}
-              remove={removeNode}
-            />
-
+          <div className="flow-builder-node__content-wrap">
+            <div
+              className="flow-builder-node__content"
+              onClick={handleNodeClick}
+            >
+              <Component
+                readonly={readonly}
+                node={node}
+                nodes={nodes}
+                remove={removeNode}
+              />
+            </div>
             {registerNode?.showPracticalBranchRemove ??
             showPracticalBranchRemove ? (
               <RemoveButton />
@@ -143,8 +146,7 @@ const BranchNode: React.FC<IProps> = (props) => {
         {!readonly && !disabled ? (
           <div
             className="flow-builder-branch-node__add-button"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={() => {
               handleAddCondition();
             }}
           >

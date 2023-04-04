@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Popconfirm } from 'antd';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
 import { getRegisterNode } from '../utils';
@@ -8,7 +7,8 @@ import RemoveIcon from '../icons/close-one.svg';
 import './index.less';
 
 const RemoveButton: React.FC = () => {
-  const { registerNodes, readonly } = useContext(BuilderContext);
+  const { registerNodes, readonly, PopconfirmComponent } =
+    useContext(BuilderContext);
 
   const node = useContext(NodeContext);
 
@@ -16,24 +16,18 @@ const RemoveButton: React.FC = () => {
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 
-  return !readonly && !registerNode?.customRemove ? (
-    <Popconfirm
+  return !readonly && !registerNode?.customRemove && PopconfirmComponent ? (
+    <PopconfirmComponent
       title={
         registerNode?.removeConfirmTitle || 'Are you sure to remove this node?'
       }
-      onCancel={(e) => e?.stopPropagation()}
-      onConfirm={(e) => {
-        e?.stopPropagation();
+      onConfirm={() => {
         removeNode();
       }}
       getPopupContainer={(triggerNode) => triggerNode.parentNode as HTMLElement}
     >
-      <img
-        className="flow-builder-node__remove"
-        onClick={(e) => e.stopPropagation()}
-        src={RemoveIcon}
-      />
-    </Popconfirm>
+      <img className="flow-builder-node__remove" src={RemoveIcon} />
+    </PopconfirmComponent>
   ) : null;
 };
 

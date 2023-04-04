@@ -93,6 +93,34 @@ export interface IHistoryToolConfig {
   max?: number;
 }
 
+export interface IDrawerComponent {
+  visible: boolean;
+  onClose: () => void;
+  title: React.ReactNode;
+  width: number;
+  destroyOnClose: boolean;
+  maskClosable: boolean;
+  children: React.ReactNode;
+}
+
+export interface IPopoverComponent {
+  visible: boolean;
+  onVisibleChange: (visible: boolean) => void;
+  overlayClassName: string;
+  placement: string;
+  trigger: string;
+  content: React.ReactNode;
+  getPopupContainer: (triggerNode: HTMLElement) => HTMLElement;
+  children: React.ReactNode;
+}
+
+export interface IPopconfirmComponent {
+  title: React.ReactNode;
+  onConfirm: () => void;
+  getPopupContainer: (triggerNode: HTMLElement) => HTMLElement;
+  children: React.ReactNode;
+}
+
 export interface IFlowBuilderProps {
   className?: string;
   backgroundColor?: string;
@@ -126,6 +154,10 @@ export interface IFlowBuilderProps {
   sortableAnchor?: React.ReactNode;
   showArrow?: boolean;
   arrowIcon?: React.ReactNode;
+  createUuid?: (type?: string) => string;
+  DrawerComponent?: React.FC<IDrawerComponent>;
+  PopoverComponent?: React.FC<IPopoverComponent>;
+  PopconfirmComponent?: React.FC<IPopconfirmComponent>;
 }
 
 export type ZoomType = 'out' | 'in';

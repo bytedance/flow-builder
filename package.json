@@ -1,6 +1,6 @@
 {
   "name": "react-flow-builder",
-  "version": "1.4.8",
+  "version": "2.0.0-alpha.4",
   "keywords": [
     "flow",
     "builder",
@@ -41,7 +41,6 @@
     ]
   },
   "peerDependencies": {
-    "antd": "^3 || ^4",
     "react": ">=16",
     "react-dom": ">=16"
   },
@@ -60,7 +59,7 @@
     "prettier": "^2.2.1",
     "react": ">=16",
     "react-dom": ">=16",
-    "react-flow-builder": "^1.4.8",
+    "react-flow-builder": "2.0.0-alpha.4",
     "yorkie": "^2.0.0"
   },
   "dependencies": {

@@ -7,7 +7,6 @@ import {
   createNewNode,
   getIsConditionNode,
   getIsBranchNode,
-  getIsLoopNode,
 } from '../utils';
 import { useHistory, useDrawer } from './index';
 import type { INode } from '../index';
@@ -21,6 +20,7 @@ const useAction = () => {
     onChange,
     setSelectedNode,
     setDrawerTitle,
+    createUuid,
   } = useContext(BuilderContext);
 
   const currentNode = useContext(NodeContext);
@@ -57,7 +57,7 @@ const useAction = () => {
 
     const registerNode = getRegisterNode(registerNodes, newNodeType);
 
-    const newNode = createNewNode(registerNodes, newNodeType);
+    const newNode = createNewNode(registerNodes, newNodeType, createUuid);
     if (!newNode) {
       return;
     }
@@ -98,7 +98,7 @@ const useAction = () => {
 
     const registerNode = getRegisterNode(registerNodes, newNodeType);
 
-    const newNode = createNewNode(registerNodes, newNodeType);
+    const newNode = createNewNode(registerNodes, newNodeType, createUuid);
     if (!newNode) {
       return;
     }
