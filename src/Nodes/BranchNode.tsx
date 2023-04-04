@@ -75,6 +75,8 @@ const BranchNode: React.FC<IProps> = (props) => {
     showPracticalBranchNode,
     showPracticalBranchRemove,
     sortable,
+    onDropNodeSuccess,
+    onAddNodeSuccess,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -99,8 +101,20 @@ const BranchNode: React.FC<IProps> = (props) => {
   const handleAddCondition = async () => {
     try {
       await beforeAddConditionNode?.(node);
-      registerNode?.conditionNodeType &&
+      if (registerNode?.conditionNodeType) {
         addNode(registerNode.conditionNodeType);
+        onAddNodeSuccess?.(registerNode.conditionNodeType);
+      }
+    } catch (error) {}
+  };
+
+  const handleDrop = async () => {
+    try {
+      await beforeAddConditionNode?.(node);
+      if (registerNode?.conditionNodeType) {
+        addNode(registerNode.conditionNodeType);
+        onDropNodeSuccess?.(registerNode.conditionNodeType);
+      }
     } catch (error) {}
   };
 
@@ -149,7 +163,7 @@ const BranchNode: React.FC<IProps> = (props) => {
             }}
           >
             {droppable ? (
-              <DropComponent onDrop={handleAddCondition} />
+              <DropComponent onDrop={handleDrop} />
             ) : (
               registerNode?.addConditionIcon || (
                 <ActionButton size={20} icon={AddConditionIcon} />
