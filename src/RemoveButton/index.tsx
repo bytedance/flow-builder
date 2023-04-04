@@ -24,7 +24,9 @@ const RemoveButton: React.FC = () => {
       onConfirm={() => {
         removeNode();
       }}
-      getPopupContainer={(triggerNode) => triggerNode.parentNode as HTMLElement}
+      getPopupContainer={(triggerNode: any) =>
+        triggerNode.parentNode as HTMLElement
+      }
     >
       <img className="flow-builder-node__remove" src={RemoveIcon} />
     </PopconfirmComponent>

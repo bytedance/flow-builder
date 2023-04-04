@@ -217,37 +217,37 @@ export default Demo;
 
 #### DrawerComponent
 
-| 参数           | 说明                                 | 类型              | 版本  |
-| :------------- | :----------------------------------- | :---------------- | :---- |
-| visible        | 也可以自行判断 selectedNode 的布尔值 | `boolean`         | 2.0.0 |
-| onClose        | 也可以自行调用 closeDrawer           | `() => void`      | 2.0.0 |
-| children       |                                      | `React.ReactNode` | 2.0.0 |
-| title          |                                      | `React.ReactNode` | 2.0.0 |
-| width          |                                      | `number`          | 2.0.0 |
-| destroyOnClose |                                      | `boolean`         | 2.0.0 |
-| maskClosable   |                                      | `boolean`         | 2.0.0 |
+| 参数           | 说明                                 | 类型  | 版本  |
+| :------------- | :----------------------------------- | :---- | :---- |
+| visible        | 也可以自行判断 selectedNode 的布尔值 | `any` | 2.0.0 |
+| onClose        | 也可以自行调用 closeDrawer           | `any` | 2.0.0 |
+| children       |                                      | `any` | 2.0.0 |
+| title          |                                      | `any` | 2.0.0 |
+| width          |                                      | `any` | 2.0.0 |
+| destroyOnClose |                                      | `any` | 2.0.0 |
+| maskClosable   |                                      | `any` | 2.0.0 |
 
 #### PopoverComponent
 
-| 参数              | 说明 | 类型                                        | 版本  |
-| :---------------- | :--- | :------------------------------------------ | :---- |
-| visible           |      | `boolean`                                   | 2.0.0 |
-| onVisibleChange   |      | `(visible: boolean) => void`                | 2.0.0 |
-| children          |      | `React.ReactNode`                           | 2.0.0 |
-| overlayClassName  |      | `React.ReactNode`                           | 2.0.0 |
-| placement         |      | `string`                                    | 2.0.0 |
-| trigger           |      | `string`                                    | 2.0.0 |
-| content           |      | `React.ReactNode`                           | 2.0.0 |
-| getPopupContainer |      | `(triggerNode: HTMLElement) => HTMLElement` | 2.0.0 |
+| 参数              | 说明 | 类型  | 版本  |
+| :---------------- | :--- | :---- | :---- |
+| visible           |      | `any` | 2.0.0 |
+| onVisibleChange   |      | `any` | 2.0.0 |
+| children          |      | `any` | 2.0.0 |
+| overlayClassName  |      | `any` | 2.0.0 |
+| placement         |      | `any` | 2.0.0 |
+| trigger           |      | `any` | 2.0.0 |
+| content           |      | `any` | 2.0.0 |
+| getPopupContainer |      | `any` | 2.0.0 |
 
 #### PopconfirmComponent
 
-| 参数              | 说明                      | 类型                                        | 版本  |
-| :---------------- | :------------------------ | :------------------------------------------ | :---- |
-| title             |                           | `React.ReactNode`                           | 2.0.0 |
-| onConfirm         | 也可以自行调用 removeNode | `() => void`                                | 2.0.0 |
-| children          |                           | `React.ReactNode`                           | 2.0.0 |
-| getPopupContainer |                           | `(triggerNode: HTMLElement) => HTMLElement` | 2.0.0 |
+| 参数              | 说明                      | 类型  | 版本  |
+| :---------------- | :------------------------ | :---- | :---- |
+| title             |                           | `any` | 2.0.0 |
+| onConfirm         | 也可以自行调用 removeNode | `any` | 2.0.0 |
+| children          |                           | `any` | 2.0.0 |
+| getPopupContainer |                           | `any` | 2.0.0 |
 
 ### FlowBuilderInstance
 

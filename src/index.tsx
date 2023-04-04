@@ -94,31 +94,31 @@ export interface IHistoryToolConfig {
 }
 
 export interface IDrawerComponent {
-  visible: boolean;
-  onClose: () => void;
-  title: React.ReactNode;
-  width: number;
-  destroyOnClose: boolean;
-  maskClosable: boolean;
-  children: React.ReactNode;
+  visible: any;
+  onClose: any;
+  title: any;
+  width: any;
+  destroyOnClose: any;
+  maskClosable: any;
+  children: any;
 }
 
 export interface IPopoverComponent {
-  visible: boolean;
-  onVisibleChange: (visible: boolean) => void;
-  overlayClassName: string;
-  placement: string;
-  trigger: string;
-  content: React.ReactNode;
-  getPopupContainer: (triggerNode: HTMLElement) => HTMLElement;
-  children: React.ReactNode;
+  visible: any;
+  onVisibleChange: any;
+  overlayClassName: any;
+  placement: any;
+  trigger: any;
+  content: any;
+  getPopupContainer: any;
+  children: any;
 }
 
 export interface IPopconfirmComponent {
-  title: React.ReactNode;
-  onConfirm: () => void;
-  getPopupContainer: (triggerNode: HTMLElement) => HTMLElement;
-  children: React.ReactNode;
+  title: any;
+  onConfirm: any;
+  getPopupContainer: any;
+  children: any;
 }
 
 export interface IFlowBuilderProps {

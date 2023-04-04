@@ -217,37 +217,37 @@ export default Demo;
 
 #### DrawerComponent
 
-| Property       | Description                                                      | Type              | Version |
-| :------------- | :--------------------------------------------------------------- | :---------------- | :------ |
-| visible        | You can judge the boolean value of **selectedNode** by yourself. | `boolean`         | 2.0.0   |
-| onClose        | You can also call **closeDrawer** by yourself.                   | `() => void`      | 2.0.0   |
-| children       |                                                                  | `React.ReactNode` | 2.0.0   |
-| title          |                                                                  | `React.ReactNode` | 2.0.0   |
-| width          |                                                                  | `number`          | 2.0.0   |
-| destroyOnClose |                                                                  | `boolean`         | 2.0.0   |
-| maskClosable   |                                                                  | `boolean`         | 2.0.0   |
+| Property       | Description                                                      | Type  | Version |
+| :------------- | :--------------------------------------------------------------- | :---- | :------ |
+| visible        | You can judge the boolean value of **selectedNode** by yourself. | `any` | 2.0.0   |
+| onClose        | You can also call **closeDrawer** by yourself.                   | `any` | 2.0.0   |
+| children       |                                                                  | `any` | 2.0.0   |
+| title          |                                                                  | `any` | 2.0.0   |
+| width          |                                                                  | `any` | 2.0.0   |
+| destroyOnClose |                                                                  | `any` | 2.0.0   |
+| maskClosable   |                                                                  | `any` | 2.0.0   |
 
 #### PopoverComponent
 
-| Property          | Description | Type                                        | Version |
-| :---------------- | :---------- | :------------------------------------------ | :------ |
-| visible           |             | `boolean`                                   | 2.0.0   |
-| onVisibleChange   |             | `(visible: boolean) => void`                | 2.0.0   |
-| children          |             | `React.ReactNode`                           | 2.0.0   |
-| overlayClassName  |             | `React.ReactNode`                           | 2.0.0   |
-| placement         |             | `string`                                    | 2.0.0   |
-| trigger           |             | `string`                                    | 2.0.0   |
-| content           |             | `React.ReactNode`                           | 2.0.0   |
-| getPopupContainer |             | `(triggerNode: HTMLElement) => HTMLElement` | 2.0.0   |
+| Property          | Description | Type  | Version |
+| :---------------- | :---------- | :---- | :------ |
+| visible           |             | `any` | 2.0.0   |
+| onVisibleChange   |             | `any` | 2.0.0   |
+| children          |             | `any` | 2.0.0   |
+| overlayClassName  |             | `any` | 2.0.0   |
+| placement         |             | `any` | 2.0.0   |
+| trigger           |             | `any` | 2.0.0   |
+| content           |             | `any` | 2.0.0   |
+| getPopupContainer |             | `any` | 2.0.0   |
 
 #### PopconfirmComponent
 
-| Property          | Description                                | Type                                        | Version |
-| :---------------- | :----------------------------------------- | :------------------------------------------ | :------ |
-| title             |                                            | `React.ReactNode`                           | 2.0.0   |
-| onConfirm         | You can also call **removeNode** yourself. | `() => void`                                | 2.0.0   |
-| children          |                                            | `React.ReactNode`                           | 2.0.0   |
-| getPopupContainer |                                            | `(triggerNode: HTMLElement) => HTMLElement` | 2.0.0   |
+| Property          | Description                                | Type  | Version |
+| :---------------- | :----------------------------------------- | :---- | :------ |
+| title             |                                            | `any` | 2.0.0   |
+| onConfirm         | You can also call **removeNode** yourself. | `any` | 2.0.0   |
+| children          |                                            | `any` | 2.0.0   |
+| getPopupContainer |                                            | `any` | 2.0.0   |
 
 ### FlowBuilderInstance
 
