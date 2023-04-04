@@ -15,6 +15,13 @@ order: 9
 - 新增 `createUuid` 属性，自定义节点的 uuid
 - `div.flow-builder-node__content` 元素外层增加 `div.flow-builder-node__content-wrap` 元素，修复 `Popconfirm` 内容区域的 click 误触发节点的点击事件
 
+## 1.4.9
+
+`2023-04-04`
+
+- 增加 `onAddNodeSuccess` 方法
+- 增加 `onDropNodeSuccess` 方法
+
 ## 1.4.8
 
 `2023-04-02`

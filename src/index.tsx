@@ -158,6 +158,8 @@ export interface IFlowBuilderProps {
   DrawerComponent?: React.FC<IDrawerComponent>;
   PopoverComponent?: React.FC<IPopoverComponent>;
   PopconfirmComponent?: React.FC<IPopconfirmComponent>;
+  onDropNodeSuccess?: (type: string) => void;
+  onAddNodeSuccess?: (type: string) => void;
 }
 
 export type ZoomType = 'out' | 'in';
