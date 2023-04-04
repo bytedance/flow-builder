@@ -4,6 +4,13 @@ order: 9
 
 # Change Log
 
+## 1.4.9
+
+`2023-04-04`
+
+- 增加 `onAddNodeSuccess` 方法
+- 增加 `onDropNodeSuccess` 方法
+
 ## 1.4.8
 
 `2023-04-02`

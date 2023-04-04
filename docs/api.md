@@ -34,6 +34,8 @@ order: 8
 | onZoomChange              | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大                                                                                                                                 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |      | -          |       |
 | showArrow                 | 显示箭头                                                                                                                                                                                                             | `boolean`                                                            |      | false      | 1.4.5 |
 | arrowIcon                 | 自定义箭头                                                                                                                                                                                                           | `ReactNode`                                                          |      | -          | 1.4.5 |
+| onAddNodeSuccess          | 增加节点成功之后的回调                                                                                                                                                                                               | `(type: string) => void`                                             |      | -          | 1.4.9 |
+| onDropNodeSuccess         | 放置节点成功之后的回调                                                                                                                                                                                               | `(type: string) => void`                                             |      | -          | 1.4.9 |
 
 ### HistoryToolConfig
 

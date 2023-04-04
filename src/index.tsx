@@ -126,6 +126,8 @@ export interface IFlowBuilderProps {
   sortableAnchor?: React.ReactNode;
   showArrow?: boolean;
   arrowIcon?: React.ReactNode;
+  onDropNodeSuccess?: (type: string) => void;
+  onAddNodeSuccess?: (type: string) => void;
 }
 
 export type ZoomType = 'out' | 'in';

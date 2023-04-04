@@ -31,6 +31,8 @@ const AddNodeButton: React.FC<IProps> = (props) => {
     readonly,
     dragType,
     DropComponent = DropButton,
+    onDropNodeSuccess,
+    onAddNodeSuccess,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -64,11 +66,13 @@ const AddNodeButton: React.FC<IProps> = (props) => {
 
   const handleAddNode = (newNodeType: string) => {
     handleAdd(newNodeType);
+    onAddNodeSuccess?.(newNodeType);
     setVisible(false);
   };
 
   const handleDrop = () => {
     handleAdd(dragType);
+    onDropNodeSuccess?.(dragType);
   };
 
   const addableOptions = AddableComponent ? (
