@@ -6,6 +6,11 @@ import FlowBuilder, {
   IRegisterNode,
   IDragComponent,
 } from 'react-flow-builder';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../antd';
 
 import './index.css';
 
@@ -149,6 +154,9 @@ const Drag = () => {
       nodes={nodes}
       onChange={handleChange}
       registerNodes={registerNodes}
+      DrawerComponent={DrawerComponent}
+      PopoverComponent={PopoverComponent}
+      PopconfirmComponent={PopconfirmComponent}
     />
   );
 };

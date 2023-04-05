@@ -4,6 +4,11 @@ import FlowBuilder, {
   INode,
   IRegisterNode,
 } from 'react-flow-builder';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../antd';
 
 import './index.css';
 
@@ -129,6 +134,9 @@ const Remote = () => {
             'https://unpkg.com/react-flow-builder-pkg-demo@1.2.0/dist/index.umd.css',
         },
       ]}
+      DrawerComponent={DrawerComponent}
+      PopoverComponent={PopoverComponent}
+      PopconfirmComponent={PopconfirmComponent}
     />
   );
 };

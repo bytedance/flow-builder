@@ -45,6 +45,7 @@
     "react-dom": ">=16"
   },
   "devDependencies": {
+    "@arco-design/web-react": "^2.46.2",
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/lodash.get": "^4.4.6",
     "@types/uuid": "^8.3.1",

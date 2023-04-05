@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import FlowBuilder, { INode, IRegisterNode } from 'react-flow-builder';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../../antd';
 
 const registerNodes: IRegisterNode[] = [
   {
@@ -49,6 +54,9 @@ const Index = () => {
       nodes={nodes}
       onChange={handleChange}
       registerNodes={registerNodes}
+      DrawerComponent={DrawerComponent}
+      PopoverComponent={PopoverComponent}
+      PopconfirmComponent={PopconfirmComponent}
     />
   );
 };

@@ -6,6 +6,11 @@ import FlowBuilder, {
   IRegisterNode,
   IFlowBuilderMethod,
 } from 'react-flow-builder';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../antd';
 
 import './index.css';
 
@@ -150,6 +155,9 @@ const Zoom = () => {
         onChange={handleChange}
         registerNodes={registerNodes}
         onZoomChange={handleZoomChange}
+        DrawerComponent={DrawerComponent}
+        PopoverComponent={PopoverComponent}
+        PopconfirmComponent={PopconfirmComponent}
       />
     </>
   );
