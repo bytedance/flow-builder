@@ -4,6 +4,11 @@ import FlowBuilder, {
   IRegisterNode,
   INode,
 } from 'react-flow-builder';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../../antd';
 
 import './index.css';
 
@@ -72,6 +77,9 @@ const AddableNodeTypes = () => {
       registerNodes={registerNodes}
       nodes={nodes}
       onChange={handleChange}
+      DrawerComponent={DrawerComponent}
+      PopoverComponent={PopoverComponent}
+      PopconfirmComponent={PopconfirmComponent}
     />
   );
 };

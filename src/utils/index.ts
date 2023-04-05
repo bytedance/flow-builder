@@ -81,6 +81,7 @@ export const getAbstractNodeType: (
 export const createNewNode = (
   registerNodes: IRegisterNode[],
   type?: string,
+  customCreateUuid = createUuid,
 ) => {
   const registerNode = getRegisterNode(registerNodes, type);
 
@@ -95,8 +96,16 @@ export const createNewNode = (
   const extraProps: any = isBranchNode
     ? {
         children: [
-          createNewNode(registerNodes, registerNode.conditionNodeType),
-          createNewNode(registerNodes, registerNode.conditionNodeType),
+          createNewNode(
+            registerNodes,
+            registerNode.conditionNodeType,
+            customCreateUuid,
+          ),
+          createNewNode(
+            registerNodes,
+            registerNode.conditionNodeType,
+            customCreateUuid,
+          ),
         ],
         ...initialNodeData,
       }
@@ -108,7 +117,7 @@ export const createNewNode = (
     : initialNodeData;
 
   return {
-    id: createUuid(type),
+    id: customCreateUuid(type),
     type: registerNode.type,
     name: registerNode.name,
     ...extraProps,

@@ -6,7 +6,6 @@ import React, {
   useImperativeHandle,
   useContext,
 } from 'react';
-import { Drawer } from 'antd';
 import {
   StartNode,
   EndNode,
@@ -49,6 +48,10 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
     draggable,
     DragComponent = DragPanel,
     setDragType,
+
+    DrawerComponent,
+
+    createUuid,
   } = builderContext;
 
   const { minZoom, maxZoom, zoom } = useZoom();
@@ -143,8 +146,8 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
       const startNodeType = registerNodes.find((item) => item.isStart)?.type;
       const endNodeType = registerNodes.find((item) => item.isEnd)?.type;
       defaultNodes = [
-        createNewNode(registerNodes, startNodeType),
-        createNewNode(registerNodes, endNodeType),
+        createNewNode(registerNodes, startNodeType, createUuid),
+        createNewNode(registerNodes, endNodeType, createUuid),
       ];
       onChange(defaultNodes, 'init-builder');
     }
@@ -176,25 +179,27 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
           {render({ nodes })}
         </div>
       </div>
-      <Drawer
-        title={drawerTitle || 'Configuration'}
-        width={480}
-        destroyOnClose
-        maskClosable={false}
-        visible={!!selectedNode}
-        onClose={closeDrawer}
-        {...drawerProps}
-      >
-        {ConfigComponent && selectedNode ? (
-          <ConfigComponent
-            key={selectedNode.id}
-            node={selectedNode}
-            nodes={nodes}
-            cancel={closeDrawer}
-            save={saveDrawer}
-          />
-        ) : null}
-      </Drawer>
+      {DrawerComponent ? (
+        <DrawerComponent
+          title={drawerTitle || 'Configuration'}
+          width={480}
+          destroyOnClose
+          maskClosable={false}
+          visible={!!selectedNode}
+          onClose={closeDrawer}
+          {...drawerProps}
+        >
+          {ConfigComponent && selectedNode ? (
+            <ConfigComponent
+              key={selectedNode.id}
+              node={selectedNode}
+              nodes={nodes}
+              cancel={closeDrawer}
+              save={saveDrawer}
+            />
+          ) : null}
+        </DrawerComponent>
+      ) : null}
     </div>
   );
 });

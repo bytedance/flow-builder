@@ -5,6 +5,11 @@ import FlowBuilder, {
   IRegisterNode,
 } from 'react-flow-builder';
 import ConfigForm from './ConfigForm';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../../antd';
 
 import './index.css';
 
@@ -148,6 +153,9 @@ const NodeForm = () => {
         registerNodes={registerNodes}
         historyTool
         zoomTool
+        DrawerComponent={DrawerComponent}
+        PopoverComponent={PopoverComponent}
+        PopconfirmComponent={PopconfirmComponent}
       />
     </>
   );

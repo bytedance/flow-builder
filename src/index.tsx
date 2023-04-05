@@ -93,6 +93,34 @@ export interface IHistoryToolConfig {
   max?: number;
 }
 
+export interface IDrawerComponent {
+  visible: any;
+  onClose: any;
+  title: any;
+  width: any;
+  destroyOnClose: any;
+  maskClosable: any;
+  children: any;
+}
+
+export interface IPopoverComponent {
+  visible: any;
+  onVisibleChange: any;
+  overlayClassName: any;
+  placement: any;
+  trigger: any;
+  content: any;
+  getPopupContainer: any;
+  children: any;
+}
+
+export interface IPopconfirmComponent {
+  title: any;
+  onConfirm: any;
+  getPopupContainer: any;
+  children: any;
+}
+
 export interface IFlowBuilderProps {
   className?: string;
   backgroundColor?: string;
@@ -126,6 +154,10 @@ export interface IFlowBuilderProps {
   sortableAnchor?: React.ReactNode;
   showArrow?: boolean;
   arrowIcon?: React.ReactNode;
+  createUuid?: (type?: string) => string;
+  DrawerComponent?: React.FC<IDrawerComponent>;
+  PopoverComponent?: React.FC<IPopoverComponent>;
+  PopconfirmComponent?: React.FC<IPopconfirmComponent>;
   onDropNodeSuccess?: (type: string) => void;
   onAddNodeSuccess?: (type: string) => void;
 }

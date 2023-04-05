@@ -5,6 +5,11 @@ import FlowBuilder, {
   IRegisterNode,
 } from 'react-flow-builder';
 import SortIcon from './sort.svg';
+import {
+  DrawerComponent,
+  PopconfirmComponent,
+  PopoverComponent,
+} from '../antd';
 
 import './index.css';
 
@@ -125,6 +130,9 @@ const Sortable = () => {
       nodes={nodes}
       onChange={handleChange}
       registerNodes={registerNodes}
+      DrawerComponent={DrawerComponent}
+      PopoverComponent={PopoverComponent}
+      PopconfirmComponent={PopconfirmComponent}
     />
   );
 };

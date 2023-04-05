@@ -4,6 +4,17 @@ order: 9
 
 # Change Log
 
+## 2.0.0
+
+`2023-04-05`
+
+- 不再强依赖 antd 组件库
+- 增加 `DrawerComponent` 属性，代替 v1 版本 sdk 内部使用 antd `Drawer` 的地方
+- 增加 `PopoverComponent` 属性，代替 v1 版本 sdk 内部使用 antd `Popover` 的地方
+- 增加 `PopconfirmComponent` 属性，代替 v1 版本 sdk 内部使用 antd `Popconfirm` 的地方
+- 增加 `createUuid` 属性，自定义节点的 uuid
+- `div.flow-builder-node__content` 元素外层增加 `div.flow-builder-node__content-wrap` 元素，修复 `Popconfirm` 内容区域的 click 误触发节点的点击事件
+
 ## 1.4.9
 
 `2023-04-04`

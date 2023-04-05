@@ -37,8 +37,7 @@ const LoopNode: React.FC<Iprops> = (props) => {
 
   const Component = registerNode?.displayComponent || DefaultNode;
 
-  const handleNodeClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNodeClick = async () => {
     try {
       await beforeNodeClick?.(node);
       clickNode();
@@ -172,13 +171,15 @@ const LoopNode: React.FC<Iprops> = (props) => {
       }`}
     >
       <Arrow />
-      <div className="flow-builder-node__content" onClick={handleNodeClick}>
-        <Component
-          readonly={readonly}
-          node={node}
-          nodes={nodes}
-          remove={removeNode}
-        />
+      <div className="flow-builder-node__content-wrap">
+        <div className="flow-builder-node__content" onClick={handleNodeClick}>
+          <Component
+            readonly={readonly}
+            node={node}
+            nodes={nodes}
+            remove={removeNode}
+          />
+        </div>
 
         <RemoveButton />
       </div>
