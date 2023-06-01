@@ -6,8 +6,8 @@ export default defineConfig({
     type: 'hash',
   },
   title: 'react-flow-builder',
-  favicon: '/bytedance.ico',
-  logo: '/bytedance.ico',
+  favicon: './bytedance.ico',
+  logo: './bytedance.ico',
   outputPath: 'docs-dist',
   publicPath: './',
   extraBabelPlugins: [
