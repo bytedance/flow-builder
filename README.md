@@ -184,6 +184,8 @@ export default Demo;
 | arrowIcon                 | The icon of the arrow                               | `ReactNode`                                                          |          | -          | 1.4.5   |
 | onAddNodeSuccess          | Called when add node success                        | `(type: string) => void`                                             |          | -          | 1.4.9   |
 | onDropNodeSuccess         | Called when drop node success                       | `(type: string) => void`                                             |          | -          | 1.4.9   |
+| allowStartConfig          | Allow start node config                             | `boolean`                                                            |          | -          | 2.1.0   |
+| allowEndConfig            | Allow end node config                               | `boolean`                                                            |          | -          | 2.1.0   |
 
 #### HistoryToolConfig
 

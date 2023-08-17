@@ -4,6 +4,12 @@ order: 9
 
 # Change Log
 
+## 2.1.0
+
+`2023-08-17`
+
+- 增加 `allowStartConfig` 和 `allowEndConfig` 属性，允许配置开始和结束节点
+
 ## 2.0.0
 
 `2023-04-05`
