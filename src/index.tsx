@@ -160,6 +160,8 @@ export interface IFlowBuilderProps {
   PopconfirmComponent?: React.FC<IPopconfirmComponent>;
   onDropNodeSuccess?: (type: string) => void;
   onAddNodeSuccess?: (type: string) => void;
+  allowStartConfig?: boolean;
+  allowEndConfig?: boolean;
 }
 
 export type ZoomType = 'out' | 'in';

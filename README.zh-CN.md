@@ -184,6 +184,8 @@ export default Demo;
 | arrowIcon                 | 自定义箭头                                                                           | `ReactNode`                                                          |      | -          | 1.4.5 |
 | onAddNodeSuccess          | 增加节点成功之后的回调                                                               | `(type: string) => void`                                             |      | -          | 1.4.9 |
 | onDropNodeSuccess         | 放置节点成功之后的回调                                                               | `(type: string) => void`                                             |      | -          | 1.4.9 |
+| allowStartConfig          | 允许配置开始节点                                                                     | `boolean`                                                            |      | -          | 2.1.0 |
+| allowEndConfig            | 允许配置结束节点                                                                     | `boolean`                                                            |      | -          | 2.1.0 |
 
 #### HistoryToolConfig
 
