@@ -7,7 +7,7 @@ import RemoveIcon from '../icons/close-one.svg';
 import './index.less';
 
 const RemoveButton: React.FC = () => {
-  const { registerNodes, readonly, PopconfirmComponent } =
+  const { registerNodes, readonly, PopconfirmComponent, onRemoveNodeSuccess } =
     useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -23,6 +23,7 @@ const RemoveButton: React.FC = () => {
       }
       onConfirm={() => {
         removeNode();
+        onRemoveNodeSuccess?.(node);
       }}
       getPopupContainer={(triggerNode: any) =>
         triggerNode.parentNode as HTMLElement
