@@ -102,8 +102,8 @@ const BranchNode: React.FC<IProps> = (props) => {
     try {
       await beforeAddConditionNode?.(node);
       if (registerNode?.conditionNodeType) {
-        addNode(registerNode.conditionNodeType);
-        onAddNodeSuccess?.(registerNode.conditionNodeType);
+        const newNode = addNode(registerNode.conditionNodeType);
+        onAddNodeSuccess?.(registerNode.conditionNodeType, newNode);
       }
     } catch (error) {}
   };
@@ -112,8 +112,8 @@ const BranchNode: React.FC<IProps> = (props) => {
     try {
       await beforeAddConditionNode?.(node);
       if (registerNode?.conditionNodeType) {
-        addNode(registerNode.conditionNodeType);
-        onDropNodeSuccess?.(registerNode.conditionNodeType);
+        const newNode = addNode(registerNode.conditionNodeType);
+        onDropNodeSuccess?.(registerNode.conditionNodeType, newNode);
       }
     } catch (error) {}
   };

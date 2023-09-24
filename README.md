@@ -182,8 +182,8 @@ export default Demo;
 | onZoomChange              |                                                     | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |          | -          |         |
 | showArrow                 | Show arrow                                          | `boolean`                                                            |          | false      | 1.4.5   |
 | arrowIcon                 | The icon of the arrow                               | `ReactNode`                                                          |          | -          | 1.4.5   |
-| onAddNodeSuccess          | Called when add node success                        | `(type: string) => void`                                             |          | -          | 1.4.9   |
-| onDropNodeSuccess         | Called when drop node success                       | `(type: string) => void`                                             |          | -          | 1.4.9   |
+| onAddNodeSuccess          | Called when add node success                        | `(type: string, node: INode) => void`                                |          | -          | 1.4.9   |
+| onDropNodeSuccess         | Called when drop node success                       | `(type: string, node: INode) => void`                                |          | -          | 1.4.9   |
 | onRemoveNodeSuccess       | Called when remove node success                     | `(node: INode) => void`                                              |          | -          | 2.2.0   |
 | allowStartConfig          | Allow start node config                             | `boolean`                                                            |          | -          | 2.1.0   |
 | allowEndConfig            | Allow end node config                               | `boolean`                                                            |          | -          | 2.1.0   |

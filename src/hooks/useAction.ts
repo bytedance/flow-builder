@@ -91,6 +91,8 @@ const useAction = () => {
         clickNode(newNode);
       }
     }
+
+    return newNode;
   };
 
   const addNodeInLoop = (newNodeType: string) => {
@@ -121,6 +123,8 @@ const useAction = () => {
         clickNode(newNode);
       }
     }
+
+    return newNode;
   };
 
   const removeNodeIds = (targetNodeIds: string[], allNodes: INode[]) => {
