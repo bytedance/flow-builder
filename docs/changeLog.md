@@ -4,6 +4,12 @@ order: 9
 
 # Change Log
 
+## 2.3.0
+
+`2023-09-24`
+
+- `onAddNodeSuccess` 和 `onDropNodeSuccess` 属性增加第二个参数：当前新增的节点
+
 ## 2.2.0
 
 `2023-09-05`

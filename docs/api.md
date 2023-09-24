@@ -38,8 +38,8 @@ order: 8
 | onZoomChange              | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |      | -          |       |
 | showArrow                 | 显示箭头                                                                             | `boolean`                                                            |      | false      | 1.4.5 |
 | arrowIcon                 | 自定义箭头                                                                           | `ReactNode`                                                          |      | -          | 1.4.5 |
-| onAddNodeSuccess          | 增加节点成功之后的回调                                                               | `(type: string) => void`                                             |      | -          | 1.4.9 |
-| onDropNodeSuccess         | 放置节点成功之后的回调                                                               | `(type: string) => void`                                             |      | -          | 1.4.9 |
+| onAddNodeSuccess          | 增加节点成功之后的回调                                                               | `(type: string, node: INode) => void`                                |      | -          | 1.4.9 |
+| onDropNodeSuccess         | 放置节点成功之后的回调                                                               | `(type: string, node: INode) => void`                                |      | -          | 1.4.9 |
 | onRemoveNodeSuccess       | 删除节点成功之后的回调                                                               | `(node: INode) => void`                                              |      | -          | 2.2.0 |
 | allowStartConfig          | 允许配置开始节点                                                                     | `boolean`                                                            |      | -          | 2.1.0 |
 | allowEndConfig            | 允许配置结束节点                                                                     | `boolean`                                                            |      | -          | 2.1.0 |

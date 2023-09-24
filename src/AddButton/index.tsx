@@ -65,14 +65,14 @@ const AddNodeButton: React.FC<IProps> = (props) => {
   );
 
   const handleAddNode = (newNodeType: string) => {
-    handleAdd(newNodeType);
-    onAddNodeSuccess?.(newNodeType);
+    const newNode = handleAdd(newNodeType);
+    onAddNodeSuccess?.(newNodeType, newNode);
     setVisible(false);
   };
 
   const handleDrop = () => {
-    handleAdd(dragType);
-    onDropNodeSuccess?.(dragType);
+    const newNode = handleAdd(dragType);
+    onDropNodeSuccess?.(dragType, newNode);
   };
 
   const addableOptions = AddableComponent ? (

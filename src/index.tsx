@@ -158,9 +158,9 @@ export interface IFlowBuilderProps {
   DrawerComponent?: React.FC<IDrawerComponent>;
   PopoverComponent?: React.FC<IPopoverComponent>;
   PopconfirmComponent?: React.FC<IPopconfirmComponent>;
-  onDropNodeSuccess?: (type: string) => void;
-  onAddNodeSuccess?: (type: string) => void;
-  onRemoveNodeSuccess?: (nodes: INode) => void;
+  onDropNodeSuccess?: (type: string, node: INode) => void;
+  onAddNodeSuccess?: (type: string, node: INode) => void;
+  onRemoveNodeSuccess?: (node: INode) => void;
   allowStartConfig?: boolean;
   allowEndConfig?: boolean;
 }
