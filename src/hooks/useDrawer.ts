@@ -13,7 +13,7 @@ const useDrawer = () => {
       selectedNode.configuring = false;
     }
     setSelectedNode(undefined);
-    onChange([...nodes], 'close-drawer');
+    onChange([...nodes], 'close-drawer', selectedNode);
   };
 
   const saveDrawer = (values: any, validateStatusError?: boolean) => {

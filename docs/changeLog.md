@@ -4,6 +4,12 @@ order: 9
 
 # Change Log
 
+## 2.4.0
+
+`2023-10-12`
+
+- `onChange` 属性增加第三个参数：`nodeChanged`
+
 ## 2.3.0
 
 `2023-09-24`

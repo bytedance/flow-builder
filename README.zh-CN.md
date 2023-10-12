@@ -150,43 +150,43 @@ export default Demo;
 
 ### FlowBuilder
 
-| 参数                      | 说明                                                                                 | 类型                                                                 | 必须 | 默认值     | 版本  |
-| :------------------------ | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------- | :--- | :--------- | :---- |
-| backgroundColor           | 背景颜色                                                                             | `string`                                                             |      | #F7F7F7    |       |
-| className                 | 外层容器的类名                                                                       | `string`                                                             |      | -          |       |
-| draggable                 | 是否启用拖拽能力                                                                     | `boolean`                                                            |      | false      | 1.0.0 |
-| DragComponent             | 自定义拖拽组件                                                                       | `React.FC`\<[DragComponent](#dragcomponent)\>                        |      | -          | 1.0.0 |
-| DropComponent             | 自定义放置组件                                                                       | `React.FC`\<[DropComponent](#dropcomponent)\>                        |      | -          | 1.0.0 |
-| createUuid                | 自定义节点的 uuid                                                                    | `(type?: string) => string`                                          |      | -          | 2.0.0 |
-| DrawerComponent           | Drawer 组件                                                                          | `React.FC`\<[DrawerComponent](#drawercomponent)\>                    |      | -          | 2.0.0 |
-| PopoverComponent          | Popover 组件                                                                         | `React.FC`\<[PopoverComponent](#popovercomponent)\>                  |      | -          | 2.0.0 |
-| PopconfirmComponent       | Popconfirm 组件                                                                      | `React.FC`\<[PopconfirmComponent](#popconfirmcomponent)\>            |      | -          | 2.0.0 |
-| drawerProps               | 传给 DrawerComponent 额外的属性                                                      | `any`                                                                |      | -          |       |
-| drawerVisibleWhenAddNode  | 增加节点时打开抽屉                                                                   | `boolean`                                                            |      | false      |       |
-| historyTool               | 撤销，重做                                                                           | `boolean` \| [HistoryToolConfig](#historytoolconfig)                 |      | false      |       |
-| layout                    | 垂直/水平布局                                                                        | `vertical` \| `horizontal`                                           |      | `vertical` |       |
-| lineColor                 | 连线的颜色                                                                           | `string`                                                             |      | #999999    |       |
-| nodes                     | 流程引擎的节点                                                                       | [Node](#node)[]                                                      | ✓    | -          |       |
-| readonly                  | 只读模式，不能进行节点的增加、删除、配置                                             | `boolean`                                                            |      | false      |       |
-| registerNodes             | 注册节点                                                                             | [RegisterNode](#registernode)[]                                      | ✓    | -          |       |
-| registerRemoteNodes       | 注册远程节点                                                                         | [RegisterRemoteNode](#registerremotenode)[]                          |      | -          | 1.3.0 |
-| showPracticalBranchNode   | -                                                                                    | `boolean`                                                            |      | false      | 1.1.0 |
-| showPracticalBranchRemove | -                                                                                    | `boolean`                                                            |      | false      | 1.1.0 |
-| sortable                  | 条件节点在分支内可拖拽排序                                                           | `boolean`                                                            |      | false      | 1.4.0 |
-| sortableAnchor            | 自定义拖拽排序的锚点序                                                               | `ReactNode`                                                          |      | -          | 1.4.0 |
-| spaceX                    | 节点之间水平方向的间距                                                               | `number`                                                             |      | 16         |       |
-| spaceY                    | 节点之间垂直方向的间距                                                               | `number`                                                             |      | 16         |       |
-| zoomTool                  | 缩放                                                                                 | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                       |      | false      |       |
-| onChange                  | 节点数据改变时的回调函数                                                             | (nodes: [Node](#node)[], changeEvent?: string) => void               | ✓    | -          |       |
-| onHistoryChange           | 历史状态变化之后的回调，两个参数分别代表是否需要禁用撤销和重做                       | `(undoDisabled: boolean, redoDisabled: boolean) => void`             |      | -          |       |
-| onZoomChange              | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void` |      | -          |       |
-| showArrow                 | 显示箭头                                                                             | `boolean`                                                            |      | false      | 1.4.5 |
-| arrowIcon                 | 自定义箭头                                                                           | `ReactNode`                                                          |      | -          | 1.4.5 |
-| onAddNodeSuccess          | 增加节点成功之后的回调                                                               | `(type: string, node: INode) => void`                                |      | -          | 1.4.9 |
-| onDropNodeSuccess         | 放置节点成功之后的回调                                                               | `(type: string, node: INode) => void`                                |      | -          | 1.4.9 |
-| onRemoveNodeSuccess       | 删除节点成功之后的回调                                                               | `(node: INode) => void`                                              |      | -          | 2.2.0 |
-| allowStartConfig          | 允许配置开始节点                                                                     | `boolean`                                                            |      | -          | 2.1.0 |
-| allowEndConfig            | 允许配置结束节点                                                                     | `boolean`                                                            |      | -          | 2.1.0 |
+| 参数                      | 说明                                                                                 | 类型                                                                       | 必须 | 默认值     | 版本  |
+| :------------------------ | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------- | :--- | :--------- | :---- |
+| backgroundColor           | 背景颜色                                                                             | `string`                                                                   |      | #F7F7F7    |       |
+| className                 | 外层容器的类名                                                                       | `string`                                                                   |      | -          |       |
+| draggable                 | 是否启用拖拽能力                                                                     | `boolean`                                                                  |      | false      | 1.0.0 |
+| DragComponent             | 自定义拖拽组件                                                                       | `React.FC`\<[DragComponent](#dragcomponent)\>                              |      | -          | 1.0.0 |
+| DropComponent             | 自定义放置组件                                                                       | `React.FC`\<[DropComponent](#dropcomponent)\>                              |      | -          | 1.0.0 |
+| createUuid                | 自定义节点的 uuid                                                                    | `(type?: string) => string`                                                |      | -          | 2.0.0 |
+| DrawerComponent           | Drawer 组件                                                                          | `React.FC`\<[DrawerComponent](#drawercomponent)\>                          |      | -          | 2.0.0 |
+| PopoverComponent          | Popover 组件                                                                         | `React.FC`\<[PopoverComponent](#popovercomponent)\>                        |      | -          | 2.0.0 |
+| PopconfirmComponent       | Popconfirm 组件                                                                      | `React.FC`\<[PopconfirmComponent](#popconfirmcomponent)\>                  |      | -          | 2.0.0 |
+| drawerProps               | 传给 DrawerComponent 额外的属性                                                      | `any`                                                                      |      | -          |       |
+| drawerVisibleWhenAddNode  | 增加节点时打开抽屉                                                                   | `boolean`                                                                  |      | false      |       |
+| historyTool               | 撤销，重做                                                                           | `boolean` \| [HistoryToolConfig](#historytoolconfig)                       |      | false      |       |
+| layout                    | 垂直/水平布局                                                                        | `vertical` \| `horizontal`                                                 |      | `vertical` |       |
+| lineColor                 | 连线的颜色                                                                           | `string`                                                                   |      | #999999    |       |
+| nodes                     | 流程引擎的节点                                                                       | [Node](#node)[]                                                            | ✓    | -          |       |
+| readonly                  | 只读模式，不能进行节点的增加、删除、配置                                             | `boolean`                                                                  |      | false      |       |
+| registerNodes             | 注册节点                                                                             | [RegisterNode](#registernode)[]                                            | ✓    | -          |       |
+| registerRemoteNodes       | 注册远程节点                                                                         | [RegisterRemoteNode](#registerremotenode)[]                                |      | -          | 1.3.0 |
+| showPracticalBranchNode   | -                                                                                    | `boolean`                                                                  |      | false      | 1.1.0 |
+| showPracticalBranchRemove | -                                                                                    | `boolean`                                                                  |      | false      | 1.1.0 |
+| sortable                  | 条件节点在分支内可拖拽排序                                                           | `boolean`                                                                  |      | false      | 1.4.0 |
+| sortableAnchor            | 自定义拖拽排序的锚点序                                                               | `ReactNode`                                                                |      | -          | 1.4.0 |
+| spaceX                    | 节点之间水平方向的间距                                                               | `number`                                                                   |      | 16         |       |
+| spaceY                    | 节点之间垂直方向的间距                                                               | `number`                                                                   |      | 16         |       |
+| zoomTool                  | 缩放                                                                                 | `boolean` \| [ZoomToolConfig](#zoomtoolconfig)                             |      | false      |       |
+| onChange                  | 节点数据改变时的回调函数                                                             | (nodes: [Node](#node)[], changeEvent: string, nodeChanged?: INode) => void | ✓    | -          |       |
+| onHistoryChange           | 历史状态变化之后的回调，两个参数分别代表是否需要禁用撤销和重做                       | `(undoDisabled: boolean, redoDisabled: boolean) => void`                   |      | -          |       |
+| onZoomChange              | 缩放变化之后的回调，三个参数分别代表是否需要禁用缩小、当前的缩放值、是否需要禁用放大 | `(outDisabled: boolean, value: number, inDisabled: boolean) => void`       |      | -          |       |
+| showArrow                 | 显示箭头                                                                             | `boolean`                                                                  |      | false      | 1.4.5 |
+| arrowIcon                 | 自定义箭头                                                                           | `ReactNode`                                                                |      | -          | 1.4.5 |
+| onAddNodeSuccess          | 增加节点成功之后的回调                                                               | `(type: string, node: INode) => void`                                      |      | -          | 1.4.9 |
+| onDropNodeSuccess         | 放置节点成功之后的回调                                                               | `(type: string, node: INode) => void`                                      |      | -          | 1.4.9 |
+| onRemoveNodeSuccess       | 删除节点成功之后的回调                                                               | `(node: INode) => void`                                                    |      | -          | 2.2.0 |
+| allowStartConfig          | 允许配置开始节点                                                                     | `boolean`                                                                  |      | -          | 2.1.0 |
+| allowEndConfig            | 允许配置结束节点                                                                     | `boolean`                                                                  |      | -          | 2.1.0 |
 
 #### HistoryToolConfig
 

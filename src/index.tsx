@@ -136,7 +136,7 @@ export interface IFlowBuilderProps {
   registerNodes: IRegisterNode[];
   registerRemoteNodes?: IRegisterRemoteNode[];
   nodes: INode[];
-  onChange: (nodes: INode[], changeEvent?: string) => void;
+  onChange: (nodes: INode[], changeEvent: string, nodeChanged?: INode) => void;
   onHistoryChange?: (undoDisabled: boolean, redoDisabled: boolean) => void;
   onZoomChange?: (
     outDisabled: boolean,
