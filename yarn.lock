@@ -9841,10 +9841,10 @@ react-error-boundary@^3.1.4:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-react-flow-builder@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-2.0.0.tgz#ea6794ffb5d5200fbc77c6f8305c9bae778aadd9"
-  integrity sha512-VuqHiC4IkIoECIt7wArogllwvda1GcTIfCgt3OEHTNS2IbDNkWrF+diRcYlUxWac4G87IGIjuHWzNQw2sjqxbA==
+react-flow-builder@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/react-flow-builder/-/react-flow-builder-2.4.0.tgz#3af1cdb80d403bbea880187f639e46ce5a0fd05b"
+  integrity sha512-GBmo0LTB5HDnmZh3knf0AtZHwE606ssFlxYqJhz5sc2cv/M+6IuIfz7Ub+G4jI/7wubP4NyrIbKl//RxjLIMbg==
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.get "^4.4.2"

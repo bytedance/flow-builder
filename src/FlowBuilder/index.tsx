@@ -60,9 +60,13 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
 
     const layout = props.layout || defaultProps.layout;
 
-    const handleChange = (nodes: INode[], changeEvent?: string) => {
+    const handleChange = (
+      nodes: INode[],
+      changeEvent: string,
+      node?: INode,
+    ) => {
       computeNodesPath(nodes);
-      onChange(nodes, changeEvent);
+      onChange(nodes, changeEvent, node);
     };
 
     const handleSortStart = (params: SortStart) => {
@@ -79,6 +83,10 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       conditionNodes[0].node.parentNode.parentNode.classList.remove(
         conditionSortingClassName,
       );
+
+      if (oldIndex === newIndex) {
+        return;
+      }
 
       const children = get(nodes, (collection as string).split(','))?.children;
 

@@ -21,12 +21,12 @@ const useSort = () => {
     if (parentNodes) {
       if (currentIndex > 0) {
         exchangeNodes(parentNodes, currentIndex, currentIndex - 1);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-backward', node);
       }
     } else {
       if (currentIndex > 1) {
         exchangeNodes(nodes, currentIndex, currentIndex - 1);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-backward', node);
       }
     }
   };
@@ -43,12 +43,12 @@ const useSort = () => {
     if (parentNodes) {
       if (currentIndex < parentNodes.length - 1) {
         exchangeNodes(parentNodes, currentIndex, currentIndex + 1);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-forward', node);
       }
     } else {
       if (currentIndex < nodes.length - 2) {
         exchangeNodes(nodes, currentIndex, currentIndex + 1);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-forward', node);
       }
     }
   };
@@ -65,12 +65,12 @@ const useSort = () => {
     if (parentNodes) {
       if (currentIndex > 0) {
         exchangeNodes(parentNodes, currentIndex, 0);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-start', node);
       }
     } else {
       if (currentIndex > 1) {
         exchangeNodes(nodes, currentIndex, 1);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-start', node);
       }
     }
   };
@@ -87,12 +87,12 @@ const useSort = () => {
     if (parentNodes) {
       if (currentIndex < parentNodes.length - 1) {
         exchangeNodes(parentNodes, currentIndex, parentNodes.length - 1);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-end', node);
       }
     } else {
       if (currentIndex < nodes.length - 2) {
         exchangeNodes(nodes, currentIndex, nodes.length - 2);
-        onChange([...nodes]);
+        onChange([...nodes], 'sort-end', node);
       }
     }
   };

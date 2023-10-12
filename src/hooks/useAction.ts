@@ -45,7 +45,7 @@ const useAction = () => {
       } else if (typeof registerNode.configTitle === 'function') {
         setDrawerTitle(registerNode.configTitle(node, nodes) || '');
       }
-      onChange([...nodes], 'click-node');
+      onChange([...nodes], 'click-node', node);
     }
   };
 
@@ -76,7 +76,7 @@ const useAction = () => {
       (parentNodes || nodes)?.splice(nodeIndex + 1, 0, newNode);
     }
 
-    onChange([...nodes], `add-node__${newNodeType}`);
+    onChange([...nodes], `add-node__${newNodeType}`, newNode);
 
     pushHistory();
 
@@ -108,7 +108,7 @@ const useAction = () => {
     node.children = node.children || [];
     node.children.unshift(newNode);
 
-    onChange([...nodes], `add-node-in-loop__${newNodeType}`);
+    onChange([...nodes], `add-node-in-loop__${newNodeType}`, newNode);
 
     pushHistory();
 
@@ -173,7 +173,7 @@ const useAction = () => {
 
     const restNodes = filterEmptyBranch(removeNodeIds(targetNodeIds, nodes));
 
-    onChange(restNodes, `remove-node`);
+    onChange(restNodes, `remove-node`, targetNode as INode);
 
     pushHistory(restNodes);
   };
