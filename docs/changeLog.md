@@ -4,6 +4,12 @@ order: 9
 
 # Change Log
 
+## 2.5.0
+
+`2023-11-20`
+
+- `DrawerComponent` 组件增加 `configComponentRef`，通过 `ConfigComponent` 组件的 `ref` 进行方法调用
+
 ## 2.4.0
 
 `2023-10-12`

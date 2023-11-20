@@ -220,15 +220,16 @@ export default Demo;
 
 #### DrawerComponent
 
-| 参数           | 说明                                 | 类型  | 版本  |
-| :------------- | :----------------------------------- | :---- | :---- |
-| visible        | 也可以自行判断 selectedNode 的布尔值 | `any` | 2.0.0 |
-| onClose        | 也可以自行调用 closeDrawer           | `any` | 2.0.0 |
-| children       |                                      | `any` | 2.0.0 |
-| title          |                                      | `any` | 2.0.0 |
-| width          |                                      | `any` | 2.0.0 |
-| destroyOnClose |                                      | `any` | 2.0.0 |
-| maskClosable   |                                      | `any` | 2.0.0 |
+| 参数               | 说明                                 | 类型                            | 版本  |
+| :----------------- | :----------------------------------- | :------------------------------ | :---- |
+| visible            | 也可以自行判断 selectedNode 的布尔值 | `any`                           | 2.0.0 |
+| onClose            | 也可以自行调用 closeDrawer           | `any`                           | 2.0.0 |
+| children           |                                      | `any`                           | 2.0.0 |
+| title              |                                      | `any`                           | 2.0.0 |
+| width              |                                      | `any`                           | 2.0.0 |
+| destroyOnClose     |                                      | `any`                           | 2.0.0 |
+| maskClosable       |                                      | `any`                           | 2.0.0 |
+| configComponentRef |                                      | `React.MutableRefObject`\<any\> | 2.5.0 |
 
 #### PopoverComponent
 
@@ -273,28 +274,28 @@ export default Demo;
 
 ### RegisterNode
 
-| 参数                      | 说明                                                                                                | 类型                                                  | 必须 | 默认值                            | 版本  |
-| :------------------------ | :-------------------------------------------------------------------------------------------------- | :---------------------------------------------------- | :--- | :-------------------------------- | :---- |
-| addableComponent          | 节点下方点击加号展开的内容                                                                          | `React.FC`\<[AddableComponent](#addablecomponent)\>   |      | -                                 |
-| addableNodeTypes          | 指定节点下方的可添加节点列表                                                                        | `string[]`                                            |      | -                                 |
-| addIcon                   | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | `ReactNode`                                           |      | -                                 |
-| addConditionIcon          | 分支节点添加条件时的图标（已有默认图标）                                                            | `ReactNode`                                           |      | -                                 | 1.3.3 |
-| className                 | 节点外层的类名                                                                                      | `string`                                              |      | -                                 | 1.3.4 |
-| conditionMaxNum           | 对应的条件节点最大数量                                                                              | `number`                                              |      | -                                 |
-| conditionNodeType         | 对应的条件节点类型                                                                                  | `string`                                              |      | -                                 |
-| configComponent           | 节点的配置表单组件                                                                                  | `React.FC`\<[ConfigComponent](#configcomponent)\>     |      | -                                 |
-| configTitle               | 节点对应的抽屉标题                                                                                  | `string \| ((node: INode, nodes: INode[]) => string)` |      | -                                 |
-| customRemove              | 自定义删除按钮                                                                                      | `boolean`                                             |      | false                             |
-| displayComponent          | 节点的展示组件                                                                                      | `React.FC`\<[DisplayComponent](#displaycomponent)\>   |      | -                                 |
-| initialNodeData           | 增加节点时初始化数据                                                                                | `Record<string, any>`                                 |      | -                                 |
-| isStart                   | 是否为开始节点                                                                                      | `boolean`                                             |      | false                             |
-| isEnd                     | 是否为结束节点                                                                                      | `boolean`                                             |      | false                             |
-| isLoop                    | 是否为循环节点                                                                                      | `boolean`                                             |      | false                             | 1.4.6 |
-| name                      | 节点名称                                                                                            | `string`                                              | ✓    | -                                 |
-| removeConfirmTitle        | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | `string` \| `ReactNode`                               |      | Are you sure to remove this node? |
-| showPracticalBranchNode   | -                                                                                                   | `boolean`                                             |      | false                             | 1.1.0 |
-| showPracticalBranchRemove | -                                                                                                   | `boolean`                                             |      | false                             | 1.1.0 |
-| type                      | 节点类型                                                                                            | `string`                                              | ✓    | -                                 |
+| 参数                      | 说明                                                                                                | 类型                                                                                                                                                         | 必须 | 默认值                            | 版本  |
+| :------------------------ | :-------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :--- | :-------------------------------- | :---- |
+| addableComponent          | 节点下方点击加号展开的内容                                                                          | `React.FC`\<[AddableComponent](#addablecomponent)\>                                                                                                          |      | -                                 |
+| addableNodeTypes          | 指定节点下方的可添加节点列表                                                                        | `string[]`                                                                                                                                                   |      | -                                 |
+| addIcon                   | 在可添加节点列表中的图标（已经内置了一些图标）                                                      | `ReactNode`                                                                                                                                                  |      | -                                 |
+| addConditionIcon          | 分支节点添加条件时的图标（已有默认图标）                                                            | `ReactNode`                                                                                                                                                  |      | -                                 | 1.3.3 |
+| className                 | 节点外层的类名                                                                                      | `string`                                                                                                                                                     |      | -                                 | 1.3.4 |
+| conditionMaxNum           | 对应的条件节点最大数量                                                                              | `number`                                                                                                                                                     |      | -                                 |
+| conditionNodeType         | 对应的条件节点类型                                                                                  | `string`                                                                                                                                                     |      | -                                 |
+| configComponent           | 节点的配置表单组件                                                                                  | `React.FC`\<[ConfigComponent](#configcomponent)\> \| `React.ForwardRefExoticComponent`\<[ConfigComponent](#configcomponent) & `React.RefAttributes`\<any\>\> |      | -                                 |
+| configTitle               | 节点对应的抽屉标题                                                                                  | `string \| ((node: INode, nodes: INode[]) => string)`                                                                                                        |      | -                                 |
+| customRemove              | 自定义删除按钮                                                                                      | `boolean`                                                                                                                                                    |      | false                             |
+| displayComponent          | 节点的展示组件                                                                                      | `React.FC`\<[DisplayComponent](#displaycomponent)\>                                                                                                          |      | -                                 |
+| initialNodeData           | 增加节点时初始化数据                                                                                | `Record<string, any>`                                                                                                                                        |      | -                                 |
+| isStart                   | 是否为开始节点                                                                                      | `boolean`                                                                                                                                                    |      | false                             |
+| isEnd                     | 是否为结束节点                                                                                      | `boolean`                                                                                                                                                    |      | false                             |
+| isLoop                    | 是否为循环节点                                                                                      | `boolean`                                                                                                                                                    |      | false                             | 1.4.6 |
+| name                      | 节点名称                                                                                            | `string`                                                                                                                                                     | ✓    | -                                 |
+| removeConfirmTitle        | 删除节点前的提示信息。Popconfirm 组件的 [title](https://ant.design/components/popconfirm/#API) 属性 | `string` \| `ReactNode`                                                                                                                                      |      | Are you sure to remove this node? |
+| showPracticalBranchNode   | -                                                                                                   | `boolean`                                                                                                                                                    |      | false                             | 1.1.0 |
+| showPracticalBranchRemove | -                                                                                                   | `boolean`                                                                                                                                                    |      | false                             | 1.1.0 |
+| type                      | 节点类型                                                                                            | `string`                                                                                                                                                     | ✓    | -                                 |
 
 ### RegisterRemoteNode
 
