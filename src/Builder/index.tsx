@@ -5,6 +5,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useContext,
+  useRef,
 } from 'react';
 import {
   StartNode,
@@ -68,6 +69,8 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
     () => getRegisterNode(registerNodes, selectedNode?.type)?.configComponent,
     [registerNodes, selectedNode],
   );
+
+  const configComponentRef = useRef<any>();
 
   const renderNode = ({ node, nodeIndex, parentNode }: IRenderNode) => {
     const { id, type } = node;
@@ -188,9 +191,11 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
           visible={!!selectedNode}
           onClose={closeDrawer}
           {...drawerProps}
+          configComponentRef={configComponentRef}
         >
           {ConfigComponent && selectedNode ? (
             <ConfigComponent
+              ref={configComponentRef}
               key={selectedNode.id}
               node={selectedNode}
               nodes={nodes}

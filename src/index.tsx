@@ -47,7 +47,11 @@ export interface IRegisterNode {
   addIcon?: React.ReactNode;
   addConditionIcon?: React.ReactNode;
   displayComponent?: React.FC<IDisplayComponent>;
-  configComponent?: React.FC<IConfigComponent>;
+  configComponent?:
+    | React.FC<IConfigComponent>
+    | React.ForwardRefExoticComponent<
+        IConfigComponent & React.RefAttributes<any>
+      >;
   removeConfirmTitle?: string;
   addableNodeTypes?: string[];
   addableComponent?: React.FC<IAddableComponent>;
@@ -101,6 +105,7 @@ export interface IDrawerComponent {
   destroyOnClose: any;
   maskClosable: any;
   children: any;
+  configComponentRef: React.MutableRefObject<any>;
 }
 
 export interface IPopoverComponent {
