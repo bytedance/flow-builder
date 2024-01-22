@@ -187,6 +187,7 @@ export default Demo;
 | onRemoveNodeSuccess       | Called when remove node success                     | `(node: INode) => void`                                                      |          | -          | 2.2.0   |
 | allowStartConfig          | Allow start node config                             | `boolean`                                                                    |          | -          | 2.1.0   |
 | allowEndConfig            | Allow end node config                               | `boolean`                                                                    |          | -          | 2.1.0   |
+| scrollByDrag              | Scroll by mouse dragging                            | `boolean`                                                                    |          | -          | 2.6.0   |
 
 #### HistoryToolConfig
 

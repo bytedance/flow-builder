@@ -53,6 +53,8 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
     DrawerComponent,
 
     createUuid,
+
+    scrollByDrag,
   } = builderContext;
 
   const { minZoom, maxZoom, zoom } = useZoom();
@@ -71,6 +73,10 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
   );
 
   const configComponentRef = useRef<any>();
+
+  const builderDomRef = useRef<any>();
+
+  const mouseMoveData = useRef<any>(null);
 
   const renderNode = ({ node, nodeIndex, parentNode }: IRenderNode) => {
     const { id, type } = node;
@@ -118,6 +124,43 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
 
   const renderZoomTool = <ZoomTool />;
   const renderHistoryTool = <HistoryTool />;
+
+  const handleMouseMoveStart = (e: any) => {
+    if (!scrollByDrag) {
+      return;
+    }
+    mouseMoveData.current = {
+      x: e.clientX,
+      y: e.clientY,
+      scrollLeft: builderDomRef.current.scrollLeft,
+      scrollTop: builderDomRef.current.scrollTop,
+    };
+    builderDomRef.current.style.cursor = 'grabbing';
+    builderDomRef.current.style.userSelect = 'none';
+  };
+
+  const handleMouseMove = (e: any) => {
+    if (!scrollByDrag) {
+      return;
+    }
+    if (mouseMoveData.current) {
+      const scrollLeft = e.clientX - mouseMoveData.current.x;
+      const scrollTop = e.clientY - mouseMoveData.current.y;
+      builderDomRef.current.scrollLeft =
+        mouseMoveData.current.scrollLeft - scrollLeft;
+      builderDomRef.current.scrollTop =
+        mouseMoveData.current.scrollTop - scrollTop;
+    }
+  };
+
+  const handleMouseMoveEnd = (e: any) => {
+    if (!scrollByDrag) {
+      return;
+    }
+    mouseMoveData.current = null;
+    builderDomRef.current.style.cursor = 'grab';
+    builderDomRef.current.style.removeProperty('user-select');
+  };
 
   useImperativeHandle(ref, () => ({
     history,
@@ -174,7 +217,18 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
           onDragEnd={() => setDragType('')}
         />
       ) : null}
-      <div className="flow-builder-content" style={{ backgroundColor }}>
+      <div
+        className="flow-builder-content"
+        style={{
+          backgroundColor,
+          ...(scrollByDrag ? { cursor: 'grab' } : {}),
+        }}
+        ref={builderDomRef}
+        onMouseDown={handleMouseMoveStart}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseMoveEnd}
+        onMouseLeave={handleMouseMoveEnd}
+      >
         <div
           className={`flow-builder flow-builder-${layout}`}
           style={{ zoom: `${zoomValue}%` }}

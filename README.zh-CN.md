@@ -187,6 +187,7 @@ export default Demo;
 | onRemoveNodeSuccess       | 删除节点成功之后的回调                                                               | `(node: INode) => void`                                                    |      | -          | 2.2.0 |
 | allowStartConfig          | 允许配置开始节点                                                                     | `boolean`                                                                  |      | -          | 2.1.0 |
 | allowEndConfig            | 允许配置结束节点                                                                     | `boolean`                                                                  |      | -          | 2.1.0 |
+| scrollByDrag              | 通过拖动画布进行滚动                                                                 | `boolean`                                                                  |      | -          | 2.6.0 |
 
 #### HistoryToolConfig
 
