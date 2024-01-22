@@ -168,6 +168,7 @@ export interface IFlowBuilderProps {
   onRemoveNodeSuccess?: (node: INode) => void;
   allowStartConfig?: boolean;
   allowEndConfig?: boolean;
+  scrollByDrag?: boolean;
 }
 
 export type ZoomType = 'out' | 'in';
