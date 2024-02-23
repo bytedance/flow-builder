@@ -4,8 +4,8 @@ English | [简体中文](https://github.com/bytedance/flow-builder/blob/main/REA
 
 A highly customizable streaming flow builder. The registration ability can flexibly customize your nodes, different types of node display and form, etc.
 
-| ![demo1](./public/demo1.png) | ![demo2](./public/demo2.png) |
-| ---------------------------- | ---------------------------- |
+| ![demo1](./public/demo1-en.png) | ![demo2](./public/demo2-en.png) |
+| ------------------------------- | ------------------------------- |
 
 ## Try it out
 
