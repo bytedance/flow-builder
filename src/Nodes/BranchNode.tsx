@@ -91,7 +91,7 @@ const BranchNode: React.FC<IProps> = (props) => {
 
   const disabled =
     typeof registerNode?.conditionMaxNum === 'number'
-      ? conditionCount === registerNode?.conditionMaxNum
+      ? conditionCount >= registerNode?.conditionMaxNum
       : false;
 
   const droppable = dragType && registerNode?.conditionNodeType === dragType;
