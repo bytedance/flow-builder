@@ -9,7 +9,7 @@
 
 ## 试一试
 
-http://react-flow-builder.site
+https://bytedance.github.io/flow-builder
 
 ## Github
 

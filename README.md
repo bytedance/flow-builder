@@ -9,7 +9,7 @@ A highly customizable streaming flow builder. The registration ability can flexi
 
 ## Try it out
 
-http://react-flow-builder.site
+https://bytedance.github.io/flow-builder
 
 ## Github
 
