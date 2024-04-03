@@ -54,7 +54,9 @@ const LoopNode: React.FC<Iprops> = (props) => {
 
       const loopContentWidth = ref.current.clientWidth;
 
-      ref.current.style.marginRight = `-${loopContentWidth}px`;
+      ref.current.style.marginLeft = `${loopContentWidth}px`;
+
+      return;
 
       const parentDom = ref.current?.parentNode?.parentNode as HTMLElement;
 
@@ -108,7 +110,9 @@ const LoopNode: React.FC<Iprops> = (props) => {
 
       const loopContentHeight = ref.current.clientHeight;
 
-      ref.current.style.marginTop = `-${loopContentHeight}px`;
+      ref.current.style.marginBottom = `${loopContentHeight}px`;
+
+      return;
 
       const parentDom = ref.current?.parentNode?.parentNode as HTMLElement;
 
