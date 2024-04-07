@@ -48,6 +48,7 @@
     "@arco-design/web-react": "^2.46.2",
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/lodash.get": "^4.4.6",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/uuid": "^8.3.1",
     "@umijs/test": "^3.0.5",
     "antd": "^3 || ^4",
@@ -66,7 +67,7 @@
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
     "lodash.get": "^4.4.2",
-    "react-sortable-hoc": "^2.0.0",
+    "react-beautiful-dnd": "^13.1.1",
     "systemjs": "^6.12.1",
     "uuid": "^8.3.2"
   }

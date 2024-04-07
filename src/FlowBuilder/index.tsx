@@ -1,10 +1,7 @@
 import React, { useState, useMemo, forwardRef, useEffect } from 'react';
-import { SortableContainer } from 'react-sortable-hoc';
-import type { SortStart, SortEnd } from 'react-sortable-hoc';
-import get from 'lodash.get';
 import Builder from '../Builder';
 import { BuilderContext } from '../contexts';
-import { computeNodesPath, loadRemoteNode, exchangeNodes } from '../utils';
+import { computeNodesPath, loadRemoteNode } from '../utils';
 import type {
   IFlowBuilderProps,
   IFlowBuilderMethod,
@@ -13,16 +10,6 @@ import type {
   IRegisterNode,
   IZoomToolConfig,
 } from '../index';
-
-const conditionSortingClassName = 'flow-builder-branch-node__content__sorting';
-
-interface SortableContainerProps {
-  builderRef: React.ForwardedRef<IFlowBuilderMethod>;
-}
-
-const SortableBuilder = SortableContainer<SortableContainerProps>(
-  (props: SortableContainerProps) => <Builder ref={props.builderRef} />,
-);
 
 const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
   (props, ref) => {
@@ -58,7 +45,7 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       [],
     );
 
-    const layout = props.layout || defaultProps.layout;
+    // const layout = props.layout || defaultProps.layout;
 
     const handleChange = (
       nodes: INode[],
@@ -67,32 +54,6 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
     ) => {
       computeNodesPath(nodes);
       onChange(nodes, changeEvent, node);
-    };
-
-    const handleSortStart = (params: SortStart) => {
-      const { node } = params;
-      (node.parentNode?.parentNode as HTMLDivElement).classList.add(
-        conditionSortingClassName,
-      );
-    };
-
-    const handleSortEnd = (params: SortEnd) => {
-      const { collection, oldIndex, newIndex, nodes: conditionNodes } = params;
-
-      // @ts-ignore
-      conditionNodes[0].node.parentNode.parentNode.classList.remove(
-        conditionSortingClassName,
-      );
-
-      if (oldIndex === newIndex) {
-        return;
-      }
-
-      const children = get(nodes, (collection as string).split(','))?.children;
-
-      exchangeNodes(children, oldIndex, newIndex);
-
-      handleChange([...nodes], 'condition-sort');
     };
 
     useEffect(() => {
@@ -141,18 +102,7 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
           setDragType,
         }}
       >
-        {sortable ? (
-          <SortableBuilder
-            helperClass={`flow-builder-${layout} flow-builder-condition-node__sorting`}
-            axis={layout === 'vertical' ? 'x' : 'y'}
-            useDragHandle
-            onSortStart={handleSortStart}
-            onSortEnd={handleSortEnd}
-            builderRef={ref}
-          />
-        ) : (
-          <Builder ref={ref} />
-        )}
+        <Builder ref={ref} />
       </BuilderContext.Provider>
     );
   },

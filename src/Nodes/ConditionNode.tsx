@@ -1,5 +1,4 @@
-import React, { useContext, useMemo } from 'react';
-import { SortableHandle } from 'react-sortable-hoc';
+import React, { useContext } from 'react';
 import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
 import { SplitLine, FillLine, CoverLine } from '../Lines';
@@ -14,10 +13,11 @@ interface IProps {
   parentNode?: INode;
   conditionIndex: number;
   renderNext: (params: IRender) => React.ReactNode;
+  sortProps?: any;
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {
-  const { parentNode, conditionIndex, renderNext } = props;
+  const { parentNode, conditionIndex, renderNext, sortProps } = props;
 
   const {
     layout,
@@ -43,18 +43,6 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
   const Component = registerNode?.displayComponent || DefaultNode;
 
-  const ConditionDragHandle = useMemo(
-    () =>
-      SortableHandle(() => {
-        return (
-          <span className="flow-builder-sortable-handle">
-            {sortableAnchor || ':::'}
-          </span>
-        );
-      }),
-    [sortableAnchor],
-  );
-
   const handleNodeClick = async () => {
     try {
       await beforeNodeClick?.(node);
@@ -79,8 +67,11 @@ const ConditionNode: React.FC<IProps> = (props) => {
       className={`flow-builder-node flow-builder-condition-node ${
         registerNode?.className || ''
       }`}
+      ref={sortProps?.provided?.innerRef}
+      {...sortProps?.provided?.draggableProps}
       style={{
         padding: layout === 'vertical' ? `0 ${spaceX}px` : `${spaceY}px 0`,
+        ...sortProps?.provided?.draggableProps?.style,
       }}
     >
       {conditionCount > 1 ? (
@@ -110,7 +101,14 @@ const ConditionNode: React.FC<IProps> = (props) => {
           />
         </div>
         <RemoveButton />
-        {sortable ? <ConditionDragHandle /> : null}
+        {sortable && (
+          <span
+            className="flow-builder-sortable-handle"
+            {...sortProps?.provided?.dragHandleProps}
+          >
+            {sortableAnchor || ':::'}
+          </span>
+        )}
       </div>
 
       <AddButton />

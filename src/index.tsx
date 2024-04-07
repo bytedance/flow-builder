@@ -184,6 +184,7 @@ export interface IRenderNode {
   node: INode;
   nodeIndex: number;
   parentNode?: INode;
+  sortProps?: any;
 }
 
 export interface ILineProps {

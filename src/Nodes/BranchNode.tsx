@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
-import { SortableElement } from 'react-sortable-hoc';
+import React, { useState, useContext, Fragment } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import type { DropResult } from 'react-beautiful-dnd';
 import DefaultNode from '../DefaultNode';
 import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
 import { SplitLine } from '../Lines';
 import ActionButton from '../ActionButton';
 import DropButton from '../DropButton';
-import { getRegisterNode } from '../utils';
-import type { INode, IRenderNode } from '../index';
+import { getRegisterNode, exchangeNodes } from '../utils';
+import type { IRenderNode } from '../index';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
 import AddConditionIcon from '../icons/add-condition.svg';
@@ -15,11 +16,6 @@ import Arrow from '../Arrow';
 
 interface IProps {
   renderConditionNode: (params: IRenderNode) => React.ReactNode;
-}
-
-interface ISortableConditionProps extends IProps {
-  branch: INode;
-  branchIndex: number;
 }
 
 const ConditionsDashed = () => {
@@ -44,22 +40,10 @@ const SortingDashed = () => {
   );
 };
 
-const SortableItem = SortableElement<ISortableConditionProps>(
-  (props: ISortableConditionProps) => {
-    const { renderConditionNode, branch, branchIndex } = props;
-
-    const parentNode = useContext(NodeContext);
-
-    return renderConditionNode({
-      node: branch,
-      nodeIndex: branchIndex,
-      parentNode,
-    });
-  },
-);
-
 const BranchNode: React.FC<IProps> = (props) => {
   const { renderConditionNode } = props;
+
+  const [dragging, setDragging] = useState(false);
 
   const {
     nodes,
@@ -77,6 +61,7 @@ const BranchNode: React.FC<IProps> = (props) => {
     sortable,
     onDropNodeSuccess,
     onAddNodeSuccess,
+    onChange,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
@@ -97,6 +82,27 @@ const BranchNode: React.FC<IProps> = (props) => {
   const droppable = dragType && registerNode?.conditionNodeType === dragType;
 
   const Component = registerNode?.displayComponent || DefaultNode;
+
+  const handleDragStart = () => {
+    setDragging(true);
+  };
+
+  const handleDragEnd = (result: DropResult) => {
+    setDragging(false);
+
+    const { source, destination } = result;
+    if (
+      !destination ||
+      destination?.index === source?.index ||
+      !node.children
+    ) {
+      return;
+    }
+
+    exchangeNodes(node.children, source.index, destination.index);
+
+    onChange?.([...nodes], 'branch-sort');
+  };
 
   const handleAddCondition = async () => {
     try {
@@ -131,7 +137,7 @@ const BranchNode: React.FC<IProps> = (props) => {
     <div
       className={`flow-builder-node flow-builder-branch-node ${
         registerNode?.className || ''
-      }`}
+      } ${dragging ? 'flow-builder-branch-node-dragging' : ''}`}
     >
       <Arrow />
       {registerNode?.showPracticalBranchNode ?? showPracticalBranchNode ? (
@@ -183,30 +189,66 @@ const BranchNode: React.FC<IProps> = (props) => {
             }}
           />
         )}
-        <div className="flow-builder-branch-node__conditions">
-          {conditionCount === 1 ? <ConditionsDashed /> : null}
-          {children?.map((branch, index) => {
-            return sortable ? (
-              <SortableItem
-                key={branch.id}
-                index={index}
-                collection={node.path?.join(',')}
-                branch={branch}
-                branchIndex={index}
-                renderConditionNode={renderConditionNode}
-              />
-            ) : (
-              renderConditionNode({
-                node: branch,
-                nodeIndex: index,
-                parentNode: node,
-              })
-            );
-          })}
-        </div>
-        {sortable ? <SortingDashed /> : null}
-      </div>
 
+        {sortable ? (
+          <>
+            <DragDropContext
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
+            >
+              <Droppable
+                droppableId={`droppable-branch-${node.id}`}
+                direction={layout === 'vertical' ? 'horizontal' : 'vertical'}
+              >
+                {(provided, snapshot) => {
+                  return (
+                    <div
+                      ref={provided.innerRef}
+                      className="flow-builder-branch-node__conditions"
+                      {...provided.droppableProps}
+                    >
+                      {conditionCount === 1 ? <ConditionsDashed /> : null}
+                      {children?.map((branch, index) => (
+                        <Draggable
+                          key={branch.id}
+                          draggableId={String(branch.id)}
+                          index={index}
+                        >
+                          {(provided, snapshot) => (
+                            <>
+                              {renderConditionNode({
+                                node: branch,
+                                nodeIndex: index,
+                                parentNode: node,
+                                sortProps: { provided, snapshot },
+                              })}
+                            </>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
+            </DragDropContext>
+            {sortable ? <SortingDashed /> : null}
+          </>
+        ) : (
+          <div className="flow-builder-branch-node__conditions">
+            {conditionCount === 1 ? <ConditionsDashed /> : null}
+            {children?.map((branch, index) => (
+              <Fragment key={branch.id}>
+                {renderConditionNode({
+                  node: branch,
+                  nodeIndex: index,
+                  parentNode: node,
+                })}
+              </Fragment>
+            ))}
+          </div>
+        )}
+      </div>
       <AddButton />
     </div>
   );
