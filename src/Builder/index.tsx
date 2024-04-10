@@ -78,7 +78,12 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
 
   const mouseMoveData = useRef<any>(null);
 
-  const renderNode = ({ node, nodeIndex, parentNode }: IRenderNode) => {
+  const renderNode = ({
+    node,
+    nodeIndex,
+    parentNode,
+    sortProps,
+  }: IRenderNode) => {
     const { id, type } = node;
 
     const abstractNodeType = getAbstractNodeType(registerNodes, type);
@@ -97,6 +102,7 @@ const Builder = forwardRef<IFlowBuilderMethod>((props, ref) => {
               parentNode={parentNode}
               conditionIndex={nodeIndex}
               renderNext={render}
+              sortProps={sortProps}
             />
           );
         case 'loop':
