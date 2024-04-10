@@ -7,13 +7,14 @@ import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
 import Arrow from '../Arrow';
+import type { DraggableProvided } from 'react-beautiful-dnd';
 import type { INode, IRender } from '../index';
 
 interface IProps {
   parentNode?: INode;
   conditionIndex: number;
   renderNext: (params: IRender) => React.ReactNode;
-  sortProps?: any;
+  sortProps?: { provided?: DraggableProvided };
 }
 
 const ConditionNode: React.FC<IProps> = (props) => {

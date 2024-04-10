@@ -200,7 +200,7 @@ const BranchNode: React.FC<IProps> = (props) => {
                 droppableId={`droppable-branch-${node.id}`}
                 direction={layout === 'vertical' ? 'horizontal' : 'vertical'}
               >
-                {(provided, snapshot) => {
+                {(provided) => {
                   return (
                     <div
                       ref={provided.innerRef}
@@ -214,13 +214,13 @@ const BranchNode: React.FC<IProps> = (props) => {
                           draggableId={String(branch.id)}
                           index={index}
                         >
-                          {(provided, snapshot) => (
+                          {(provided) => (
                             <>
                               {renderConditionNode({
                                 node: branch,
                                 nodeIndex: index,
                                 parentNode: node,
-                                sortProps: { provided, snapshot },
+                                sortProps: { provided },
                               })}
                             </>
                           )}

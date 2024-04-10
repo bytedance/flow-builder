@@ -45,8 +45,6 @@ const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
       [],
     );
 
-    // const layout = props.layout || defaultProps.layout;
-
     const handleChange = (
       nodes: INode[],
       changeEvent: string,
