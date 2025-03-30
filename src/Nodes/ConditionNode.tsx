@@ -3,6 +3,7 @@ import AddButton from '../AddButton';
 import RemoveButton from '../RemoveButton';
 import { SplitLine, FillLine, CoverLine } from '../Lines';
 import DefaultNode from '../DefaultNode';
+import DropButton from '../DropButton';
 import { getRegisterNode } from '../utils';
 import { BuilderContext, NodeContext } from '../contexts';
 import { useAction } from '../hooks';
@@ -30,11 +31,15 @@ const ConditionNode: React.FC<IProps> = (props) => {
     beforeNodeClick,
     sortable,
     sortableAnchor,
+    dragType,
+    DropComponent = DropButton,
+    beforeAddConditionNode,
+    onAddNodeSuccess,
   } = useContext(BuilderContext);
 
   const node = useContext(NodeContext);
 
-  const { clickNode, removeNode } = useAction();
+  const { clickNode, removeNode, addNode } = useAction();
 
   const conditionCount = Array.isArray(parentNode?.children)
     ? parentNode?.children.length || 0
@@ -42,7 +47,16 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
   const registerNode = getRegisterNode(registerNodes, node.type);
 
+  const registerParentNode = getRegisterNode(registerNodes, parentNode?.type);
+
   const Component = registerNode?.displayComponent || DefaultNode;
+
+  const droppable =
+    dragType &&
+    dragType === node.type &&
+    (typeof registerParentNode?.conditionMaxNum === 'number'
+      ? conditionCount < registerParentNode.conditionMaxNum
+      : true);
 
   const handleNodeClick = async () => {
     try {
@@ -51,6 +65,21 @@ const ConditionNode: React.FC<IProps> = (props) => {
     } catch (error) {
       console.log('node click error', error);
     }
+  };
+
+  const handleDrop = async (position: string) => {
+    try {
+      if (parentNode) {
+        await beforeAddConditionNode?.(parentNode);
+        const index = Number([...(node.path || [])].pop());
+        const newNode = addNode(
+          parentNode,
+          node.type,
+          position === 'left' ? index : index + 1,
+        );
+        onAddNodeSuccess?.(dragType, newNode);
+      }
+    } catch (error) {}
   };
 
   const coverIndexClassName = ((index: number, total: number) => {
@@ -92,7 +121,12 @@ const ConditionNode: React.FC<IProps> = (props) => {
 
       <Arrow />
 
-      <div className="flow-builder-node__content-wrap">
+      <div
+        className={`flow-builder-node__content-wrap ${
+          droppable ? 'flow-builder-condition-node-droppable' : ''
+        }`}
+      >
+        {droppable && <DropComponent onDrop={() => handleDrop('left')} />}
         <div className="flow-builder-node__content" onClick={handleNodeClick}>
           <Component
             readonly={readonly}
@@ -101,6 +135,7 @@ const ConditionNode: React.FC<IProps> = (props) => {
             remove={removeNode}
           />
         </div>
+        {droppable && <DropComponent onDrop={() => handleDrop('right')} />}
         <RemoveButton />
         {sortable && (
           <span
