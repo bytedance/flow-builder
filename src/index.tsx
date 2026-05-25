@@ -61,6 +61,7 @@ export interface IRegisterNode {
   isLoop?: boolean;
   configTitle?: string | ((node: INode, nodes: INode[]) => string);
   initialNodeData?: Record<string, any>;
+  initialConditionNum?: number;
   showPracticalBranchNode?: boolean;
   showPracticalBranchRemove?: boolean;
   className?: string;
