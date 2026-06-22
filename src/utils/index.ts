@@ -94,21 +94,28 @@ export const createNewNode = (
   const initialNodeData = cloneDeep(registerNode?.initialNodeData || {});
 
   const extraProps: any = isBranchNode
-    ? {
-        children: [
-          createNewNode(
-            registerNodes,
-            registerNode.conditionNodeType,
-            customCreateUuid,
-          ),
-          createNewNode(
-            registerNodes,
-            registerNode.conditionNodeType,
-            customCreateUuid,
-          ),
-        ],
-        ...initialNodeData,
-      }
+    ? ((): any => {
+        const count =
+          typeof registerNode?.initialConditionNum === 'number'
+            ? registerNode.initialConditionNum
+            : 2;
+
+        const children = [] as any[];
+        for (let i = 0; i < count; i++) {
+          children.push(
+            createNewNode(
+              registerNodes,
+              registerNode.conditionNodeType,
+              customCreateUuid,
+            ),
+          );
+        }
+
+        return {
+          children,
+          ...initialNodeData,
+        };
+      })()
     : isConditionNode || isLoopNode
     ? {
         children: [],
