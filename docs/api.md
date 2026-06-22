@@ -153,6 +153,7 @@ order: 8
 | showPracticalBranchNode   | -                                                                                                   | `boolean`                                                                                                                                                    |      | false                             | 1.1.0 |
 | showPracticalBranchRemove | -                                                                                                   | `boolean`                                                                                                                                                    |      | false                             | 1.1.0 |
 | type                      | 节点类型                                                                                            | `string`                                                                                                                                                     | ✓    | -                                 |
+| initialConditionNum       | 分支节点的初始化条件节点数量                                                                        | `number`                                                                                                                                                     |      | -                                 | 2.9.0 |
 
 ## RegisterRemoteNode
 
