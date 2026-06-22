@@ -4,6 +4,12 @@ order: 9
 
 # Change Log
 
+## 2.10.0
+
+`2026-06-22`
+
+- add `initialConditionNum` for branch node child initialization
+
 ## 2.8.0
 
 `2024-04-10`
