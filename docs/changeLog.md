@@ -10,6 +10,12 @@ order: 9
 
 - add `initialConditionNum` for branch node child initialization
 
+## 2.9.0
+
+`2025-03-30`
+
+- `draggable` 支持放置在条件节点两侧
+
 ## 2.8.0
 
 `2024-04-10`

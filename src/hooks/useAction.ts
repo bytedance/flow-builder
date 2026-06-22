@@ -49,9 +49,14 @@ const useAction = () => {
     }
   };
 
-  const addNode = (_node: INode | string, _newNodeType?: string) => {
+  const addNode = (
+    _node: INode | string,
+    _newNodeType?: string,
+    index?: number,
+  ) => {
     // one param: new type
     // two params: node, new type
+    // three params: node, new type, index
     const node = (!!_newNodeType ? _node : currentNode) as INode;
     const newNodeType = (!!_newNodeType ? _newNodeType : _node) as string;
 
@@ -64,7 +69,11 @@ const useAction = () => {
 
     if (getIsConditionNode(registerNodes, newNodeType)) {
       node.children = node.children || [];
-      node.children.push(newNode);
+      if (typeof index === 'number') {
+        node.children.splice(index, 0, newNode);
+      } else {
+        node.children.push(newNode);
+      }
     } else if (getIsConditionNode(registerNodes, node.type)) {
       node.children = node.children || [];
       node.children.unshift(newNode);

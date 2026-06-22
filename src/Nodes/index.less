@@ -119,3 +119,22 @@
   opacity: 0;
   position: absolute;
 }
+
+.flow-builder-vertical
+  .flow-builder-node__content-wrap.flow-builder-condition-node-droppable {
+  flex-direction: row;
+}
+
+.flow-builder-horizontal
+  .flow-builder-node__content-wrap.flow-builder-condition-node-droppable {
+  flex-direction: column;
+}
+
+.flow-builder-condition-node-droppable {
+  display: flex;
+  gap: 4px;
+  .flow-builder-drop-button {
+    width: 20px;
+    height: 20px;
+  }
+}

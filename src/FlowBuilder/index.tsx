@@ -13,7 +13,7 @@ import type {
 
 const FlowBuilder = forwardRef<IFlowBuilderMethod, IFlowBuilderProps>(
   (props, ref) => {
-    const { zoomTool, nodes, onChange, sortable } = props;
+    const { zoomTool, nodes, onChange } = props;
 
     const [zoomValue, setZoomValue] = useState<number>(
       (zoomTool as IZoomToolConfig)?.initialValue || 100,
