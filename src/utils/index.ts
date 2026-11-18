@@ -154,35 +154,42 @@ const getNextNode = (node: INode, allNodes: INode[]) => {
   );
 };
 
-const getNextIdsByBranchNode: (
+const getNextIdsAfterNode: (
   node: INode,
   allNodes: INode[],
   registerNodes: IRegisterNode[],
 ) => string[] = (node, allNodes, registerNodes) => {
-  const path = node.path || [];
-  let branchPath: string[];
-
-  if (getIsConditionNode(registerNodes, node.type)) {
-    branchPath = path.slice(0, path.length - 2);
-  } else {
-    branchPath = path.slice(0, path.length - 4);
+  // Conditions are alternative branches, not sequential siblings.
+  if (!getIsConditionNode(registerNodes, node.type)) {
+    const nextNode = getNextNode(node, allNodes);
+    if (nextNode) {
+      return [nextNode.id];
+    }
   }
 
-  const branchNode = allNodes.find(
-    (item) => (item.path || []).join('-') === branchPath.join('-'),
-  );
-
-  if (!branchNode) {
+  const path = node.path || [];
+  if (path.length < 3) {
     return [];
   }
 
-  const nextNode = getNextNode(branchNode, allNodes);
+  const parentPath = path.slice(0, -2);
+  const parentNode = allNodes.find(
+    (item) => (item.path || []).join('-') === parentPath.join('-'),
+  );
 
-  if (!nextNode) {
-    return getNextIdsByBranchNode(branchNode, allNodes, registerNodes);
+  if (!parentNode) {
+    return [];
   }
 
-  return [nextNode.id];
+  // Loop-body tails return to the loop node or continue after the loop.
+  if (getIsLoopNode(registerNodes, parentNode.type)) {
+    return [
+      parentNode.id,
+      ...getNextIdsAfterNode(parentNode, allNodes, registerNodes),
+    ];
+  }
+
+  return getNextIdsAfterNode(parentNode, allNodes, registerNodes);
 };
 
 const getNextIds = (
@@ -190,22 +197,25 @@ const getNextIds = (
   allNodes: INode[],
   registerNodes: IRegisterNode[],
 ) => {
-  if (getIsBranchNode(registerNodes, node.type)) {
-    return (node.children || []).map((item) => item.id);
+  if (getIsEndNode(registerNodes, node.type)) {
+    return [];
+  } else if (getIsLoopNode(registerNodes, node.type)) {
+    const firstNode = node.children?.[0];
+    return firstNode
+      ? [firstNode.id]
+      : getNextIdsAfterNode(node, allNodes, registerNodes);
+  } else if (getIsBranchNode(registerNodes, node.type)) {
+    return node.children?.length
+      ? node.children.map((item) => item.id)
+      : getNextIdsAfterNode(node, allNodes, registerNodes);
   } else if (getIsConditionNode(registerNodes, node.type)) {
     const nextNode = node.children?.[0];
     if (!nextNode) {
-      return getNextIdsByBranchNode(node, allNodes, registerNodes);
+      return getNextIdsAfterNode(node, allNodes, registerNodes);
     }
     return [nextNode.id];
-  } else if (node.type === 'end') {
-    return [];
   } else {
-    const nextNode = getNextNode(node, allNodes);
-    if (!nextNode) {
-      return getNextIdsByBranchNode(node, allNodes, registerNodes);
-    }
-    return [nextNode.id];
+    return getNextIdsAfterNode(node, allNodes, registerNodes);
   }
 };
 
@@ -217,14 +227,12 @@ export const buildFlatNodes = (params: {
 
   const cloneNodes = JSON.parse(JSON.stringify(nodes));
 
+  // Derive paths from the current tree, including fresh or reordered nodes.
+  computeNodesPath(cloneNodes);
   const allNodes = DFS(cloneNodes);
 
   for (const node of allNodes) {
-    node.next = node.next || [];
-
-    const nextIds = getNextIds(node, allNodes, registerNodes);
-
-    node.next.push(...nextIds.filter((item) => !node.next?.includes(item)));
+    node.next = getNextIds(node, allNodes, registerNodes);
   }
 
   return allNodes.map(({ children, ...node }) => node);
