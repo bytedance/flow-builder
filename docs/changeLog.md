@@ -4,6 +4,12 @@ order: 9
 
 # Change Log
 
+## 2.12.0
+
+`2026-11-19`
+
+- fix `buildFlatNodes` for loop node
+
 ## 2.11.0
 
 `2026-06-22`
